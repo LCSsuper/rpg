@@ -1,22 +1,85 @@
-import { Box, Group, Progress, Space, Title } from "@mantine/core";
+import { useState } from "react";
+import {
+    ActionIcon,
+    Badge,
+    Box,
+    Card,
+    Center,
+    Grid,
+    Group,
+    Modal,
+    Progress,
+    Space,
+    Text,
+    Title,
+} from "@mantine/core";
+import { IconInfoCircle, IconPlus } from "@tabler/icons-react";
+import { useDisclosure } from "@mantine/hooks";
 
-type Skill = {
-    id: string;
-    name: string;
-    xp: number;
-    level: number;
+import { skills } from "../stores/constants";
+import { Skill } from "../stores/types";
+
+export const SkillModal = ({ skill }: { skill: Skill | null }) => {
+    if (!skill) return null;
+
+    const quests = Array.from({ length: 5 }).map((_, index) => ({
+        name: `Quest ${index + 1}`,
+    }));
+
+    return (
+        <Center>
+            <Box w="30rem" maw="100vw">
+                <Title size="3rem">{skill.name}</Title>
+                <Progress value={Math.random() * 100} size="lg" />
+                <Space h="xs" />
+                <Group justify="space-between">
+                    <Group>
+                        <Title order={2}>Level 5</Title>
+                        <Title order={4} c="dimmed">
+                            Beginner
+                        </Title>
+                    </Group>
+                    <Badge color="gray" tt="none" size="lg">
+                        {skill.type}
+                    </Badge>
+                </Group>
+                <Space h="lg" />
+                <Space h="lg" />
+                <Title order={4}>Quests in this skill:</Title>
+                <Space h="md" />
+                <Grid>
+                    {quests.map((quest) => (
+                        <Grid.Col key={quest.name}>
+                            <Card p="xs" withBorder>
+                                <Group justify="space-between">
+                                    <Text size="sm">{quest.name}</Text>
+                                    <ActionIcon size="xs" variant="light">
+                                        <IconPlus />
+                                    </ActionIcon>
+                                </Group>
+                            </Card>
+                        </Grid.Col>
+                    ))}
+                </Grid>
+            </Box>
+        </Center>
+    );
 };
 
 export const Character = () => {
-    const skills: Skill[] = [
-        { id: "1", name: "Wisdom", xp: 23, level: 3 },
-        { id: "2", name: "Strength", xp: 55, level: 3 },
-        { id: "3", name: "Endurance", xp: 3, level: 3 },
-        { id: "4", name: "Craftsmanship", xp: 87, level: 3 },
-    ];
+    const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+    const [skillModalOpened, { open: openSkillModal, close: closeSkillModal }] =
+        useDisclosure(false);
 
     return (
-        <Box w="30rem" maw="100vw" p="sm">
+        <Box>
+            <Modal
+                opened={skillModalOpened}
+                onClose={closeSkillModal}
+                fullScreen
+            >
+                <SkillModal skill={selectedSkill} />
+            </Modal>
             <div
                 style={{
                     position: "relative",
@@ -55,10 +118,15 @@ export const Character = () => {
             </div>
 
             <Group align="end">
-                <Title order={1} size="3rem">
-                    Level 1
-                </Title>
-                <Title order={2} c="dimmed" pb="xs">
+                <Group gap="xs" align="end">
+                    <Title order={2} pb="xs">
+                        Level
+                    </Title>
+                    <Title order={1} size="3rem">
+                        1
+                    </Title>
+                </Group>
+                <Title order={3} c="dimmed" pb="xs">
                     Beginner
                 </Title>
             </Group>
@@ -67,18 +135,38 @@ export const Character = () => {
             <Space h="lg" />
             <Title order={1}>Skills</Title>
             <Space h="md" />
-            {skills.map((skill) => (
-                <Box key={skill.id}>
-                    <Group justify="space-between">
-                        <Title order={3}>{skill.name}</Title>
-                        <Title order={5} c="dimmed">
-                            Level {skill.level}
-                        </Title>
-                    </Group>
-                    <Progress value={skill.xp} size="lg" color="cyan" />
-                    <Space h="xl" />
-                </Box>
-            ))}
+            <Grid>
+                {skills.map((skill) => (
+                    <Grid.Col key={skill.name} span={6}>
+                        <Card p="xs" withBorder>
+                            <Group justify="space-between" gap="xs">
+                                <Text size="sm">{skill.name}</Text>
+                                <ActionIcon
+                                    size="xs"
+                                    variant="light"
+                                    onClick={() => {
+                                        setSelectedSkill(skill);
+                                        openSkillModal();
+                                    }}
+                                >
+                                    <IconInfoCircle />
+                                </ActionIcon>
+                            </Group>
+                            <Space h="xs" />
+                            <Progress value={Math.random() * 100} size="md" />
+                            <Space h="xs" />
+                            <Group justify="space-between">
+                                <Text size="sm" c="dimmed">
+                                    Level {Math.floor(Math.random() * 100)}
+                                </Text>
+                                <Badge color="gray" size="xs" tt="none">
+                                    {skill.type}
+                                </Badge>
+                            </Group>
+                        </Card>
+                    </Grid.Col>
+                ))}
+            </Grid>
         </Box>
     );
 };
