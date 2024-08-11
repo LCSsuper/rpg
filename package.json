@@ -3,9 +3,12 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@faker-js/faker": "^8.4.1",
         "@mantine/core": "^7.12.0",
         "@mantine/hooks": "^7.12.0",
+        "@mantine/notifications": "^7.12.0",
         "@tabler/icons-react": "^3.11.0",
+        "@tanstack/react-query": "^5.51.23",
         "@types/jest": "^27.5.2",
         "@types/node": "^16.18.104",
         "@types/react": "^18.3.3",

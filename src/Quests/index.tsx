@@ -1,31 +1,23 @@
 import { useState } from "react";
 import {
-    Badge,
     Box,
-    Card,
+    Center,
     Combobox,
     Divider,
     Flex,
     Grid,
-    Group,
     InputBase,
     Space,
     TextInput,
     Title,
-    Text,
     useCombobox,
-    ActionIcon,
 } from "@mantine/core";
 
-import { skills } from "../stores/constants";
-import { IconPlus } from "@tabler/icons-react";
-
-const skillNames = skills.map((skill) => skill.name);
-
-const quests = Array.from({ length: 20 }).map((_, index) => ({
-    name: `Quest ${index + 1}`,
-    skill: skillNames[Math.floor(Math.random() * skillNames.length)],
-}));
+import { QuestCard } from "../Components/QuestCard";
+import { skillNames } from "../constants";
+import * as api from "../api";
+import { FetchedBox } from "../Components/FetchedBox";
+import { Quest } from "../types";
 
 export const FilterDropdown = ({
     label,
@@ -121,39 +113,41 @@ export const Quests = () => {
             <Divider />
             <Space h="md" />
             <Grid>
-                {quests
-                    .filter(
-                        (quest) =>
-                            (!skillFilter || quest.skill === skillFilter) &&
-                            (!search ||
-                                quest.name
-                                    .toLowerCase()
-                                    .includes(search.toLowerCase()))
-                    )
-                    .map((quest) => (
-                        <Grid.Col key={quest.name}>
-                            <Card p="xs" withBorder>
-                                <Group justify="space-between">
-                                    <Title order={5}>{quest.name}</Title>
-                                    <Badge color="gray" size="xs" tt="none">
-                                        {quest.skill}
-                                    </Badge>
-                                </Group>
-                                <Group justify="space-between">
-                                    <Text size="xs" c="violet">
-                                        {`+${
-                                            [0.1, 0.5, 1, 2][
-                                                Math.floor(Math.random() * 4)
-                                            ]
-                                        } XP`}
-                                    </Text>
-                                    <ActionIcon size="xs" variant="light">
-                                        <IconPlus />
-                                    </ActionIcon>
-                                </Group>
-                            </Card>
-                        </Grid.Col>
-                    ))}
+                <FetchedBox<Quest[]>
+                    queryKey={["getQuests"]}
+                    queryFn={api.getQuests}
+                    error="Could not load quests"
+                >
+                    {(quests) => {
+                        const filteredQuests = quests.filter(
+                            (quest) =>
+                                (!skillFilter || quest.skill === skillFilter) &&
+                                (!search ||
+                                    quest.title
+                                        .toLowerCase()
+                                        .includes(search.toLowerCase()))
+                        );
+
+                        return (
+                            <>
+                                {(!quests.length || !filteredQuests.length) && (
+                                    <Center>
+                                        <Title order={5} pt="lg" c="dimmed">
+                                            {!quests.length
+                                                ? "No quests..."
+                                                : "No quests in filter..."}
+                                        </Title>
+                                    </Center>
+                                )}
+                                {filteredQuests.map((quest) => (
+                                    <Grid.Col key={quest.title}>
+                                        <QuestCard quest={quest} showSkill />
+                                    </Grid.Col>
+                                ))}
+                            </>
+                        );
+                    }}
+                </FetchedBox>
             </Grid>
         </Box>
     );

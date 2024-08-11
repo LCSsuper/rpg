@@ -1,0 +1,10 @@
+-   Create quest
+-   Edit quest
+-   Remove quest
+-   Execute quest (update xp)
+-   Levelup (triggered by execute quest) -> notification, reward items
+-   Character inventory (items and wallet)
+-   Activate items (permanent can be deactivated again, temporary cannot and should show remaining timer)
+-   Currency
+-   Buy items in shop
+-   Sell items in shop

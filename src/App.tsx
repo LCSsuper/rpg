@@ -7,57 +7,73 @@ import {
     createTheme,
 } from "@mantine/core";
 import "@mantine/core/styles.layer.css";
+import "@mantine/notifications/styles.css";
 import { IconKarate, IconShoppingBag, IconUser } from "@tabler/icons-react";
 
-import { Character } from "./Character";
+import { CharacterPage } from "./Character";
 import { Quests } from "./Quests";
 import { Shop } from "./Shop";
+import { Notifications } from "@mantine/notifications";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const theme = createTheme({
     primaryColor: "violet",
 });
 
+const queryClient = new QueryClient();
+
+// TODO @Lucas add disable rotate workaround: https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
+
 const App = () => {
     return (
         <MantineProvider forceColorScheme={"dark"} theme={theme}>
-            <AppShell>
-                <Tabs defaultValue="character" inverted keepMounted={false}>
-                    <AppShell.Main pb="5rem">
-                        <Center h={"100%"}>
-                            <Box w="30rem" maw="100vw" p="lg">
-                                <Tabs.Panel value="character">
-                                    <Character />
-                                </Tabs.Panel>
+            <QueryClientProvider client={queryClient}>
+                <Notifications position="top-center" limit={2} />
+                <AppShell>
+                    <Tabs
+                        defaultValue="character"
+                        inverted
+                        keepMounted={false}
+                        h="100vh"
+                        style={{ overflowY: "scroll" }}
+                    >
+                        <AppShell.Main pb="5rem">
+                            <Center h={"100%"}>
+                                <Box w="30rem" maw="100vw" p="lg">
+                                    <Tabs.Panel value="character">
+                                        <CharacterPage />
+                                    </Tabs.Panel>
 
-                                <Tabs.Panel value="skills">
-                                    <Quests />
-                                </Tabs.Panel>
+                                    <Tabs.Panel value="skills">
+                                        <Quests />
+                                    </Tabs.Panel>
 
-                                <Tabs.Panel value="shop">
-                                    <Shop />
-                                </Tabs.Panel>
-                            </Box>
-                        </Center>
-                    </AppShell.Main>
-                    <AppShell.Footer>
-                        <Box h="5rem">
-                            <Center>
-                                <Tabs.List grow w="25rem" maw="100vw">
-                                    <Tabs.Tab value="character">
-                                        <IconUser />
-                                    </Tabs.Tab>
-                                    <Tabs.Tab value="skills">
-                                        <IconKarate />
-                                    </Tabs.Tab>
-                                    <Tabs.Tab value="shop">
-                                        <IconShoppingBag />
-                                    </Tabs.Tab>
-                                </Tabs.List>
+                                    <Tabs.Panel value="shop">
+                                        <Shop />
+                                    </Tabs.Panel>
+                                </Box>
                             </Center>
-                        </Box>
-                    </AppShell.Footer>
-                </Tabs>
-            </AppShell>
+                        </AppShell.Main>
+                        <AppShell.Footer>
+                            <Box h="5rem">
+                                <Center>
+                                    <Tabs.List grow w="25rem" maw="100vw">
+                                        <Tabs.Tab value="character">
+                                            <IconUser />
+                                        </Tabs.Tab>
+                                        <Tabs.Tab value="skills">
+                                            <IconKarate />
+                                        </Tabs.Tab>
+                                        <Tabs.Tab value="shop">
+                                            <IconShoppingBag />
+                                        </Tabs.Tab>
+                                    </Tabs.List>
+                                </Center>
+                            </Box>
+                        </AppShell.Footer>
+                    </Tabs>
+                </AppShell>
+            </QueryClientProvider>
         </MantineProvider>
     );
 };

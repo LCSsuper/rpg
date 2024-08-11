@@ -143,3 +143,5 @@ export const skills = [
     { name: "Writing", type: "creativity" }, // blogging, poetry, etc.
     { name: "Music", type: "creativity" }, // playing an instrument, singing, etc.
 ];
+
+export const skillNames = skills.map((skill) => skill.name);
