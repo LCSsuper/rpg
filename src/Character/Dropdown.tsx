@@ -8,7 +8,7 @@ export const Dropdown = ({
     values,
     onChange,
     flex,
-    allowSelectAll = true,
+    allowSelectAll,
 }: {
     label?: string;
     placeholder?: string;
@@ -62,7 +62,9 @@ export const Dropdown = ({
             >
                 <Combobox.Options>
                     {allowSelectAll && (
-                        <Combobox.Option value={""}>all</Combobox.Option>
+                        <Combobox.Option flex={flex} value={""}>
+                            all
+                        </Combobox.Option>
                     )}
                     {options}
                 </Combobox.Options>

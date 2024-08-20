@@ -1,6 +1,6 @@
-const growthRate = 1.05847;
-const startingXP = 10;
-const levels = 100;
+const growthRate = 1.03825;
+const startingXP = 5;
+const levels = 98;
 const increments = Array.from({ length: levels }, (_, i) =>
     Math.floor(startingXP * Math.pow(growthRate, i))
 );

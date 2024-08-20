@@ -62,13 +62,14 @@ export const Quests = () => {
                     values={skillNames}
                     value={skillFilter}
                     placeholder="Filter by skill"
+                    allowSelectAll
                 />
             </Flex>
             <Space h="md" />
             <Grid>
                 <FetchedBox<Quest[]>
                     queryKey={["getQuests"]}
-                    queryFn={api.getQuests}
+                    queryFn={() => api.getQuests()}
                     error="Could not load quests"
                 >
                     {(quests) => {
@@ -101,6 +102,7 @@ export const Quests = () => {
                                             onChange={() => {
                                                 forceUpdate(Math.random());
                                             }}
+                                            completable
                                         />
                                     </Grid.Col>
                                 ))}

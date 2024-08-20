@@ -28,7 +28,13 @@ const character: Character = {
     },
 };
 
-const quests: Quest[] = [];
+const quests: Quest[] = [
+    { title: "test1", skill: "Charisma", xp: 1, id: "1" },
+    { title: "test2", skill: "Charisma", xp: 2, id: "2" },
+    { title: "test3", skill: "Charisma", xp: 5, id: "3" },
+    { title: "test4", skill: "Charisma", xp: 10, id: "4" },
+    { title: "test5", skill: "Charisma", xp: 50, id: "5" },
+];
 
 export const getCharacter = async (): Promise<Character> => {
     // TODO @Lucas fetch character data from the backend
@@ -61,12 +67,12 @@ export const getCharacter = async (): Promise<Character> => {
     });
 };
 
-export const getQuests = async (): Promise<Quest[]> => {
+export const getQuests = async (skill?: string): Promise<Quest[]> => {
     // TODO @Lucas fetch quest data from the backend
 
     await new Promise((resolve) => setTimeout(resolve, 50));
 
-    if (!mockData) return quests;
+    if (!mockData) return quests.filter((q) => !skill || q.skill === skill);
 
     return Array.from({ length: faker.number.int({ min: 0, max: 10 }) }).map(
         () => ({

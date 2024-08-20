@@ -1,5 +1,19 @@
 import { useState } from "react";
-import { Box, Grid, Group, Modal, Progress, Space, Title } from "@mantine/core";
+import {
+    Accordion,
+    Box,
+    Card,
+    Center,
+    Grid,
+    Group,
+    Modal,
+    Overlay,
+    Progress,
+    RingProgress,
+    Space,
+    Title,
+    Text,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { skills } from "../constants";
@@ -7,6 +21,22 @@ import { Character, Skill } from "../types";
 import { SkillCard } from "../Components/SkillCard";
 import { getMainLevel, getSkillLevel } from "../utils";
 import { SkillModal } from "./SkillModal";
+import {
+    IconCash,
+    IconCoin,
+    IconInfinity,
+    IconSword,
+} from "@tabler/icons-react";
+
+const characterImages = [
+    { threshold: 84, src: "./character7.png" },
+    { threshold: 70, src: "./character6.png" },
+    { threshold: 56, src: "./character5.png" },
+    { threshold: 42, src: "./character4.png" },
+    { threshold: 28, src: "./character3.webp" },
+    { threshold: 14, src: "./character2.webp" },
+    { threshold: 0, src: "./character1.webp" },
+];
 
 export const CharacterBox = ({
     character,
@@ -50,7 +80,11 @@ export const CharacterBox = ({
                     }}
                 >
                     <img
-                        src="character.png"
+                        src={
+                            characterImages.find(
+                                ({ threshold }) => mainLevel.level > threshold
+                            )?.src
+                        }
                         alt="Character"
                         style={{ width: "100%" }}
                     />
@@ -83,14 +117,93 @@ export const CharacterBox = ({
             <Progress.Root size="xl">
                 <Progress.Section value={mainLevel.progress}>
                     <Progress.Label>
-                        {`${mainLevel.xpGatheredInLevel} / ${mainLevel.xpNeededToNextLevel}`}
+                        {`${mainLevel.xpGatheredInLevel} / ${
+                            mainLevel.xpNeededToNextLevel ||
+                            mainLevel.xpGatheredInLevel
+                        }`}
                     </Progress.Label>
                 </Progress.Section>
             </Progress.Root>
             <Space h="lg" />
             <Space h="lg" />
+            <Accordion
+                styles={{
+                    item: { border: "none" },
+                    content: { padding: "0" },
+                }}
+            >
+                <Accordion.Item value="inventory">
+                    <Accordion.Control p={0}>
+                        <Group align="center" justify="space-between" pr="sm">
+                            <Title order={1}>Inventory</Title>
+                            <Group gap={5} align="center">
+                                <Title order={5} c="dimmed" h="1.3rem">
+                                    100
+                                </Title>
+                                <Text c="yellow" h="1.3rem">
+                                    <IconCoin size="1.2rem" />
+                                </Text>
+                            </Group>
+                        </Group>
+                    </Accordion.Control>
+                    <Accordion.Panel p={0}>
+                        <Space h="lg" />
+                        <Title order={3}>Items</Title>
+                        <Grid>
+                            {Array.from({ length: 8 }).map((_, index) => (
+                                <Grid.Col span={3} key={index}>
+                                    <Card withBorder h="4.5rem">
+                                        <Center h="100%">
+                                            {index < 3 && <IconSword />}
+                                        </Center>
+                                    </Card>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                        <Space h="lg" />
+                        <Title order={3}>Active items</Title>
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, index) => (
+                                <Grid.Col span={3} key={index}>
+                                    <Card withBorder h="4.5rem">
+                                        <Center h="100%">
+                                            <IconCash />
+                                        </Center>
+                                        <Overlay bg="none" opacity={1}>
+                                            <Group justify="end">
+                                                {Math.random() > 0.5 ? (
+                                                    <RingProgress
+                                                        size={25}
+                                                        thickness={4}
+                                                        sections={[
+                                                            {
+                                                                value: Math.floor(
+                                                                    Math.random() *
+                                                                        100
+                                                                ),
+                                                                color: "violet",
+                                                            },
+                                                        ]}
+                                                    />
+                                                ) : (
+                                                    <Text c="violet">
+                                                        <IconInfinity
+                                                            size={25}
+                                                        />
+                                                    </Text>
+                                                )}
+                                            </Group>
+                                        </Overlay>
+                                    </Card>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    </Accordion.Panel>
+                </Accordion.Item>
+            </Accordion>
+            <Space h="lg" />
             <Title order={1}>Skills</Title>
-            <Space h="md" />
+            <Space h="lg" />
             <Grid>
                 {skills.map((skill: Skill) => {
                     const skillLevel = getSkillLevel(

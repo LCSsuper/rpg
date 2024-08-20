@@ -57,7 +57,6 @@ const NewQuestModal = ({
                         values={skillNames}
                         value={skill}
                         placeholder="Choose a skill"
-                        allowSelectAll={false}
                         label="Skill"
                     />
                     <Dropdown
@@ -66,7 +65,6 @@ const NewQuestModal = ({
                         values={[0.1, 0.5, 1, 2]}
                         value={xp}
                         placeholder="Choose XP reward"
-                        allowSelectAll={false}
                         label="XP reward"
                     />
                 </Flex>

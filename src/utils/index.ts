@@ -26,7 +26,7 @@ const binarySearch = (array: number[], target: number) => {
 
 const getLevel = (xp: number, thresholds: number[]): Level => {
     const level = binarySearch(thresholds, xp) + 1;
-    const title = levelNames[level - 1];
+    const title = levelNames[level];
 
     const from = thresholds[level - 1] || 0;
     const to = thresholds[level] || thresholds[level - 1];

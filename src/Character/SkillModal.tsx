@@ -40,8 +40,8 @@ export const SkillModal = ({ skill }: { skill: Skill | null }) => {
                 <Space h="md" />
                 <Grid>
                     <FetchedBox<Quest[]>
-                        queryKey={["getQuests"]}
-                        queryFn={api.getQuests}
+                        queryKey={["getQuests", skill.name]}
+                        queryFn={() => api.getQuests(skill.name)}
                         error="Could not load quests"
                         withinPortal
                     >

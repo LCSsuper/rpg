@@ -62,7 +62,6 @@ const EditQuestModal = ({
                         values={skillNames}
                         value={skill}
                         placeholder="Choose a skill"
-                        allowSelectAll={false}
                         label="Skill"
                     />
                     <Dropdown
@@ -71,7 +70,6 @@ const EditQuestModal = ({
                         values={[0.1, 0.5, 1, 2]}
                         value={xp}
                         placeholder="Choose XP reward"
-                        allowSelectAll={false}
                         label="XP reward"
                     />
                 </Flex>
@@ -100,11 +98,13 @@ export const QuestCard = ({
     quest,
     showSkill,
     editing,
+    completable,
     onChange,
 }: {
     quest: Quest;
     showSkill?: boolean;
     editing?: boolean;
+    completable?: boolean;
     onChange?: () => void;
 }) => {
     const [editOpened, { open: openEdit, close: closeEdit }] =
@@ -236,41 +236,52 @@ export const QuestCard = ({
                                         </ActionIcon>
                                     </>
                                 ) : (
-                                    <ActionIcon size="sm" variant="light">
-                                        <IconPlus
-                                            onClick={async () => {
-                                                try {
-                                                    await api.completeQuest(
-                                                        quest
-                                                    );
-                                                    notifications.show({
-                                                        message: `+${quest.xp} XP`,
-                                                        color: "green",
-                                                        icon: (
-                                                            <IconCheck size="1.5rem" />
-                                                        ),
-                                                        w: "10rem",
-                                                        styles: (theme) => ({
-                                                            description: {
-                                                                color: theme
-                                                                    .colors
-                                                                    .green[7],
-                                                            },
-                                                        }),
-                                                    });
-                                                } catch {
-                                                    notifications.show({
-                                                        message:
-                                                            "Could not complete quest",
-                                                        color: "red",
-                                                        icon: (
-                                                            <IconExclamationCircle size="1.5rem" />
-                                                        ),
-                                                    });
-                                                }
-                                            }}
-                                        />
-                                    </ActionIcon>
+                                    <>
+                                        {completable && (
+                                            <ActionIcon
+                                                size="sm"
+                                                variant="light"
+                                            >
+                                                <IconPlus
+                                                    onClick={async () => {
+                                                        try {
+                                                            await api.completeQuest(
+                                                                quest
+                                                            );
+                                                            notifications.show({
+                                                                message: `+${quest.xp} XP`,
+                                                                color: "green",
+                                                                icon: (
+                                                                    <IconCheck size="1.5rem" />
+                                                                ),
+                                                                w: "10rem",
+                                                                autoClose: 500,
+                                                                styles: (
+                                                                    theme
+                                                                ) => ({
+                                                                    description:
+                                                                        {
+                                                                            color: theme
+                                                                                .colors
+                                                                                .green[7],
+                                                                        },
+                                                                }),
+                                                            });
+                                                        } catch {
+                                                            notifications.show({
+                                                                message:
+                                                                    "Could not complete quest",
+                                                                color: "red",
+                                                                icon: (
+                                                                    <IconExclamationCircle size="1.5rem" />
+                                                                ),
+                                                            });
+                                                        }
+                                                    }}
+                                                />
+                                            </ActionIcon>
+                                        )}
+                                    </>
                                 )}
                             </Group>
                         </Group>

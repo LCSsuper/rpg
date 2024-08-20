@@ -25,7 +25,7 @@ const queryClient = new QueryClient();
 // TODO @Lucas add disable rotate workaround: https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
 
 const App = () => {
-    const colorTheme = "light";
+    const colorTheme = "dark";
     return (
         <MantineProvider forceColorScheme={colorTheme} theme={theme}>
             <QueryClientProvider client={queryClient}>

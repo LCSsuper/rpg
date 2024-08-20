@@ -1,6 +1,10 @@
--   Levelup (triggered by execute quest) -> notification, reward items
--   Character inventory (items and wallet)
--   Activate items (permanent can be deactivated again, temporary cannot and should show remaining timer)
--   Currency
--   Buy items in shop
--   Sell items in shop
+-   WIP
+    -   Character inventory (items and wallet)
+    -   Activate items (permanent can be deactivated again, temporary cannot and should show remaining timer)
+    -   Currency
+-   TODO
+    -   Update styling for notifications
+    -   Levelup (triggered by execute quest) -> notification, reward items
+    -   Buy items in shop
+    -   Sell items in shop
+    -   Backend

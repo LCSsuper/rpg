@@ -1,14 +1,4 @@
-import {
-    Card,
-    Group,
-    ActionIcon,
-    Space,
-    Progress,
-    Badge,
-    Text,
-    Flex,
-} from "@mantine/core";
-import { IconInfoCircle } from "@tabler/icons-react";
+import { Card, Group, Space, Progress, Badge, Text } from "@mantine/core";
 import { Skill } from "../types";
 
 export const SkillCard = ({
@@ -19,22 +9,10 @@ export const SkillCard = ({
     onInfo: () => void;
 }) => {
     return (
-        <Card p="xs" withBorder>
-            <Flex gap="xs">
-                <Text flex={1} size="sm" truncate>
-                    {skill.name}
-                </Text>
-                <ActionIcon
-                    flex={0}
-                    size="xs"
-                    variant="light"
-                    onClick={() => {
-                        onInfo();
-                    }}
-                >
-                    <IconInfoCircle />
-                </ActionIcon>
-            </Flex>
+        <Card p="xs" withBorder onClick={onInfo}>
+            <Text size="sm" truncate>
+                {skill.name}
+            </Text>
             <Space h="xs" />
             <Progress value={skill.level?.progress || 0} size="md" />
             <Space h="xs" />
