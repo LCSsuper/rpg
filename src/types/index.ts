@@ -10,6 +10,12 @@ export type Character = {
     skills: Record<string, number>;
 };
 
-export type Level = { level: number; progress: number; title: string };
+export type Level = {
+    level: number;
+    progress: number;
+    title: string;
+    xpNeededToNextLevel: number;
+    xpGatheredInLevel: number;
+};
 
-export type Quest = { title: string; xp: number; skill: string };
+export type Quest = { id: string; title: string; xp: number; skill: string };

@@ -8,12 +8,19 @@ import { SkillCard } from "../Components/SkillCard";
 import { getMainLevel, getSkillLevel } from "../utils";
 import { SkillModal } from "./SkillModal";
 
-export const CharacterBox = ({ character }: { character: Character }) => {
+export const CharacterBox = ({
+    character,
+    colorTheme,
+}: {
+    character: Character;
+    colorTheme: "light" | "dark";
+}) => {
     const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
     const [skillModalOpened, { open: openSkillModal, close: closeSkillModal }] =
         useDisclosure(false);
 
     const mainLevel = getMainLevel(character.xp);
+    const color = colorTheme === "light" ? "#fff" : "#242424";
 
     return (
         <Box>
@@ -55,13 +62,11 @@ export const CharacterBox = ({ character }: { character: Character }) => {
                         bottom: "-5rem",
                         right: 0,
                         height: "7rem",
-                        background:
-                            "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #242424 70%, #242424 100%)",
+                        background: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, ${color} 70%, ${color} 100%)`,
                         zIndex: -1,
                     }}
                 ></div>
             </div>
-
             <Group align="end">
                 <Group gap="xs" align="end">
                     <Title order={2} pb="xs">
@@ -75,7 +80,13 @@ export const CharacterBox = ({ character }: { character: Character }) => {
                     {mainLevel.title}
                 </Title>
             </Group>
-            <Progress value={mainLevel.progress} size="xl" />
+            <Progress.Root size="xl">
+                <Progress.Section value={mainLevel.progress}>
+                    <Progress.Label>
+                        {`${mainLevel.xpGatheredInLevel} / ${mainLevel.xpNeededToNextLevel}`}
+                    </Progress.Label>
+                </Progress.Section>
+            </Progress.Root>
             <Space h="lg" />
             <Space h="lg" />
             <Title order={1}>Skills</Title>

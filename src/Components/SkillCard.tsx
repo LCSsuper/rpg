@@ -40,7 +40,7 @@ export const SkillCard = ({
             <Space h="xs" />
             <Group justify="space-between">
                 <Text size="sm" c="dimmed">
-                    Level {skill.level?.level || 1}
+                    Level {skill.level?.level || 0}
                 </Text>
                 <Badge color="cyan" size="xs" tt="none">
                     {skill.type}

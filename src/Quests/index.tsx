@@ -1,16 +1,14 @@
 import { useState } from "react";
 import {
     Box,
+    Button,
     Center,
-    Combobox,
     Divider,
     Flex,
     Grid,
-    InputBase,
     Space,
     TextInput,
     Title,
-    useCombobox,
 } from "@mantine/core";
 
 import { QuestCard } from "../Components/QuestCard";
@@ -18,79 +16,36 @@ import { skillNames } from "../constants";
 import * as api from "../api";
 import { FetchedBox } from "../Components/FetchedBox";
 import { Quest } from "../types";
-
-export const FilterDropdown = ({
-    label,
-    placeholder,
-    disabled,
-    value,
-    values,
-    onChange,
-}: {
-    label?: string;
-    placeholder?: string;
-    disabled?: boolean;
-    value?: string;
-    values: string[];
-    onChange: (value: string) => void;
-}) => {
-    const combobox = useCombobox({
-        onDropdownClose: () => combobox.resetSelectedOption(),
-    });
-
-    const options = values.map((value) => (
-        <Combobox.Option value={value} key={value}>
-            {value}
-        </Combobox.Option>
-    ));
-
-    return (
-        <Combobox
-            width={"10rem"}
-            store={combobox}
-            withinPortal={false}
-            onOptionSubmit={(val) => {
-                onChange(val);
-                combobox.closeDropdown();
-            }}
-        >
-            <Combobox.Target>
-                <InputBase
-                    w={"10rem"}
-                    label={label}
-                    disabled={disabled}
-                    component="button"
-                    type="button"
-                    pointer
-                    rightSection={<Combobox.Chevron />}
-                    onClick={() => combobox.toggleDropdown()}
-                    rightSectionPointerEvents="none"
-                >
-                    {value || placeholder || "Filter..."}
-                </InputBase>
-            </Combobox.Target>
-
-            <Combobox.Dropdown
-                mah="10rem"
-                styles={{ dropdown: { overflow: "scroll" } }}
-            >
-                <Combobox.Options>
-                    <Combobox.Option value={""}>all</Combobox.Option>
-                    {options}
-                </Combobox.Options>
-            </Combobox.Dropdown>
-        </Combobox>
-    );
-};
+import { Dropdown } from "../Character/Dropdown";
+import { NewQuestButton } from "./NewQuestButton";
 
 export const Quests = () => {
     const [search, setSearch] = useState("");
     const [skillFilter, setSkillFilter] = useState("");
+    const [randomId, forceUpdate] = useState(0);
+    const [editing, setEditing] = useState(false);
 
     return (
-        <Box>
+        <Box key={randomId}>
             <Title size="3rem">Quests</Title>
             <Space h="lg" />
+            <Flex gap="xs">
+                <NewQuestButton
+                    onCreate={() => {
+                        forceUpdate(Math.random());
+                    }}
+                />
+                <Button
+                    flex={1}
+                    onClick={() => setEditing(!editing)}
+                    variant="light"
+                >
+                    {editing ? "Stop editing" : "Edit Quests"}
+                </Button>
+            </Flex>
+            <Space h="md" />
+            <Divider />
+            <Space h="md" />
             <Flex gap="xs">
                 <TextInput
                     flex={1}
@@ -100,7 +55,7 @@ export const Quests = () => {
                         setSearch(e.target.value);
                     }}
                 />
-                <FilterDropdown
+                <Dropdown
                     onChange={(skill) => {
                         setSkillFilter(skill);
                     }}
@@ -109,8 +64,6 @@ export const Quests = () => {
                     placeholder="Filter by skill"
                 />
             </Flex>
-            <Space h="md" />
-            <Divider />
             <Space h="md" />
             <Grid>
                 <FetchedBox<Quest[]>
@@ -141,7 +94,14 @@ export const Quests = () => {
                                 )}
                                 {filteredQuests.map((quest) => (
                                     <Grid.Col key={quest.title}>
-                                        <QuestCard quest={quest} showSkill />
+                                        <QuestCard
+                                            quest={quest}
+                                            showSkill
+                                            editing={editing}
+                                            onChange={() => {
+                                                forceUpdate(Math.random());
+                                            }}
+                                        />
                                     </Grid.Col>
                                 ))}
                             </>

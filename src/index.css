@@ -2,3 +2,10 @@
     box-sizing: border-box;
     border: 1px solid red;
 }
+
+.notifications > div {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}

@@ -36,7 +36,13 @@ const getLevel = (xp: number, thresholds: number[]): Level => {
         ? (xpGatheredInLevel / xpNeededToNextLevel) * 100
         : 100;
 
-    return { level, progress, title };
+    return {
+        level: level + 1,
+        progress,
+        title,
+        xpNeededToNextLevel,
+        xpGatheredInLevel,
+    };
 };
 
 export const getMainLevel = (xp: number) => getLevel(xp, mainLevelThresholds);
