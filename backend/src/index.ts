@@ -1,4 +1,6 @@
-export const getCharacter = async (): Promise<{
+import { disableRPGBackend } from "./domain/disableRPGBackend";
+
+export const getCharacterHandler = async (): Promise<{
     statusCode: number;
     body: string;
 }> => {
@@ -8,4 +10,8 @@ export const getCharacter = async (): Promise<{
             message: "Hello from Lambda!",
         }),
     };
+};
+
+export const disableRPGBackendHandler = async (): Promise<void> => {
+    await disableRPGBackend();
 };
