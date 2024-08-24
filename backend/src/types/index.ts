@@ -9,7 +9,7 @@ export type Item = {
     name: string;
     description: string;
     affectedSkill: string;
-    modifier: number;
+    modifier: string;
     cost: number;
 };
 

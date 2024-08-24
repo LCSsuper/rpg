@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import { Character, Quest } from "../types";
+import { Character, Item, Quest } from "../types";
 import { skillNames } from "../constants";
 import { getLevelReward, getMainLevel } from "../utils";
 
@@ -155,4 +155,12 @@ export const completeQuest = async (
     }
 
     return Promise.resolve({ leveledUp });
+};
+
+export const getItems = async (): Promise<Item[]> => {
+    // TODO @Lucas fetch item data from the backend
+
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
+    return [];
 };

@@ -1,12 +1,16 @@
 import * as cdk from "aws-cdk-lib";
-import {
-    Code,
-    Function,
-    FunctionUrlAuthType,
-    Runtime,
-} from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
+
 import { BudgetLambdaDisabledStack } from "./budget-lambda-disabler-stack";
+import { DatabaseStack } from "./database-stack";
+import { CompleteQuestsStack } from "./complete-quest-stack";
+import { CreateQuestStack } from "./create-quest-stack";
+import { DeleteQuestStack } from "./delete-quest-stack";
+import { GetCharacterStack } from "./get-character-stack";
+import { GetQuestsStack } from "./get-quests-stack";
+import { UpdateQuestsStack } from "./update-quest-stack";
+import { GetItemsStack } from "./get-items-stack";
+import { CreateCharacterStack } from "./create-character-stack";
 
 export class RPGBackendStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -14,20 +18,38 @@ export class RPGBackendStack extends cdk.Stack {
 
         new BudgetLambdaDisabledStack(this, "BudgetLambdaDisabledStack");
 
-        const getCharacterLambda = new Function(this, "GetCharacter", {
-            runtime: Runtime.NODEJS_20_X,
-            handler: "index.getCharacterHandler",
-            code: Code.fromAsset("src/lib"),
-            functionName: "RPG-GetCharacter",
-            reservedConcurrentExecutions: 1,
+        const { rpgTable } = new DatabaseStack(this, "DatabaseStack");
+
+        new CompleteQuestsStack(this, "CompleteQuestsStack", {
+            rpgTable,
         });
 
-        const getCharacterFunctionUrl = getCharacterLambda.addFunctionUrl({
-            authType: FunctionUrlAuthType.NONE,
+        new CreateCharacterStack(this, "CreateCharacterStack", {
+            rpgTable,
         });
 
-        new cdk.CfnOutput(this, "getCharacterFunctionUrl", {
-            value: getCharacterFunctionUrl.url,
+        new CreateQuestStack(this, "CreateQuestStack", {
+            rpgTable,
+        });
+
+        new DeleteQuestStack(this, "DeleteQuestStack", {
+            rpgTable,
+        });
+
+        new GetCharacterStack(this, "GetCharacterStack", {
+            rpgTable,
+        });
+
+        new GetItemsStack(this, "GetItemsStack", {
+            rpgTable,
+        });
+
+        new GetQuestsStack(this, "GetQuestsStack", {
+            rpgTable,
+        });
+
+        new UpdateQuestsStack(this, "UpdateQuestsStack", {
+            rpgTable,
         });
     }
 }

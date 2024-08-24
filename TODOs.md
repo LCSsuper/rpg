@@ -1,9 +1,16 @@
 -   WIP
-    -   Character inventory (items and wallet)
-    -   Activate items (permanent can be deactivated again, temporary cannot and should show remaining timer)
-    -   Currency
--   TODO
-    -   Update styling for notifications
-    -   Buy items in shop
-    -   Sell items in shop
     -   Backend
+-   TODO
+    -   First load: authorize and create character
+        -   Fill in the token and a character name (when create character is succesful (a.k.a. token is correct), then save the token to localstorage for future requests)
+    -   Currency
+    -   Character inventory (items and wallet)
+    -   Items
+        -   Buy items in shop (price based on level?)
+        -   Sell items in shop (75% of price?)
+        -   Reward items at certain levelups (items you don't have yet + for a skill with little xp gained)
+        -   Implement the effect of items
+-   NICE TO HAVE
+    -   Temporary items (items that run out after a timer)
+    -   Daily quest combos (more XP gains when concurrently executing quests)
+    -

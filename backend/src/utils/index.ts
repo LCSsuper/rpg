@@ -54,6 +54,6 @@ export const getLevelReward = (level: number) => {
 
     // TODO @Lucas add item rewards
     return {
-        gold: Math.floor(mainLevel.xpNeededToNextLevel ** 1.6),
+        gold: Math.floor(mainLevel.xpNeededToNextLevel ** 1.7),
     };
 };
