@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-    Accordion,
     Box,
-    Card,
-    Center,
     Grid,
     Group,
     Modal,
-    Overlay,
     Progress,
-    RingProgress,
     Space,
     Title,
-    Text,
+    Tabs,
+    Indicator,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -21,12 +17,7 @@ import { Character, Skill } from "../types";
 import { SkillCard } from "../Components/SkillCard";
 import { getMainLevel, getSkillLevel } from "../utils";
 import { SkillModal } from "./SkillModal";
-import {
-    IconCash,
-    IconCoin,
-    IconInfinity,
-    IconSword,
-} from "@tabler/icons-react";
+import { InventoryBox } from "./Inventory";
 
 const characterImages = [
     { threshold: 84, src: "./character7.png" },
@@ -45,9 +36,27 @@ export const CharacterBox = ({
     character: Character;
     colorTheme: "light" | "dark";
 }) => {
+    const [leveledUp, setLeveledUp] = useState<boolean>(false);
+    const [activeTab, setActiveTab] = useState<"skills" | "inventory">(
+        "skills"
+    );
     const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
     const [skillModalOpened, { open: openSkillModal, close: closeSkillModal }] =
         useDisclosure(false);
+
+    useEffect(() => {
+        const didLevelUp = window.localStorage.getItem("levelUp");
+        if (didLevelUp === "true") {
+            setLeveledUp(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (activeTab === "inventory") {
+            window.localStorage.setItem("levelUp", "false");
+            setLeveledUp(false);
+        }
+    }, [activeTab]);
 
     const mainLevel = getMainLevel(character.xp);
     const color = colorTheme === "light" ? "#fff" : "#242424";
@@ -125,104 +134,54 @@ export const CharacterBox = ({
                 </Progress.Section>
             </Progress.Root>
             <Space h="lg" />
-            <Space h="lg" />
-            <Accordion
-                styles={{
-                    item: { border: "none" },
-                    content: { padding: "0" },
+            <Tabs
+                keepMounted={false}
+                inverted
+                value={activeTab}
+                onChange={(tab) => {
+                    if (!tab) return;
+                    setActiveTab(tab as "skills" | "inventory");
                 }}
             >
-                <Accordion.Item value="inventory">
-                    <Accordion.Control p={0}>
-                        <Group align="center" justify="space-between" pr="sm">
-                            <Title order={1}>Inventory</Title>
-                            <Group gap={5} align="center">
-                                <Title order={5} c="dimmed" h="1.3rem">
-                                    100
-                                </Title>
-                                <Text c="yellow" h="1.3rem">
-                                    <IconCoin size="1.2rem" />
-                                </Text>
-                            </Group>
-                        </Group>
-                    </Accordion.Control>
-                    <Accordion.Panel p={0}>
-                        <Space h="lg" />
-                        <Title order={3}>Items</Title>
-                        <Grid>
-                            {Array.from({ length: 8 }).map((_, index) => (
-                                <Grid.Col span={3} key={index}>
-                                    <Card withBorder h="4.5rem">
-                                        <Center h="100%">
-                                            {index < 3 && <IconSword />}
-                                        </Center>
-                                    </Card>
+                <Tabs.List grow w="100%">
+                    <Tabs.Tab value="skills">Skills</Tabs.Tab>
+                    <Tabs.Tab value="inventory">
+                        {leveledUp ? (
+                            <Indicator color="red">Inventory</Indicator>
+                        ) : (
+                            "Inventory"
+                        )}
+                    </Tabs.Tab>
+                </Tabs.List>
+                <Space h="lg" />
+
+                <Tabs.Panel value="inventory">
+                    <InventoryBox inventory={character.inventory} />
+                </Tabs.Panel>
+
+                <Tabs.Panel value="skills">
+                    <Space h="lg" />
+                    <Grid>
+                        {skills.map((skill: Skill) => {
+                            const skillLevel = getSkillLevel(
+                                character.skills[skill.name]
+                            );
+                            skill.level = skillLevel;
+                            return (
+                                <Grid.Col key={skill.name} span={6}>
+                                    <SkillCard
+                                        skill={skill}
+                                        onInfo={() => {
+                                            setSelectedSkill(skill);
+                                            openSkillModal();
+                                        }}
+                                    />
                                 </Grid.Col>
-                            ))}
-                        </Grid>
-                        <Space h="lg" />
-                        <Title order={3}>Active items</Title>
-                        <Grid>
-                            {Array.from({ length: 4 }).map((_, index) => (
-                                <Grid.Col span={3} key={index}>
-                                    <Card withBorder h="4.5rem">
-                                        <Center h="100%">
-                                            <IconCash />
-                                        </Center>
-                                        <Overlay bg="none" opacity={1}>
-                                            <Group justify="end">
-                                                {Math.random() > 0.5 ? (
-                                                    <RingProgress
-                                                        size={25}
-                                                        thickness={4}
-                                                        sections={[
-                                                            {
-                                                                value: Math.floor(
-                                                                    Math.random() *
-                                                                        100
-                                                                ),
-                                                                color: "violet",
-                                                            },
-                                                        ]}
-                                                    />
-                                                ) : (
-                                                    <Text c="violet">
-                                                        <IconInfinity
-                                                            size={25}
-                                                        />
-                                                    </Text>
-                                                )}
-                                            </Group>
-                                        </Overlay>
-                                    </Card>
-                                </Grid.Col>
-                            ))}
-                        </Grid>
-                    </Accordion.Panel>
-                </Accordion.Item>
-            </Accordion>
-            <Space h="lg" />
-            <Title order={1}>Skills</Title>
-            <Space h="lg" />
-            <Grid>
-                {skills.map((skill: Skill) => {
-                    const skillLevel = getSkillLevel(
-                        character.skills[skill.name]
-                    );
-                    skill.level = skillLevel;
-                    return (
-                        <Grid.Col key={skill.name} span={6}>
-                            <SkillCard
-                                skill={skill}
-                                onInfo={() => {
-                                    setSelectedSkill(skill);
-                                    openSkillModal();
-                                }}
-                            />
-                        </Grid.Col>
-                    );
-                })}
-            </Grid>
+                            );
+                        })}
+                    </Grid>
+                </Tabs.Panel>
+            </Tabs>
         </Box>
     );
 };

@@ -4,9 +4,25 @@ export type Skill = {
     level?: Level;
 };
 
+export type Item = {
+    id: string;
+    name: string;
+    description: string;
+    type: string;
+    effect: string;
+    value: number;
+};
+
+export type Inventory = {
+    items: Item[];
+    gold: number;
+};
+
 export type Character = {
+    id: string;
     name: string;
     xp: number;
+    inventory: Inventory;
     skills: Record<string, number>;
 };
 

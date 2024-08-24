@@ -5,6 +5,8 @@ import {
     MantineProvider,
     Tabs,
     createTheme,
+    Text,
+    Flex,
 } from "@mantine/core";
 import "@mantine/core/styles.layer.css";
 import "@mantine/notifications/styles.css";
@@ -67,13 +69,31 @@ const App = () => {
                                 <Center>
                                     <Tabs.List grow w="25rem" maw="100vw">
                                         <Tabs.Tab value="character">
-                                            <IconUser />
+                                            <Flex
+                                                direction="column"
+                                                align="center"
+                                            >
+                                                <IconUser />
+                                                <Text size="xs">Character</Text>
+                                            </Flex>
                                         </Tabs.Tab>
                                         <Tabs.Tab value="skills">
-                                            <IconKarate />
+                                            <Flex
+                                                direction="column"
+                                                align="center"
+                                            >
+                                                <IconKarate />
+                                                <Text size="xs">Quests</Text>
+                                            </Flex>
                                         </Tabs.Tab>
                                         <Tabs.Tab value="shop">
-                                            <IconShoppingBag />
+                                            <Flex
+                                                direction="column"
+                                                align="center"
+                                            >
+                                                <IconShoppingBag />
+                                                <Text size="xs">Shop</Text>
+                                            </Flex>
                                         </Tabs.Tab>
                                     </Tabs.List>
                                 </Center>

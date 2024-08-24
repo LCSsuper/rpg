@@ -2,12 +2,18 @@ import { faker } from "@faker-js/faker";
 
 import { Character, Quest } from "../types";
 import { skillNames } from "../constants";
+import { getLevelReward, getMainLevel } from "../utils";
 
 const mockData = false;
 
 const character: Character = {
+    id: "bf01802f-fffc-4d50-977f-69f1d3850a9e",
     name: "Lucas",
     xp: 0,
+    inventory: {
+        items: [],
+        gold: 0,
+    },
     skills: {
         Charisma: 0,
         Empathy: 0,
@@ -44,8 +50,13 @@ export const getCharacter = async (): Promise<Character> => {
     if (!mockData) return character;
 
     return Promise.resolve({
+        id: "bf01802f-fffc-4d50-977f-69f1d3850a9e",
         name: "Lucas",
         xp: faker.number.int({ min: 0, max: 50000 }),
+        inventory: {
+            items: [],
+            gold: faker.number.int({ min: 0, max: 1000 }),
+        },
         skills: {
             Charisma: faker.number.int({ min: 0, max: 5000 }),
             Empathy: faker.number.int({ min: 0, max: 5000 }),
@@ -124,13 +135,24 @@ export const deleteQuest = async (quest: Quest): Promise<void> => {
     return Promise.resolve();
 };
 
-export const completeQuest = async (quest: Quest): Promise<void> => {
+export const completeQuest = async (
+    quest: Quest
+): Promise<{ leveledUp: boolean }> => {
     // TODO @Lucas send complete quest request to the backend
 
     await new Promise((resolve) => setTimeout(resolve, 150));
 
+    const leveledUp =
+        getMainLevel(character.xp).level !==
+        getMainLevel(character.xp + quest.xp).level;
+
     character.xp += quest.xp;
     character.skills[quest.skill] += quest.xp;
 
-    return Promise.resolve();
+    if (leveledUp) {
+        const reward = getLevelReward(getMainLevel(character.xp).level);
+        character.inventory.gold += reward.gold;
+    }
+
+    return Promise.resolve({ leveledUp });
 };

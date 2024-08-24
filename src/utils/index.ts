@@ -48,3 +48,12 @@ const getLevel = (xp: number, thresholds: number[]): Level => {
 export const getMainLevel = (xp: number) => getLevel(xp, mainLevelThresholds);
 
 export const getSkillLevel = (xp: number) => getLevel(xp, subLevelThresholds);
+
+export const getLevelReward = (level: number) => {
+    const mainLevel = getMainLevel(level);
+
+    // TODO @Lucas add item rewards
+    return {
+        gold: Math.floor(mainLevel.xpNeededToNextLevel ** 1.7),
+    };
+};

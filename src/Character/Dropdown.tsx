@@ -1,4 +1,4 @@
-import { Combobox, InputBase, useCombobox } from "@mantine/core";
+import { Combobox, InputBase, ScrollArea, useCombobox } from "@mantine/core";
 
 export const Dropdown = ({
     label,
@@ -31,9 +31,8 @@ export const Dropdown = ({
 
     return (
         <Combobox
-            width={"10rem"}
             store={combobox}
-            withinPortal={false}
+            withinPortal={true}
             onOptionSubmit={(val) => {
                 onChange(val);
                 combobox.closeDropdown();
@@ -42,7 +41,6 @@ export const Dropdown = ({
             <Combobox.Target>
                 <InputBase
                     flex={flex}
-                    w={"10rem"}
                     label={label}
                     disabled={disabled}
                     component="button"
@@ -56,17 +54,16 @@ export const Dropdown = ({
                 </InputBase>
             </Combobox.Target>
 
-            <Combobox.Dropdown
-                mah="10rem"
-                styles={{ dropdown: { overflow: "scroll" } }}
-            >
+            <Combobox.Dropdown>
                 <Combobox.Options>
-                    {allowSelectAll && (
-                        <Combobox.Option flex={flex} value={""}>
-                            all
-                        </Combobox.Option>
-                    )}
-                    {options}
+                    <ScrollArea.Autosize type="scroll" mah="10rem">
+                        {allowSelectAll && (
+                            <Combobox.Option flex={flex} value={""}>
+                                all
+                            </Combobox.Option>
+                        )}
+                        {options}
+                    </ScrollArea.Autosize>
                 </Combobox.Options>
             </Combobox.Dropdown>
         </Combobox>

@@ -47,8 +47,6 @@ const EditQuestModal = ({
     return (
         <Center>
             <Box w="30rem" maw="100vw">
-                <Title size="3rem">Edit Quest</Title>
-                <Space h="lg" />
                 <TextInput
                     label="Title"
                     value={title}
@@ -117,8 +115,11 @@ export const QuestCard = ({
             <Modal
                 opened={editOpened}
                 onClose={closeEdit}
-                fullScreen
                 keepMounted={false}
+                centered
+                overlayProps={{ backgroundOpacity: 0.5, blur: 3 }}
+                title="Edit Quest"
+                style={{ overflow: "visible" }}
             >
                 <EditQuestModal
                     onAccept={async (quest) => {
@@ -149,6 +150,8 @@ export const QuestCard = ({
                 onClose={closeRemove}
                 keepMounted={false}
                 title="Are you sure?"
+                centered
+                overlayProps={{ backgroundOpacity: 0.5, blur: 3 }}
             >
                 <Center>
                     <Box w="30rem" maw="100vw">
@@ -245,17 +248,20 @@ export const QuestCard = ({
                                                 <IconPlus
                                                     onClick={async () => {
                                                         try {
-                                                            await api.completeQuest(
-                                                                quest
-                                                            );
+                                                            const {
+                                                                leveledUp,
+                                                            } =
+                                                                await api.completeQuest(
+                                                                    quest
+                                                                );
+
                                                             notifications.show({
                                                                 message: `+${quest.xp} XP`,
-                                                                color: "green",
-                                                                icon: (
-                                                                    <IconCheck size="1.5rem" />
-                                                                ),
-                                                                w: "10rem",
-                                                                autoClose: 500,
+                                                                color: "transparent",
+                                                                withCloseButton:
+                                                                    false,
+                                                                w: "6rem",
+                                                                autoClose: 1000,
                                                                 styles: (
                                                                     theme
                                                                 ) => ({
@@ -267,6 +273,33 @@ export const QuestCard = ({
                                                                         },
                                                                 }),
                                                             });
+                                                            if (leveledUp) {
+                                                                window.localStorage.setItem(
+                                                                    "levelUp",
+                                                                    "true"
+                                                                );
+                                                                notifications.show(
+                                                                    {
+                                                                        message:
+                                                                            "Level up!",
+                                                                        color: "transparent",
+                                                                        withCloseButton:
+                                                                            false,
+                                                                        w: "7rem",
+                                                                        autoClose: 5000,
+                                                                        styles: (
+                                                                            theme
+                                                                        ) => ({
+                                                                            description:
+                                                                                {
+                                                                                    color: theme
+                                                                                        .colors
+                                                                                        .violet[7],
+                                                                                },
+                                                                        }),
+                                                                    }
+                                                                );
+                                                            }
                                                         } catch {
                                                             notifications.show({
                                                                 message:

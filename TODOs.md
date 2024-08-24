@@ -4,7 +4,6 @@
     -   Currency
 -   TODO
     -   Update styling for notifications
-    -   Levelup (triggered by execute quest) -> notification, reward items
     -   Buy items in shop
     -   Sell items in shop
     -   Backend

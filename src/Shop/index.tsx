@@ -5,7 +5,7 @@ export const Shop = () => {
         <Box>
             <Title size="3rem">Shop</Title>
             <Center h="15rem">
-                <Title order={2} c="dimmed">
+                <Title order={3} c="dimmed">
                     Coming soon...
                 </Title>
             </Center>

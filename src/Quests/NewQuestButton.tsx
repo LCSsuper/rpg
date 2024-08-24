@@ -7,7 +7,6 @@ import {
     Modal,
     Space,
     TextInput,
-    Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconInfoCircle } from "@tabler/icons-react";
@@ -36,7 +35,6 @@ const NewQuestModal = ({
     return (
         <Center>
             <Box w="30rem" maw="100vw">
-                <Title size="3rem">New Quest</Title>
                 <Space h="lg" />
                 <Blockquote icon={<IconInfoCircle />}>
                     Create a new quest to challenges you to pick up new habits!
@@ -97,8 +95,13 @@ export const NewQuestButton = ({ onCreate }: { onCreate: () => void }) => {
             <Modal
                 opened={opened}
                 onClose={close}
-                fullScreen
                 keepMounted={false}
+                title="Create Quest"
+                centered
+                overlayProps={{
+                    backgroundOpacity: 0.5,
+                    blur: 3,
+                }}
             >
                 <NewQuestModal
                     onAccept={async (quest) => {
