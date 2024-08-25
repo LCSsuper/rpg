@@ -1,6 +1,7 @@
 import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
 
 import { Character } from "../types";
+import { getInventory } from "./getInventory";
 
 export const getCharacter = async (characterId: string): Promise<Character> => {
     const client = new DynamoDBClient();
@@ -15,17 +16,7 @@ export const getCharacter = async (characterId: string): Promise<Character> => {
         })
     );
 
-    const inventory = await client.send(
-        new GetItemCommand({
-            TableName: process.env.RPG_TABLE_NAME,
-            Key: {
-                characterId: { S: characterId },
-                key: { S: "inventory" },
-            },
-        })
-    );
-
-    if (!character.Item || !inventory.Item) {
+    if (!character.Item) {
         throw new Error("Character does not exist");
     }
 
@@ -33,10 +24,7 @@ export const getCharacter = async (characterId: string): Promise<Character> => {
         id: characterId,
         name: character.Item.name.S!,
         xp: parseInt(character.Item.xp.N!),
-        inventory: {
-            items: inventory.Item.items.S?.split(",") || [],
-            gold: parseInt(inventory.Item.gold.N!),
-        },
+        inventory: await getInventory(characterId),
         skills: {
             Charisma: parseInt(character.Item.charisma_xp.N!),
             Empathy: parseInt(character.Item.empathy_xp.N!),

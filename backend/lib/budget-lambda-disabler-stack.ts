@@ -61,6 +61,10 @@ export class BudgetLambdaDisabledStack extends cdk.Stack {
                             subscriptionType: "SNS",
                             address: autoDisableTopic.topicArn,
                         },
+                        {
+                            subscriptionType: "EMAIL",
+                            address: "lcssuper@gmail.com",
+                        },
                     ],
                 },
             ],

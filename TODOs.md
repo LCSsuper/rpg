@@ -1,6 +1,7 @@
 -   WIP
     -   Backend
 -   TODO
+    -   Call backend from front-end
     -   First load: authorize and create character
         -   Fill in the token and a character name (when create character is succesful (a.k.a. token is correct), then save the token to localstorage for future requests)
     -   Currency
@@ -10,6 +11,12 @@
         -   Sell items in shop (75% of price?)
         -   Reward items at certain levelups (items you don't have yet + for a skill with little xp gained)
         -   Implement the effect of items
+    -   Generate 10 images per character (implement 3 characters)
+    -   Generate images for each type of item
+    -   Help popup (explains how the app works)
+    -   Feedback popup (lets users send feedback to me)
+    -   Buy me a coffee link?
+    -   Download button if not installed as PWA yet
 -   NICE TO HAVE
     -   Temporary items (items that run out after a timer)
     -   Daily quest combos (more XP gains when concurrently executing quests)
