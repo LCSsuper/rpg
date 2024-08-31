@@ -71,6 +71,13 @@ export const CharacterBox = ({
             >
                 <SkillModal skill={selectedSkill} />
             </Modal>
+            <Box pos="fixed">
+                <Group gap="xs">
+                    <Title order={2} c="violet">
+                        {character.name}
+                    </Title>
+                </Group>
+            </Box>
             <div
                 style={{
                     position: "relative",

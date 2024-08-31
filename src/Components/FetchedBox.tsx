@@ -13,7 +13,7 @@ export const FetchedBox = <T extends unknown>({
 }: {
     queryKey: string[];
     queryFn: () => Promise<T>;
-    children: (data: T) => ReactElement;
+    children: (data: T, refresh: () => void) => ReactElement;
     error: string;
     withinPortal?: boolean;
 }) => {
@@ -24,7 +24,7 @@ export const FetchedBox = <T extends unknown>({
     });
 
     return (
-        <Box w="100%">
+        <Box w="100%" pos="relative">
             <Loading loading={isFetching} withinPortal={withinPortal} />
             {isError && (
                 <Error
@@ -41,8 +41,8 @@ export const FetchedBox = <T extends unknown>({
                 timingFunction="ease"
             >
                 {(styles) => (
-                    <Box style={styles}>
-                        {data ? children(data) : undefined}
+                    <Box style={styles} h="100%">
+                        {data ? children(data, refetch) : undefined}
                     </Box>
                 )}
             </Transition>

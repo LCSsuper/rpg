@@ -1,14 +1,15 @@
 import { authorize } from "./domain/authorize";
 import { completeQuest } from "./domain/completeQuest";
-import { items } from "./domain/constants/items";
 import { createCharacterAndInventory } from "./domain/createCharacterAndInventory";
 import { createQuest } from "./domain/createQuest";
 import { deleteQuest } from "./domain/deleteQuest";
 import { disableRPGBackend } from "./domain/disableRPGBackend";
 import { getCharacter } from "./domain/getCharacter";
+import { getItems } from "./domain/getItems";
 import { getQuests } from "./domain/getQuests";
 import { updateQuest } from "./domain/updateQuest";
-import { Character, Item, Quest } from "./types";
+import { buyOrSellItem } from "./domain/buyOrSellItem";
+import { Character, CompleteQuestResponse, Item, Quest } from "./types";
 
 type LambdaFunctionUrlPayload = {
     headers?: Record<string, string>;
@@ -152,9 +153,7 @@ export const deleteQuestHandler = requestHandlerWrapper(
 export const completeQuestHandler = requestHandlerWrapper(
     async (
         payload: LambdaFunctionUrlPayload
-    ): Promise<{
-        leveledUp: boolean;
-    }> => {
+    ): Promise<CompleteQuestResponse> => {
         const characterId = payload.queryStringParameters?.characterId;
 
         if (!characterId) {
@@ -167,15 +166,44 @@ export const completeQuestHandler = requestHandlerWrapper(
             throw new Error("QuestId is required");
         }
 
-        const leveledUp = await completeQuest(characterId, questId);
-
-        return { leveledUp };
+        return completeQuest(characterId, questId);
     }
 );
 
 export const getItemsHandler = requestHandlerWrapper(
-    async (payload: LambdaFunctionUrlPayload): Promise<Item[]> => {
-        return items;
+    async (
+        payload: LambdaFunctionUrlPayload
+    ): Promise<{ gold: number; items: Item[] }> => {
+        const characterId = payload.queryStringParameters?.characterId;
+
+        if (!characterId) {
+            throw new Error("CharacterId is required");
+        }
+
+        return getItems(characterId);
+    }
+);
+
+export const buyOrSellItemHandler = requestHandlerWrapper(
+    async (payload: LambdaFunctionUrlPayload): Promise<void> => {
+        const characterId = payload.queryStringParameters?.characterId;
+
+        if (!characterId) {
+            throw new Error("CharacterId is required");
+        }
+
+        const itemId = payload.queryStringParameters?.itemId;
+        const action = payload.queryStringParameters?.action;
+
+        if (!itemId || !action) {
+            throw new Error("ItemId and action are required");
+        }
+
+        if (action !== "buy" && action !== "sell") {
+            throw new Error('Action must be "buy" or "sell"');
+        }
+
+        await buyOrSellItem(characterId, itemId, action);
     }
 );
 

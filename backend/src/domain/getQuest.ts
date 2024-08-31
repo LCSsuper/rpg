@@ -26,6 +26,6 @@ export const getQuest = async (
         id: quests.Item.key.S!.split("#")[1],
         title: quests.Item.title.S!,
         skill: quests.Item.skill.S!,
-        xp: parseInt(quests.Item.xp.N!),
+        xp: parseFloat(quests.Item.xp.N!),
     };
 };

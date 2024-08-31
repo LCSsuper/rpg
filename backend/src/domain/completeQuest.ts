@@ -1,9 +1,9 @@
 import { DynamoDBClient, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 
-import { Quest } from "../types";
 import { getQuest } from "./getQuest";
-import { getMainLevel } from "../utils";
+import { getMainLevel, getSkillLevel } from "../utils";
 import { rewardPlayer } from "./rewardPlayer";
+import { CompleteQuestResponse } from "../types";
 
 const skillMap: Record<string, string> = {
     Charisma: "charisma_xp",
@@ -27,7 +27,7 @@ const skillMap: Record<string, string> = {
 export const completeQuest = async (
     characterId: string,
     questId: string
-): Promise<boolean> => {
+): Promise<CompleteQuestResponse> => {
     const client = new DynamoDBClient();
 
     const quest = await getQuest(characterId, questId);
@@ -55,15 +55,33 @@ export const completeQuest = async (
         })
     );
 
-    const newTotalXp = parseInt(updatedCharacter.Attributes!.xp.N!);
+    const newMainXp = parseFloat(updatedCharacter.Attributes!.xp.N!);
+    const newSkillXp = parseFloat(
+        updatedCharacter.Attributes![skillXpToAdd].N!
+    );
 
     const leveledUp =
-        getMainLevel(newTotalXp).level !==
-        getMainLevel(newTotalXp - quest.xp).level;
+        getMainLevel(newMainXp).level !==
+        getMainLevel(newMainXp - quest.xp).level;
+
+    const subLeveledUp =
+        getSkillLevel(newSkillXp).level !==
+        getSkillLevel(newSkillXp - quest.xp).level;
+
+    const response = {
+        main: { leveledUp },
+        sub: { leveledUp: subLeveledUp },
+    } as CompleteQuestResponse;
 
     if (leveledUp) {
-        await rewardPlayer(characterId, newTotalXp);
+        response.main.reward = await rewardPlayer(characterId, newMainXp);
+        response.main.newLevel = getMainLevel(newMainXp).level;
     }
 
-    return leveledUp;
+    if (subLeveledUp) {
+        response.sub.reward = await rewardPlayer(characterId, newSkillXp);
+        response.sub.newLevel = getSkillLevel(newSkillXp).level;
+    }
+
+    return response;
 };

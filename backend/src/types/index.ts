@@ -4,6 +4,58 @@ export type Skill = {
     level?: Level;
 };
 
+export type ItemType =
+    | "pendant"
+    | "glove"
+    | "vial"
+    | "shell"
+    | "cloak"
+    | "armor"
+    | "elixir"
+    | "band"
+    | "amulet"
+    | "hourglass"
+    | "apple"
+    | "satchel"
+    | "seed"
+    | "charm"
+    | "scarf"
+    | "blanket"
+    | "coin"
+    | "ledger"
+    | "box"
+    | "crystal"
+    | "purse"
+    | "ring"
+    | "pen"
+    | "sands"
+    | "stone"
+    | "herb"
+    | "quill"
+    | "ink"
+    | "canvas"
+    | "spark"
+    | "scroll"
+    | "orb"
+    | "tome"
+    | "hammer"
+    | "lute"
+    | "book"
+    | "harp"
+    | "baton"
+    | "string"
+    | "muse"
+    | "bracelet"
+    | "mirror"
+    | "toolkit"
+    | "oil"
+    | "blueprint"
+    | "gauntlet"
+    | "breaker"
+    | "boots"
+    | "shield"
+    | "potion";
+
 export type Item = {
     id: string;
     name: string;
@@ -11,10 +63,12 @@ export type Item = {
     affectedSkill: string;
     modifier: string;
     cost: number;
+    type: ItemType;
+    owned?: boolean;
 };
 
 export type Inventory = {
-    items: string[];
+    items: Item[];
     gold: number;
 };
 
@@ -35,3 +89,16 @@ export type Level = {
 };
 
 export type Quest = { id: string; title: string; xp: number; skill: string };
+
+export type CompleteQuestResponse = {
+    main: {
+        leveledUp: boolean;
+        newLevel?: number;
+        reward?: { gold: number; item?: string };
+    };
+    sub: {
+        leveledUp: boolean;
+        newLevel?: number;
+        reward?: { gold: number; item?: string };
+    };
+};

@@ -24,6 +24,8 @@ const binarySearch = (array: number[], target: number) => {
     return right;
 };
 
+export const getLevelName = (level: number) => levelNames[level - 1] || "Max";
+
 const getLevel = (xp: number, thresholds: number[]): Level => {
     const level = binarySearch(thresholds, xp) + 1;
     const title = levelNames[level];

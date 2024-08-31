@@ -4,6 +4,7 @@ import {
     Code,
     Function,
     FunctionUrlAuthType,
+    HttpMethod,
     Runtime,
 } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
@@ -35,6 +36,12 @@ export class CreateCharacterStack extends cdk.Stack {
 
         const functionUrl = lambda.addFunctionUrl({
             authType: FunctionUrlAuthType.NONE,
+            cors: {
+                allowCredentials: true,
+                allowedHeaders: ["authorization", "content-type"],
+                allowedMethods: [HttpMethod.POST],
+                allowedOrigins: ["*"],
+            },
         });
 
         new cdk.CfnOutput(this, "CreateCharacterFunctionUrl", {

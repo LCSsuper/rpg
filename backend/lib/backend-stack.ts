@@ -11,6 +11,7 @@ import { GetQuestsStack } from "./get-quests-stack";
 import { UpdateQuestsStack } from "./update-quest-stack";
 import { GetItemsStack } from "./get-items-stack";
 import { CreateCharacterStack } from "./create-character-stack";
+import { BuyOrSellItemStack } from "./buy-or-sell-item-stack";
 
 export class RPGBackendStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -49,6 +50,10 @@ export class RPGBackendStack extends cdk.Stack {
         });
 
         new UpdateQuestsStack(this, "UpdateQuestsStack", {
+            rpgTable,
+        });
+
+        new BuyOrSellItemStack(this, "BuyOrSellItemStack", {
             rpgTable,
         });
     }

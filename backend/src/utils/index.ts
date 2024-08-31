@@ -4,7 +4,7 @@ import {
     subLevelThresholds,
 } from "../constants";
 import { items } from "../domain/constants/items";
-import { Level } from "../types";
+import { Item, Level } from "../types";
 
 const binarySearch = (array: number[], target: number) => {
     let left = 0;
@@ -50,14 +50,14 @@ export const getMainLevel = (xp: number) => getLevel(xp, mainLevelThresholds);
 
 export const getSkillLevel = (xp: number) => getLevel(xp, subLevelThresholds);
 
-export const getLevelReward = (xp: number, currentItemIds: string[]) => {
+export const getLevelReward = (xp: number, currentItems: Item[]) => {
     const mainLevel = getMainLevel(xp);
 
     // TODO @Lucas give an item for a skill that the character has the least xp in
     let itemId: string | undefined;
     if (mainLevel.level % 5 === 0) {
         const allItemIds = items.map((item) => item.id);
-        const itemIds = new Set(currentItemIds);
+        const itemIds = new Set(currentItems.map((item) => item.id));
         // TODO @Lucas use Set.prototype.difference when it's available (Node 22)
         const rewardableItemIds = allItemIds.filter(
             (itemId) => !itemIds.has(itemId)

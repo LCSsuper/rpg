@@ -50,7 +50,7 @@ export const SkillModal = ({ skill }: { skill: Skill | null }) => {
                                 {!quests.length && (
                                     <Center>
                                         <Title order={5} pt="lg" c="dimmed">
-                                            No quests...
+                                            No quests
                                         </Title>
                                     </Center>
                                 )}

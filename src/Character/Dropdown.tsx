@@ -9,6 +9,7 @@ export const Dropdown = ({
     onChange,
     flex,
     allowSelectAll,
+    w,
 }: {
     label?: string;
     placeholder?: string;
@@ -18,6 +19,7 @@ export const Dropdown = ({
     onChange: (value: string) => void;
     flex?: number;
     allowSelectAll?: boolean;
+    w?: string;
 }) => {
     const combobox = useCombobox({
         onDropdownClose: () => combobox.resetSelectedOption(),
@@ -37,6 +39,7 @@ export const Dropdown = ({
                 onChange(val);
                 combobox.closeDropdown();
             }}
+            width={w}
         >
             <Combobox.Target>
                 <InputBase
@@ -49,8 +52,9 @@ export const Dropdown = ({
                     rightSection={<Combobox.Chevron />}
                     onClick={() => combobox.toggleDropdown()}
                     rightSectionPointerEvents="none"
+                    w={w}
                 >
-                    {value || placeholder || "Filter..."}
+                    {value || placeholder || "Filter"}
                 </InputBase>
             </Combobox.Target>
 

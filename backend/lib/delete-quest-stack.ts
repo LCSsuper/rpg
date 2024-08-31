@@ -4,6 +4,7 @@ import {
     Code,
     Function,
     FunctionUrlAuthType,
+    HttpMethod,
     Runtime,
 } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
@@ -31,6 +32,12 @@ export class DeleteQuestStack extends cdk.Stack {
 
         const functionUrl = lambda.addFunctionUrl({
             authType: FunctionUrlAuthType.NONE,
+            cors: {
+                allowCredentials: true,
+                allowedHeaders: ["authorization"],
+                allowedMethods: [HttpMethod.GET],
+                allowedOrigins: ["*"],
+            },
         });
 
         new cdk.CfnOutput(this, "DeleteQuestFunctionUrl", {

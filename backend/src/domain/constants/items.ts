@@ -9,6 +9,7 @@ export const items: Item[] = [
         affectedSkill: "Empathy",
         modifier: "+1",
         cost: 1000,
+        type: "pendant",
     },
     {
         id: "812c5895-cf7b-4b4f-90f4-dcfee5d892b7",
@@ -17,14 +18,16 @@ export const items: Item[] = [
         affectedSkill: "Empathy",
         modifier: "+1",
         cost: 1000,
+        type: "glove",
     },
     {
         id: "7382e991-c393-4baf-bb60-28a700f92dc2",
         name: "Tears of Compassion Vial",
         description: "Doubles Empathy XP when listening to others concerns",
         affectedSkill: "Empathy",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "vial",
     },
     {
         id: "eb9263eb-c390-42e9-a7ee-630336d0a884",
@@ -34,6 +37,7 @@ export const items: Item[] = [
         affectedSkill: "Empathy",
         modifier: "+1",
         cost: 1000,
+        type: "shell",
     },
     {
         id: "0e97fb35-63df-4793-88f8-f90071b1183f",
@@ -42,14 +46,16 @@ export const items: Item[] = [
         affectedSkill: "Empathy",
         modifier: "+1",
         cost: 1000,
+        type: "cloak",
     },
     {
         id: "306469ca-5582-433d-90bc-b436aa8fc08a",
-        name: "Iron Will Bracers",
+        name: "Iron Will Armor",
         description: "Increases Endurance XP during long or difficult tasks",
         affectedSkill: "Endurance",
         modifier: "+1",
         cost: 1000,
+        type: "armor",
     },
     {
         id: "9616e141-c08a-4d3d-b371-7a5c3d64f6fc",
@@ -58,6 +64,7 @@ export const items: Item[] = [
         affectedSkill: "Endurance",
         modifier: "+1",
         cost: 1000,
+        type: "elixir",
     },
     {
         id: "2262159f-fb41-4eeb-bbda-992d32210d31",
@@ -65,8 +72,9 @@ export const items: Item[] = [
         description:
             "Doubles Endurance XP when facing mental or physical strain",
         affectedSkill: "Endurance",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "band",
     },
     {
         id: "66d316d0-ef21-4721-9554-0351e2f075ba",
@@ -75,6 +83,7 @@ export const items: Item[] = [
         affectedSkill: "Endurance",
         modifier: "+1",
         cost: 1000,
+        type: "amulet",
     },
     {
         id: "d36181a4-4872-4ae7-964d-408c24ed1728",
@@ -84,6 +93,7 @@ export const items: Item[] = [
         affectedSkill: "Endurance",
         modifier: "+1",
         cost: 1000,
+        type: "hourglass",
     },
     {
         id: "9b5b5fb7-5a71-48a3-ab78-88138dbbb808",
@@ -92,6 +102,7 @@ export const items: Item[] = [
         affectedSkill: "Nutrition",
         modifier: "+1",
         cost: 1000,
+        type: "apple",
     },
     {
         id: "421bf555-5f11-422e-9664-1991a38355f2",
@@ -100,6 +111,7 @@ export const items: Item[] = [
         affectedSkill: "Nutrition",
         modifier: "+1",
         cost: 1000,
+        type: "satchel",
     },
     {
         id: "4c31d74d-f1f7-4de6-a105-27f6647ae678",
@@ -107,8 +119,9 @@ export const items: Item[] = [
         description:
             "Doubles Nutrition XP when experimenting with new, healthy recipes",
         affectedSkill: "Nutrition",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "elixir",
     },
     {
         id: "0b43db8f-1fee-4a63-9f98-24206bf6ca34",
@@ -117,6 +130,7 @@ export const items: Item[] = [
         affectedSkill: "Nutrition",
         modifier: "+1",
         cost: 1000,
+        type: "seed",
     },
     {
         id: "f482af87-3e72-45e6-974d-17ee36b7edde",
@@ -125,6 +139,7 @@ export const items: Item[] = [
         affectedSkill: "Nutrition",
         modifier: "+1",
         cost: 1000,
+        type: "charm",
     },
     {
         id: "6bdc3f0c-0cc6-417e-9944-178bbe5384c0",
@@ -134,14 +149,16 @@ export const items: Item[] = [
         affectedSkill: "Sleep Hygiene",
         modifier: "+1",
         cost: 1000,
+        type: "charm",
     },
     {
         id: "214b2ceb-c971-4d3f-9056-373925646bf5",
-        name: "Pillow of Serenity",
+        name: "Scarf of Serenity",
         description: "Boosts Sleep Hygiene XP when getting a full night’s rest",
         affectedSkill: "Sleep Hygiene",
         modifier: "+1",
         cost: 1000,
+        type: "scarf",
     },
     {
         id: "3e85f8ca-518b-414d-8cb9-7e32cba2c544",
@@ -149,8 +166,9 @@ export const items: Item[] = [
         description:
             "Doubles Sleep Hygiene XP for maintaining consistent sleep patterns",
         affectedSkill: "Sleep Hygiene",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "elixir",
     },
     {
         id: "154c1699-7b2b-4265-b6b3-335d7e64fed4",
@@ -160,6 +178,7 @@ export const items: Item[] = [
         affectedSkill: "Sleep Hygiene",
         modifier: "+1",
         cost: 1000,
+        type: "amulet",
     },
     {
         id: "58f3c146-5413-4c62-8f6b-45ed48f769f7",
@@ -168,6 +187,7 @@ export const items: Item[] = [
         affectedSkill: "Sleep Hygiene",
         modifier: "+1",
         cost: 1000,
+        type: "blanket",
     },
     {
         id: "bd04d7f9-75aa-499d-9e4b-65a420fa0835",
@@ -176,6 +196,7 @@ export const items: Item[] = [
         affectedSkill: "Finance",
         modifier: "+1",
         cost: 1000,
+        type: "coin",
     },
     {
         id: "3def8a72-5c77-40dc-b6eb-0a0f84d5bef2",
@@ -184,14 +205,16 @@ export const items: Item[] = [
         affectedSkill: "Finance",
         modifier: "+1",
         cost: 1000,
+        type: "ledger",
     },
     {
         id: "6048358e-bf7e-4593-9820-79729c4b41f1",
-        name: "Golden Piggy Bank",
+        name: "Golden Coin Box",
         description: "Doubles Finance XP when reaching savings goals.",
         affectedSkill: "Finance",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "box",
     },
     {
         id: "5cc3165a-2a0d-4f7d-8a2e-b82c51a1c89a",
@@ -200,6 +223,7 @@ export const items: Item[] = [
         affectedSkill: "Finance",
         modifier: "+1",
         cost: 1000,
+        type: "crystal",
     },
     {
         id: "be765d10-0a27-45d5-a5e6-830ec6a1bb48",
@@ -209,6 +233,7 @@ export const items: Item[] = [
         affectedSkill: "Finance",
         modifier: "+1",
         cost: 1000,
+        type: "purse",
     },
     {
         id: "61495af9-4093-4a18-ace1-bc9c59ec5784",
@@ -217,6 +242,7 @@ export const items: Item[] = [
         affectedSkill: "Time Management",
         modifier: "+1",
         cost: 1000,
+        type: "hourglass",
     },
     {
         id: "d010d082-0902-4bf2-985e-90a437d52a24",
@@ -225,14 +251,16 @@ export const items: Item[] = [
         affectedSkill: "Time Management",
         modifier: "+1",
         cost: 1000,
+        type: "ring",
     },
     {
         id: "86851d94-cc91-4e0e-86f8-18788c2b1807",
         name: "Planner’s Pen",
         description: "Doubles Time Management XP for effective scheduling.",
         affectedSkill: "Time Management",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "pen",
     },
     {
         id: "30128be7-75fa-488d-9645-fa80d6155942",
@@ -241,6 +269,7 @@ export const items: Item[] = [
         affectedSkill: "Time Management",
         modifier: "+1",
         cost: 1000,
+        type: "sands",
     },
     {
         id: "922d9038-0288-44a9-a290-2b6f5e164d7b",
@@ -250,6 +279,7 @@ export const items: Item[] = [
         affectedSkill: "Time Management",
         modifier: "+1",
         cost: 1000,
+        type: "amulet",
     },
     {
         id: "ec83588f-7fa0-4099-b504-8b7586d06ab3",
@@ -258,6 +288,7 @@ export const items: Item[] = [
         affectedSkill: "Mental Clarity",
         modifier: "+1",
         cost: 1000,
+        type: "crystal",
     },
     {
         id: "d479d35a-49fd-4d2f-8bdc-bb0b8e536fb0",
@@ -266,14 +297,16 @@ export const items: Item[] = [
         affectedSkill: "Mental Clarity",
         modifier: "+1",
         cost: 1000,
+        type: "amulet",
     },
     {
         id: "dfaaac28-01f9-45fb-8eb8-41668ccae793",
         name: "Elixir of Insight",
         description: "Doubles Mental Clarity XP during problem-solving tasks.",
         affectedSkill: "Mental Clarity",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "elixir",
     },
     {
         id: "df77aabb-5ea4-4773-a0c9-b808b33a71d1",
@@ -282,6 +315,7 @@ export const items: Item[] = [
         affectedSkill: "Mental Clarity",
         modifier: "+1",
         cost: 1000,
+        type: "stone",
     },
     {
         id: "180acfcc-8566-4cf6-83f6-5fca6e458ac9",
@@ -291,6 +325,7 @@ export const items: Item[] = [
         affectedSkill: "Mental Clarity",
         modifier: "+1",
         cost: 1000,
+        type: "herb",
     },
     {
         id: "ae0016a8-59dd-464e-a24c-7374480194d6",
@@ -300,6 +335,7 @@ export const items: Item[] = [
         affectedSkill: "Creativity",
         modifier: "+1",
         cost: 1000,
+        type: "quill",
     },
     {
         id: "c11234cf-9267-441e-9f18-a2117c3e9d55",
@@ -308,14 +344,16 @@ export const items: Item[] = [
         affectedSkill: "Creativity",
         modifier: "+1",
         cost: 1000,
+        type: "ink",
     },
     {
         id: "ec112f5e-b49a-4a84-a11c-3f57091d2657",
         name: "Canvas of Creation",
         description: "Doubles Creativity XP when working on an art project.",
         affectedSkill: "Creativity",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "canvas",
     },
     {
         id: "86c28706-984d-474c-b19a-e56e51d0affd",
@@ -325,6 +363,7 @@ export const items: Item[] = [
         affectedSkill: "Creativity",
         modifier: "+1",
         cost: 1000,
+        type: "crystal",
     },
     {
         id: "f0651fdf-4706-4871-9c65-d47583da3830",
@@ -334,6 +373,7 @@ export const items: Item[] = [
         affectedSkill: "Creativity",
         modifier: "+1",
         cost: 1000,
+        type: "spark",
     },
     {
         id: "7ef82c71-163a-4970-a3cc-c67749a4dc09",
@@ -343,6 +383,7 @@ export const items: Item[] = [
         affectedSkill: "Wisdom",
         modifier: "+1",
         cost: 1000,
+        type: "scroll",
     },
     {
         id: "6409d487-f175-4941-9ff2-782185b430d8",
@@ -351,14 +392,16 @@ export const items: Item[] = [
         affectedSkill: "Wisdom",
         modifier: "+1",
         cost: 1000,
+        type: "stone",
     },
     {
         id: "34643224-7ce7-4d94-822a-5ddd2989544b",
         name: "Oracle’s Orb",
         description: "Doubles Wisdom XP for offering advice or guidance.",
         affectedSkill: "Wisdom",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "orb",
     },
     {
         id: "27e967ac-c010-4d91-9301-dc9497c07ce2",
@@ -367,6 +410,7 @@ export const items: Item[] = [
         affectedSkill: "Wisdom",
         modifier: "+1",
         cost: 1000,
+        type: "tome",
     },
     {
         id: "b81ebdb5-0fac-4595-a6b7-e84950db761f",
@@ -375,6 +419,7 @@ export const items: Item[] = [
         affectedSkill: "Wisdom",
         modifier: "+1",
         cost: 1000,
+        type: "amulet",
     },
     {
         id: "c4767cff-53c7-4627-8bd0-0d6f87a20447",
@@ -384,15 +429,17 @@ export const items: Item[] = [
         affectedSkill: "Tech Proficiency",
         modifier: "+1",
         cost: 1000,
+        type: "band",
     },
     {
         id: "10b02a59-a535-4395-8b22-04266fc0bbdc",
-        name: "Circuit of Mastery",
+        name: "Technology Ring",
         description:
             "Boosts Tech Proficiency XP for coding or technical tasks.",
         affectedSkill: "Tech Proficiency",
         modifier: "+1",
         cost: 1000,
+        type: "ring",
     },
     {
         id: "72dd00f0-376b-4488-929b-5d4409830d1e",
@@ -400,8 +447,9 @@ export const items: Item[] = [
         description:
             "Doubles Tech Proficiency XP for troubleshooting or solving tech issues.",
         affectedSkill: "Tech Proficiency",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "crystal",
     },
     {
         id: "6cee1f0e-6578-4536-92ba-a1f3b47c0cee",
@@ -411,6 +459,7 @@ export const items: Item[] = [
         affectedSkill: "Tech Proficiency",
         modifier: "+1",
         cost: 1000,
+        type: "glove",
     },
     {
         id: "4089b625-e961-4559-819a-de16d3928735",
@@ -420,38 +469,43 @@ export const items: Item[] = [
         affectedSkill: "Tech Proficiency",
         modifier: "+1",
         cost: 1000,
+        type: "amulet",
     },
     {
         id: "83cf35d5-4017-4cb2-8827-8d87e3241e37",
-        name: "Painter’s Palette",
+        name: "Painter’s Purse",
         description: "Increases Art XP during painting or drawing activities.",
         affectedSkill: "Art",
         modifier: "+1",
         cost: 1000,
+        type: "purse",
     },
     {
         id: "0650c896-9918-4423-9493-c7153541ff6e",
-        name: "Sculptor's Chisel",
+        name: "Sculptor's Hammer",
         description: "Boosts Art XP for working with physical mediums.",
         affectedSkill: "Art",
         modifier: "+1",
         cost: 1000,
+        type: "hammer",
     },
     {
         id: "a5bed988-9735-4357-864c-769a2f4d3e67",
-        name: "Brush of Brilliance",
+        name: "Quill of Brilliance",
         description: "Doubles Art XP for completing an art project.",
         affectedSkill: "Art",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "quill",
     },
     {
         id: "9d16a4a8-cae1-4bbf-b4d1-cdb8cb2900bb",
-        name: "Artisan's Easel",
+        name: "Artisan's Orb",
         description: "Enhances Art XP when practicing new techniques.",
         affectedSkill: "Art",
         modifier: "+1",
         cost: 1000,
+        type: "orb",
     },
     {
         id: "c6252a47-39ae-4254-8032-b24954bebadb",
@@ -461,6 +515,7 @@ export const items: Item[] = [
         affectedSkill: "Art",
         modifier: "+1",
         cost: 1000,
+        type: "ink",
     },
     {
         id: "b83e1c04-a8a0-4941-bc50-eb2bec78547c",
@@ -469,6 +524,7 @@ export const items: Item[] = [
         affectedSkill: "Writing",
         modifier: "+1",
         cost: 1000,
+        type: "lute",
     },
     {
         id: "91960baa-541e-47b9-951f-1ad03a3cf696",
@@ -477,14 +533,16 @@ export const items: Item[] = [
         affectedSkill: "Writing",
         modifier: "+1",
         cost: 1000,
+        type: "book",
     },
     {
         id: "a9d58689-6335-463f-8abd-8883b1c956a7",
         name: "Poet's Quill",
         description: "Doubles Writing XP for completing a poetry collection.",
         affectedSkill: "Writing",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "quill",
     },
     {
         id: "b1464393-70bc-4e34-b32d-3082c52907b8",
@@ -493,6 +551,7 @@ export const items: Item[] = [
         affectedSkill: "Writing",
         modifier: "+1",
         cost: 1000,
+        type: "book",
     },
     {
         id: "cb8ec8cc-67fe-4154-afdc-b88457dc824a",
@@ -501,14 +560,16 @@ export const items: Item[] = [
         affectedSkill: "Writing",
         modifier: "+1",
         cost: 1000,
+        type: "charm",
     },
     {
         id: "a1784835-dfca-425f-809f-9bcd1799d626",
-        name: "Harmonic Tuning Fork",
+        name: "Harmonic Harp",
         description: "Increases Music XP during practice or performance.",
         affectedSkill: "Music",
         modifier: "+1",
         cost: 1000,
+        type: "harp",
     },
     {
         id: "547109d6-121b-48ae-97ea-d00509f78afb",
@@ -517,14 +578,16 @@ export const items: Item[] = [
         affectedSkill: "Music",
         modifier: "+1",
         cost: 1000,
+        type: "baton",
     },
     {
         id: "956784b2-937d-44a4-bfd4-0f8d8621ccf1",
         name: "Melody Crystal",
         description: "Doubles Music XP for learning a new instrument.",
         affectedSkill: "Music",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "crystal",
     },
     {
         id: "af98dd6c-a54c-4634-8e25-eed1a74957d8",
@@ -533,6 +596,7 @@ export const items: Item[] = [
         affectedSkill: "Music",
         modifier: "+1",
         cost: 1000,
+        type: "string",
     },
     {
         id: "befa8545-719a-4302-80db-433adc2a4476",
@@ -541,14 +605,16 @@ export const items: Item[] = [
         affectedSkill: "Music",
         modifier: "+1",
         cost: 1000,
+        type: "muse",
     },
     {
         id: "9038d15a-d87b-453c-a9f7-65bca7434b62",
         name: "Silver-Tongued Amulet",
         description: "Boosts Charisma XP when interacting with others",
         affectedSkill: "Charisma",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "amulet",
     },
     {
         id: "77506c09-1f96-4d15-9792-bde1865aefa3",
@@ -558,6 +624,7 @@ export const items: Item[] = [
         affectedSkill: "Charisma",
         modifier: "+1",
         cost: 1000,
+        type: "cloak",
     },
     {
         id: "e2027b54-9dd6-4a8e-a21a-88df8ff6e93a",
@@ -566,14 +633,16 @@ export const items: Item[] = [
         affectedSkill: "Charisma",
         modifier: "+1",
         cost: 1000,
+        type: "bracelet",
     },
     {
         id: "f287d3f6-3c0c-4624-9dda-bc05fa9d0aa7",
         name: "Voice of Persuasion Scroll",
         description: "Doubles Charisma XP by convincing others",
         affectedSkill: "Charisma",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "scroll",
     },
     {
         id: "7720aed3-6dfc-4764-9d58-a96d18e71ec5",
@@ -582,6 +651,7 @@ export const items: Item[] = [
         affectedSkill: "Charisma",
         modifier: "+1",
         cost: 1000,
+        type: "mirror",
     },
     {
         id: "8549c7ce-2cf7-4d1a-903d-c704a0e717b4",
@@ -591,6 +661,7 @@ export const items: Item[] = [
         affectedSkill: "Maintenance",
         modifier: "+1",
         cost: 1000,
+        type: "toolkit",
     },
     {
         id: "a4cf8e88-5669-470e-80cf-faeaaf14c835",
@@ -599,6 +670,7 @@ export const items: Item[] = [
         affectedSkill: "Maintenance",
         modifier: "+1",
         cost: 1000,
+        type: "glove",
     },
     {
         id: "ead01902-f2f5-42a7-8934-c23905d8a24c",
@@ -607,14 +679,16 @@ export const items: Item[] = [
         affectedSkill: "Maintenance",
         modifier: "+1",
         cost: 1000,
+        type: "oil",
     },
     {
         id: "b608deab-a74e-45c5-bc7e-b31eb5937838",
         name: "Blueprints of Mastery",
         description: "Doubles Maintenance XP by planning ahead",
         affectedSkill: "Maintenance",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "blueprint",
     },
     {
         id: "0ec5b8e0-4bad-4dbf-b1d5-acbcf84173d0",
@@ -623,6 +697,7 @@ export const items: Item[] = [
         affectedSkill: "Maintenance",
         modifier: "+1",
         cost: 1000,
+        type: "hammer",
     },
     {
         id: "141e9c09-8948-4e35-abcb-bb949dd441be",
@@ -631,6 +706,7 @@ export const items: Item[] = [
         affectedSkill: "Strength",
         modifier: "+1",
         cost: 1000,
+        type: "gauntlet",
     },
     {
         id: "adb6b970-a6fb-42ec-9729-d8254c9bf68b",
@@ -639,6 +715,7 @@ export const items: Item[] = [
         affectedSkill: "Strength",
         modifier: "+1",
         cost: 1000,
+        type: "breaker",
     },
     {
         id: "fbdf7442-c2ee-4e8b-8be7-9b80711fab7f",
@@ -647,6 +724,7 @@ export const items: Item[] = [
         affectedSkill: "Strength",
         modifier: "+1",
         cost: 1000,
+        type: "boots",
     },
     {
         id: "b3fccdd4-d257-405e-b380-65d75750d2bb",
@@ -654,8 +732,9 @@ export const items: Item[] = [
         description:
             "Doubles Strength XP for weight training or resistance workouts",
         affectedSkill: "Strength",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "elixir",
     },
     {
         id: "ea944ed1-09f8-40c2-a830-e17243edec20",
@@ -664,6 +743,7 @@ export const items: Item[] = [
         affectedSkill: "Strength",
         modifier: "+1",
         cost: 1000,
+        type: "shield",
     },
     {
         id: "b6c8ab39-63df-498d-ab2f-3d3608dab854",
@@ -672,6 +752,7 @@ export const items: Item[] = [
         affectedSkill: "All",
         modifier: "+1",
         cost: 1000,
+        type: "potion",
     },
     {
         id: "2b109787-8d4a-4a9f-9f72-a356f4ed407d",
@@ -680,6 +761,7 @@ export const items: Item[] = [
         affectedSkill: "All",
         modifier: "+1",
         cost: 1000,
+        type: "ring",
     },
     {
         id: "03f79440-0b19-4d0d-8042-44d8c07e0306",
@@ -687,8 +769,9 @@ export const items: Item[] = [
         description:
             "Doubles XP for a random skill the player hasn't practiced in a while",
         affectedSkill: "All",
-        modifier: "*2",
+        modifier: "x2",
         cost: 2000,
+        type: "scroll",
     },
     {
         id: "15effd15-1c57-404c-b960-ffbcfe9defc5",
@@ -697,14 +780,16 @@ export const items: Item[] = [
         affectedSkill: "All",
         modifier: "+1",
         cost: 1000,
+        type: "amulet",
     },
     {
         id: "5c22b4b5-d1dc-4f45-994a-3bf711cd6c4a",
-        name: "Chalice of Reflection",
+        name: "Ring of Reflection",
         description:
             "Grants a bonus to the skill that the player most recently neglected",
         affectedSkill: "All",
         modifier: "+1",
         cost: 1000,
+        type: "ring",
     },
 ];

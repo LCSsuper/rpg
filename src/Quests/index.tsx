@@ -63,6 +63,7 @@ export const Quests = () => {
                     value={skillFilter}
                     placeholder="Filter by skill"
                     allowSelectAll
+                    w="12rem"
                 />
             </Flex>
             <Space h="md" />
@@ -88,8 +89,8 @@ export const Quests = () => {
                                     <Center>
                                         <Title order={5} pt="lg" c="dimmed">
                                             {!quests.length
-                                                ? "No quests..."
-                                                : "No quests in filter..."}
+                                                ? "No quests"
+                                                : "No quests in filter"}
                                         </Title>
                                     </Center>
                                 )}

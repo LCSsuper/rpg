@@ -10,13 +10,12 @@ export const disableRPGBackend = async (): Promise<void> => {
     const functions = await client.send(new ListFunctionsCommand({}));
 
     for (const func of functions.Functions || []) {
-        if (func.FunctionName?.startsWith("RPG")) {
-            await client.send(
-                new PutFunctionConcurrencyCommand({
-                    FunctionName: func.FunctionName,
-                    ReservedConcurrentExecutions: 0,
-                })
-            );
-        }
+        if (!func.FunctionName?.startsWith("RPG")) continue;
+        await client.send(
+            new PutFunctionConcurrencyCommand({
+                FunctionName: func.FunctionName,
+                ReservedConcurrentExecutions: 0,
+            })
+        );
     }
 };

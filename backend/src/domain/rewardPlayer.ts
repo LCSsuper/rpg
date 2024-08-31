@@ -6,11 +6,12 @@ import {
 
 import { getLevelReward } from "../utils";
 import { getInventory } from "./getInventory";
+import { items } from "./constants/items";
 
 export const rewardPlayer = async (
     characterId: string,
     newTotalXp: number
-): Promise<void> => {
+): Promise<{ gold: number; item?: string }> => {
     const client = new DynamoDBClient();
 
     const inventory = await getInventory(characterId);
@@ -39,4 +40,6 @@ export const rewardPlayer = async (
     }
 
     await client.send(new UpdateItemCommand(input));
+
+    return { gold, item: items.find((i) => i.id === itemId)?.name };
 };

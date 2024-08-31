@@ -1,4 +1,4 @@
-import { Transition, Affix, Center, Loader, Box } from "@mantine/core";
+import { Transition, Affix, Center, Loader, Overlay } from "@mantine/core";
 
 const LoadingContent = () => {
     return (
@@ -19,15 +19,15 @@ export const Loading = ({
         <Transition
             mounted={loading}
             transition="fade"
-            duration={withinPortal ? 0 : 400}
+            duration={400}
             timingFunction="ease"
         >
             {(styles) => (
                 <>
                     {withinPortal ? (
-                        <Box style={styles} h="10rem">
+                        <Overlay style={styles} h="10rem" bg="none">
                             <LoadingContent />
-                        </Box>
+                        </Overlay>
                     ) : (
                         <Affix
                             position={{

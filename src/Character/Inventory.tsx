@@ -1,22 +1,11 @@
-import {
-    Title,
-    Grid,
-    Card,
-    Center,
-    Space,
-    Overlay,
-    Group,
-    RingProgress,
-    Text,
-    Box,
-} from "@mantine/core";
-import {
-    IconSword,
-    IconCash,
-    IconInfinity,
-    IconCoin,
-} from "@tabler/icons-react";
+import { Title, Grid, Space, Group, Text, Box, Center } from "@mantine/core";
 import { Inventory } from "../types";
+import { ItemIcon } from "../Components/ItemIcon";
+import { ItemCard } from "../Components/ItemCard";
+
+const getNextNumberDivisibleBy = (number: number, divisor: number) => {
+    return number + (divisor - (number % divisor)) || 4;
+};
 
 export const InventoryBox = ({ inventory }: { inventory: Inventory }) => {
     return (
@@ -24,68 +13,34 @@ export const InventoryBox = ({ inventory }: { inventory: Inventory }) => {
             <Box p="xs">
                 <Space h="lg" />
                 <Group align="center" gap="5">
-                    <Text size="md" fw={700}>
+                    <Text size="xl" fw={700}>
                         {inventory.gold}
                     </Text>
-                    <IconCoin color="var(--mantine-color-yellow-filled)" />
+                    <ItemIcon name="coin" scale={1} />
                 </Group>
                 <Space h="lg" />
             </Box>
             <Box p="xs" pos="relative">
                 <Title order={3}>Items</Title>
                 <Grid>
-                    {Array.from({ length: 8 }).map((_, index) => (
-                        <Grid.Col span={3} key={index}>
-                            <Card withBorder h="4.5rem">
-                                <Center h="100%">
-                                    {index < 3 && <IconSword />}
+                    {Array.from({
+                        length: getNextNumberDivisibleBy(
+                            inventory.items.length,
+                            4
+                        ),
+                    }).map((_, index) => {
+                        const item = inventory.items[index];
+
+                        return (
+                            <Grid.Col span={3} key={index}>
+                                <Center>
+                                    <ItemCard item={item} />
                                 </Center>
-                            </Card>
-                        </Grid.Col>
-                    ))}
+                            </Grid.Col>
+                        );
+                    })}
                 </Grid>
                 <Space h="lg" />
-                <Title order={3}>Active items</Title>
-                <Grid>
-                    {Array.from({ length: 4 }).map((_, index) => (
-                        <Grid.Col span={3} key={index}>
-                            <Card withBorder h="4.5rem">
-                                <Center h="100%">
-                                    <IconCash />
-                                </Center>
-                                <Overlay bg="none" opacity={1}>
-                                    <Group justify="end">
-                                        {Math.random() > 0.5 ? (
-                                            <RingProgress
-                                                size={25}
-                                                thickness={4}
-                                                sections={[
-                                                    {
-                                                        value: Math.floor(
-                                                            Math.random() * 100
-                                                        ),
-                                                        color: "violet",
-                                                    },
-                                                ]}
-                                            />
-                                        ) : (
-                                            <Text c="violet">
-                                                <IconInfinity size={25} />
-                                            </Text>
-                                        )}
-                                    </Group>
-                                </Overlay>
-                            </Card>
-                        </Grid.Col>
-                    ))}
-                </Grid>
-                <Overlay bg="none" blur={3}>
-                    <Center h="100%">
-                        <Title order={3} c="dimmed">
-                            coming soon...
-                        </Title>
-                    </Center>
-                </Overlay>
             </Box>
         </Box>
     );

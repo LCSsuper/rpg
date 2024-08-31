@@ -3,6 +3,11 @@
     border: 1px solid red;
 }
 
+.test2 {
+    box-sizing: border-box;
+    border: 1px solid blue;
+}
+
 .notifications > div {
     float: right;
     display: flex;

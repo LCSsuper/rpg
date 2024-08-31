@@ -1,166 +1,130 @@
-import { faker } from "@faker-js/faker";
+import * as superagent from "superagent";
 
-import { Character, Item, Quest } from "../types";
-import { skillNames } from "../constants";
-import { getLevelReward, getMainLevel } from "../utils";
+import { Character, CompleteQuestResponse, Item, Quest } from "../types";
 
-const mockData = false;
+const loadCharacterIdAndToken = () => {
+    const characterId = window.localStorage.getItem("characterId");
+    const token = window.localStorage.getItem("token");
 
-const character: Character = {
-    id: "bf01802f-fffc-4d50-977f-69f1d3850a9e",
-    name: "Lucas",
-    xp: 0,
-    inventory: {
-        items: [],
-        gold: 0,
-    },
-    skills: {
-        Charisma: 0,
-        Empathy: 0,
-        Strength: 0,
-        Endurance: 0,
-        Nutrition: 0,
-        "Sleep hygiene": 0,
-        Finance: 0,
-        "Time management": 0,
-        "Mental clarity": 0,
-        Creativity: 0,
-        Wisdom: 0,
-        "Tech proficiency": 0,
-        Maintenance: 0,
-        Art: 0,
-        Writing: 0,
-        Music: 0,
-    },
+    if (!characterId || !token) {
+        throw new Error("Character ID or token not found");
+    }
+
+    return { characterId, token };
 };
 
-const quests: Quest[] = [
-    { title: "test1", skill: "Charisma", xp: 1, id: "1" },
-    { title: "test2", skill: "Charisma", xp: 2, id: "2" },
-    { title: "test3", skill: "Charisma", xp: 5, id: "3" },
-    { title: "test4", skill: "Charisma", xp: 10, id: "4" },
-    { title: "test5", skill: "Charisma", xp: 50, id: "5" },
-];
+export const createCharacter = async (
+    token: string,
+    name: string
+): Promise<{ characterId: string }> => {
+    const { body } = await superagent
+        .post(
+            "https://qxlazojoawnbwjr22xq3u6ehw40yzoga.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .send({ name });
+
+    return body;
+};
 
 export const getCharacter = async (): Promise<Character> => {
-    // TODO @Lucas fetch character data from the backend
+    const { characterId, token } = loadCharacterIdAndToken();
+    const { body } = await superagent
+        .get(
+            "https://b3qstxrrcmqpdz26upmadkri3e0rswkz.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId });
 
-    await new Promise((resolve) => setTimeout(resolve, 50));
-
-    if (!mockData) return character;
-
-    return Promise.resolve({
-        id: "bf01802f-fffc-4d50-977f-69f1d3850a9e",
-        name: "Lucas",
-        xp: faker.number.int({ min: 0, max: 50000 }),
-        inventory: {
-            items: [],
-            gold: faker.number.int({ min: 0, max: 1000 }),
-        },
-        skills: {
-            Charisma: faker.number.int({ min: 0, max: 5000 }),
-            Empathy: faker.number.int({ min: 0, max: 5000 }),
-            Strength: faker.number.int({ min: 0, max: 5000 }),
-            Endurance: faker.number.int({ min: 0, max: 5000 }),
-            Nutrition: faker.number.int({ min: 0, max: 5000 }),
-            "Sleep hygiene": faker.number.int({ min: 0, max: 5000 }),
-            Finance: faker.number.int({ min: 0, max: 5000 }),
-            "Time management": faker.number.int({ min: 0, max: 5000 }),
-            "Mental clarity": faker.number.int({ min: 0, max: 5000 }),
-            Creativity: faker.number.int({ min: 0, max: 5000 }),
-            Wisdom: faker.number.int({ min: 0, max: 5000 }),
-            "Tech proficiency": faker.number.int({ min: 0, max: 5000 }),
-            Maintenance: faker.number.int({ min: 0, max: 5000 }),
-            Art: faker.number.int({ min: 0, max: 5000 }),
-            Writing: faker.number.int({ min: 0, max: 5000 }),
-            Music: faker.number.int({ min: 0, max: 5000 }),
-        },
-    });
+    return body;
 };
 
 export const getQuests = async (skill?: string): Promise<Quest[]> => {
-    // TODO @Lucas fetch quest data from the backend
+    const { characterId, token } = loadCharacterIdAndToken();
+    const { body } = await superagent
+        .get(
+            "https://hdbndhuhfwr37xpprn6qbouv2e0mebcr.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ skill, characterId });
 
-    await new Promise((resolve) => setTimeout(resolve, 50));
-
-    if (!mockData) return quests.filter((q) => !skill || q.skill === skill);
-
-    return Array.from({ length: faker.number.int({ min: 0, max: 10 }) }).map(
-        () => ({
-            id: faker.string.uuid(),
-            title: faker.lorem.words({ min: 2, max: 8 }),
-            skill: skillNames[Math.floor(Math.random() * skillNames.length)],
-            xp: [0.1, 0.5, 1, 2][Math.floor(Math.random() * 4)],
-        })
-    );
+    return body;
 };
 
 export const createQuest = async (quest: Quest): Promise<void> => {
-    // TODO @Lucas send quest to the backend
-
-    await new Promise((resolve) => setTimeout(resolve, 150));
-
-    quests.push(quest);
-
-    return Promise.resolve();
+    const { characterId, token } = loadCharacterIdAndToken();
+    await superagent
+        .post(
+            "https://4uiuizl5lc7vjeqsp44gyp7hqi0eiqme.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId })
+        .send(quest);
 };
 
 export const updateQuest = async (quest: Quest): Promise<void> => {
-    // TODO @Lucas send updated quest to the backend
-
-    await new Promise((resolve) => setTimeout(resolve, 150));
-
-    console.log("😻", quests, quest);
-
-    const index = quests.findIndex((q) => q.id === quest.id);
-
-    if (index === -1) return Promise.resolve();
-
-    quests[index] = quest;
-
-    return Promise.resolve();
+    const { characterId, token } = loadCharacterIdAndToken();
+    await superagent
+        .post(
+            "https://s2ndcoqawucl5f677aoakatfny0higlm.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId })
+        .send(quest);
 };
 
-export const deleteQuest = async (quest: Quest): Promise<void> => {
-    // TODO @Lucas send delete request to the backend
-
-    await new Promise((resolve) => setTimeout(resolve, 150));
-
-    const index = quests.findIndex((q) => q.id === quest.id);
-
-    if (index === -1) return Promise.resolve();
-
-    quests.splice(index, 1);
-
-    return Promise.resolve();
+export const deleteQuest = async (questId: string): Promise<void> => {
+    const { characterId, token } = loadCharacterIdAndToken();
+    await superagent
+        .get(
+            "https://7vuaeb3z4zc6fvqufcebfkx2uu0wwrgr.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ questId, characterId });
 };
 
 export const completeQuest = async (
-    quest: Quest
-): Promise<{ leveledUp: boolean }> => {
-    // TODO @Lucas send complete quest request to the backend
+    questId: string
+): Promise<CompleteQuestResponse> => {
+    const { characterId, token } = loadCharacterIdAndToken();
+    const { body } = await superagent
+        .get(
+            "https://gdzr4nunpckgjnm2jmwf7oljiy0cajpj.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ questId, characterId });
 
-    await new Promise((resolve) => setTimeout(resolve, 150));
-
-    const leveledUp =
-        getMainLevel(character.xp).level !==
-        getMainLevel(character.xp + quest.xp).level;
-
-    character.xp += quest.xp;
-    character.skills[quest.skill] += quest.xp;
-
-    if (leveledUp) {
-        const reward = getLevelReward(getMainLevel(character.xp).level);
-        character.inventory.gold += reward.gold;
-    }
-
-    return Promise.resolve({ leveledUp });
+    return body;
 };
 
-export const getItems = async (): Promise<Item[]> => {
-    // TODO @Lucas fetch item data from the backend
+export const getItems = async (): Promise<{ gold: number; items: Item[] }> => {
+    const { token, characterId } = loadCharacterIdAndToken();
+    const { body } = await superagent
+        .get(
+            "https://nuiucso2z4wiakwfx65y5l5nsq0fnkeq.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId });
 
-    await new Promise((resolve) => setTimeout(resolve, 50));
+    return body;
+};
 
-    return [];
+export const buyItem = async (itemId: string): Promise<void> => {
+    const { token, characterId } = loadCharacterIdAndToken();
+    await superagent
+        .get(
+            "https://6v4bhq3pznfbkturp2xhmml3s40blnqn.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId, itemId, action: "buy" });
+};
+
+export const sellItem = async (itemId: string): Promise<void> => {
+    const { token, characterId } = loadCharacterIdAndToken();
+    await superagent
+        .get(
+            "https://6v4bhq3pznfbkturp2xhmml3s40blnqn.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId, itemId, action: "sell" });
 };

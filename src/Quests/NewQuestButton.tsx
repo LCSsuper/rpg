@@ -4,12 +4,17 @@ import {
     Button,
     Center,
     Flex,
+    Loader,
     Modal,
     Space,
     TextInput,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconInfoCircle } from "@tabler/icons-react";
+import {
+    IconCheck,
+    IconExclamationCircle,
+    IconInfoCircle,
+} from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
 import { v4 } from "uuid";
 
@@ -22,15 +27,17 @@ import * as api from "../api";
 const NewQuestModal = ({
     onAccept,
     onCancel,
+    loading,
 }: {
     onAccept: (quest: Quest) => void;
     onCancel: () => void;
+    loading: boolean;
 }) => {
     const [title, setTitle] = useState<string>("");
     const [skill, setSkill] = useState<string>("");
     const [xp, setXp] = useState<number | undefined>(undefined);
 
-    const disabled = !title || !skill || !xp;
+    const disabled = !title || !skill || !xp || loading;
 
     return (
         <Center>
@@ -79,7 +86,7 @@ const NewQuestModal = ({
                         }}
                         disabled={disabled}
                     >
-                        Create Quest
+                        {loading ? <Loader size="xs" /> : "Create Quest"}
                     </Button>
                 </Flex>
             </Box>
@@ -88,6 +95,7 @@ const NewQuestModal = ({
 };
 
 export const NewQuestButton = ({ onCreate }: { onCreate: () => void }) => {
+    const [loading, setLoading] = useState(false);
     const [opened, { open, close }] = useDisclosure(false);
 
     return (
@@ -104,19 +112,24 @@ export const NewQuestButton = ({ onCreate }: { onCreate: () => void }) => {
                 }}
             >
                 <NewQuestModal
+                    loading={loading}
                     onAccept={async (quest) => {
                         try {
+                            setLoading(true);
                             await api.createQuest(quest);
                             notifications.show({
                                 message: "Quest created!",
-                                color: "violet",
+                                color: "green",
+                                icon: <IconCheck size="1.5rem" />,
                             });
                         } catch {
                             notifications.show({
                                 message: "Could not create quest",
                                 color: "red",
+                                icon: <IconExclamationCircle size="1.5rem" />,
                             });
                         } finally {
+                            setLoading(false);
                             close();
                             onCreate();
                         }
