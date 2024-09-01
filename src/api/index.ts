@@ -27,6 +27,18 @@ export const createCharacter = async (
     return body;
 };
 
+export const characterExists = async (
+    characterId: string,
+    token: string
+): Promise<void> => {
+    await superagent
+        .get(
+            "https://b3qstxrrcmqpdz26upmadkri3e0rswkz.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId });
+};
+
 export const getCharacter = async (): Promise<Character> => {
     const { characterId, token } = loadCharacterIdAndToken();
     const { body } = await superagent

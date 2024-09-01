@@ -82,7 +82,13 @@ const NewQuestModal = ({
                         flex={1}
                         onClick={() => {
                             if (!title || !skill || !xp) return;
-                            onAccept({ id: v4(), title, skill, xp });
+                            onAccept({
+                                id: v4(),
+                                title,
+                                skill,
+                                xp,
+                                modifiedXp: xp,
+                            });
                         }}
                         disabled={disabled}
                     >

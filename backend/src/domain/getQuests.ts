@@ -5,6 +5,8 @@ import {
 } from "@aws-sdk/client-dynamodb";
 
 import { Quest } from "../types";
+import { getItems } from "./getItems";
+import { parseRawQuest } from "./helpers/parseRawQuest";
 
 export const getQuests = async (
     characterId: string,
@@ -32,14 +34,15 @@ export const getQuests = async (
         input.ExpressionAttributeValues![":skill"] = { S: skill };
     }
 
-    const quests = await client.send(new QueryCommand(input));
+    const rawQuests = await client.send(new QueryCommand(input));
 
-    return (
-        quests.Items?.map((quest) => ({
-            id: quest.key.S!.split("#")[1],
-            title: quest.title.S!,
-            skill: quest.skill.S!,
-            xp: parseFloat(quest.xp.N!),
-        })) || []
+    if (!rawQuests.Items?.length) return [];
+
+    const { items } = await getItems(characterId);
+
+    const quests: Quest[] = rawQuests.Items?.map((rawQuest) =>
+        parseRawQuest(rawQuest, items)
     );
+
+    return quests;
 };

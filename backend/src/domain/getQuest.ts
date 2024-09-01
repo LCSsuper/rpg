@@ -1,6 +1,8 @@
 import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
 
 import { Quest } from "../types";
+import { parseRawQuest } from "./helpers/parseRawQuest";
+import { getItems } from "./getItems";
 
 export const getQuest = async (
     characterId: string,
@@ -22,10 +24,7 @@ export const getQuest = async (
         throw new Error("Quest not found");
     }
 
-    return {
-        id: quests.Item.key.S!.split("#")[1],
-        title: quests.Item.title.S!,
-        skill: quests.Item.skill.S!,
-        xp: parseFloat(quests.Item.xp.N!),
-    };
+    const { items } = await getItems(characterId);
+
+    return parseRawQuest(quests.Item, items);
 };

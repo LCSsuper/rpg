@@ -88,7 +88,13 @@ export type Level = {
     xpGatheredInLevel: number;
 };
 
-export type Quest = { id: string; title: string; xp: number; skill: string };
+export type Quest = {
+    id: string;
+    title: string;
+    xp: number;
+    modifiedXp: number;
+    skill: string;
+};
 
 export type CompleteQuestResponse = {
     main: {

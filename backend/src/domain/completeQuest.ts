@@ -45,10 +45,13 @@ export const completeQuest = async (
                 key: { S: "character" },
             },
             AttributeUpdates: {
-                xp: { Action: "ADD", Value: { N: quest.xp!.toString() } },
+                xp: {
+                    Action: "ADD",
+                    Value: { N: quest.modifiedXp!.toString() },
+                },
                 [skillXpToAdd]: {
                     Action: "ADD",
-                    Value: { N: quest.xp!.toString() },
+                    Value: { N: quest.modifiedXp!.toString() },
                 },
             },
             ReturnValues: "ALL_NEW",
@@ -62,11 +65,11 @@ export const completeQuest = async (
 
     const leveledUp =
         getMainLevel(newMainXp).level !==
-        getMainLevel(newMainXp - quest.xp).level;
+        getMainLevel(newMainXp - quest.modifiedXp).level;
 
     const subLeveledUp =
         getSkillLevel(newSkillXp).level !==
-        getSkillLevel(newSkillXp - quest.xp).level;
+        getSkillLevel(newSkillXp - quest.modifiedXp).level;
 
     const response = {
         main: { leveledUp },

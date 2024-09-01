@@ -66,7 +66,13 @@ export const EditQuestModal = ({
                         flex={1}
                         onClick={() => {
                             if (!title || !skill || !xp) return;
-                            onAccept({ id: quest.id, title, skill, xp });
+                            onAccept({
+                                id: quest.id,
+                                title,
+                                skill,
+                                xp,
+                                modifiedXp: xp,
+                            });
                         }}
                         disabled={disabled}
                     >

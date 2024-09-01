@@ -18,6 +18,7 @@ import { SkillCard } from "../Components/SkillCard";
 import { getMainLevel, getSkillLevel } from "../utils";
 import { SkillModal } from "./SkillModal";
 import { InventoryBox } from "./Inventory";
+import { HelpButton } from "../Components/HelpButton";
 
 const characterImages = [
     { threshold: 84, src: "./character7.png" },
@@ -71,17 +72,19 @@ export const CharacterBox = ({
             >
                 <SkillModal skill={selectedSkill} />
             </Modal>
-            <Box pos="fixed">
-                <Group gap="xs">
+            <Box pos="fixed" w="100%">
+                <Group justify="space-between">
                     <Title order={2} c="violet">
                         {character.name}
                     </Title>
+                    <HelpButton />
                 </Group>
             </Box>
             <div
                 style={{
                     position: "relative",
                     height: "15rem",
+                    zIndex: -1,
                 }}
             >
                 <div

@@ -36,7 +36,7 @@ const CompleteQuestButton = ({ quest }: { quest: Quest }) => {
         try {
             setLoading(true);
             notifications.show({
-                message: `+${quest.xp} XP`,
+                message: `+${quest.modifiedXp} XP`,
                 color: "transparent",
                 withCloseButton: false,
                 w: "6rem",
@@ -113,6 +113,8 @@ export const QuestCard = ({
     const [removeOpened, { open: openRemove, close: closeRemove }] =
         useDisclosure(false);
 
+    const xpIsModified = quest.xp !== quest.modifiedXp;
+
     return (
         <>
             <Modal
@@ -172,11 +174,33 @@ export const QuestCard = ({
                             <Title flex={1} order={5} pr="xs">
                                 {quest.title}
                             </Title>
-                            <Group flex="0 0 3rem" justify="end" align="start">
-                                <Badge color="green" tt="none">
-                                    {`+${quest.xp} XP`}
+                            <Flex
+                                flex="0 0 3rem"
+                                gap="xs"
+                                align="end"
+                                direction="column"
+                            >
+                                <Badge
+                                    color="green"
+                                    tt="none"
+                                    variant={xpIsModified ? "light" : "filled"}
+                                >
+                                    <Box
+                                        td={
+                                            xpIsModified
+                                                ? "line-through"
+                                                : undefined
+                                        }
+                                    >
+                                        {`+${quest.xp} XP`}
+                                    </Box>
                                 </Badge>
-                            </Group>
+                                {xpIsModified && (
+                                    <Badge tt="none" color="green">
+                                        +{quest.modifiedXp} XP
+                                    </Badge>
+                                )}
+                            </Flex>
                         </Flex>
                         <Space h="lg" />
                         <Group justify="space-between" align="end">

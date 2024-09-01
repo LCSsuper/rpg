@@ -1,11 +1,9 @@
 -   WIP
 -   TODO
+    -   Add help button to all pages
     -   Delete character
-    -   Implement item modifiers
     -   Generate 10 images per character (implement 3 characters)
-    -   Help popup (explains how the app works)
     -   Feedback popup (lets users send feedback to me)
-    -   Buy me a coffee link?
     -   Download button if not installed as PWA yet
 -   SHOULD HAVE
     -   Item price based on level
@@ -13,3 +11,5 @@
 -   NICE TO HAVE
     -   Temporary items (items that run out after a timer)
     -   Daily quest combos (more XP gains when concurrently executing quests)
+
+10373434-f089-4dc4-ae83-8727dac5315d
