@@ -11,10 +11,20 @@ import {
     Group,
     Flex,
     Button,
+    Textarea,
+    Overlay,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
-import { IconCopy, IconHelpCircle } from "@tabler/icons-react";
+import {
+    IconCheck,
+    IconCopy,
+    IconExclamationCircle,
+    IconHelpCircle,
+} from "@tabler/icons-react";
+import { useState } from "react";
+
+import * as api from "../api";
 
 const HowToPlay = () => (
     <>
@@ -42,20 +52,75 @@ const HowToPlay = () => (
     </>
 );
 
-const Support = () => (
-    <>
-        {/* <Text>
-            If you have any questions or feedback, please contact me at{" "}
-            <a href="mailto:lcssuper@gmail.com">lcssuper@gmail.com</a>
-        </Text> */}
-        <Text>
-            You can support me by buying me a coffee at{" "}
-            <a href="https://www.buymeacoffee.com/lcssuper">
-                buymeacoffee.com/lcssuper
-            </a>
-        </Text>
-    </>
-);
+const Support = () => {
+    const [loading, setLoading] = useState(false);
+    const [feedback, setFeedback] = useState("");
+    const [feedbackSent, setFeedbackSent] = useState(false);
+
+    const sendFeedback = async () => {
+        try {
+            setLoading(true);
+
+            await api.sendFeedback(feedback);
+            notifications.show({
+                message: "Feedback sent!",
+                color: "green",
+                icon: <IconCheck size="1.5rem" />,
+            });
+            setFeedbackSent(true);
+        } catch {
+            notifications.show({
+                message: `Could not send feedback`,
+                color: "red",
+                icon: <IconExclamationCircle size="1.5rem" />,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <>
+            <Box pos="relative">
+                <Textarea
+                    rows={5}
+                    maxRows={5}
+                    maxLength={500}
+                    placeholder="Your feedback..."
+                    label="Any thoughts about the app? Send some feedback!"
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.currentTarget.value)}
+                    disabled={loading || feedbackSent}
+                />
+                <Space h="xs" />
+                <Group justify="space-between" align="start">
+                    <Text size="xs" c="dimmed">
+                        {`${feedback.length}/500`}
+                    </Text>
+                    <Button
+                        w="5rem"
+                        disabled={loading || !feedback.length || feedbackSent}
+                        onClick={sendFeedback}
+                    >
+                        Send
+                    </Button>
+                </Group>
+                <Overlay bg="none" blur={3}>
+                    <Center h="100%">
+                        <Text c="gray">Thank you for sending feedback!</Text>
+                    </Center>
+                </Overlay>
+            </Box>
+            <Space h="lg" />
+            <Text>
+                You can also support me by buying me a coffee at{" "}
+                <a href="https://www.buymeacoffee.com/lcssuper">
+                    buymeacoffee.com/lcssuper
+                </a>
+            </Text>
+        </>
+    );
+};
 
 const CharacterOptions = () => {
     const characterId = localStorage.getItem("characterId");

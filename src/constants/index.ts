@@ -129,13 +129,13 @@ export const skills = [
     { name: "Strength", type: "health" }, // physical strength, muscle mass, etc.
     { name: "Endurance", type: "health" }, // stamina, pain tolerance, etc.
     { name: "Nutrition", type: "health" }, // diet, hydration, etc.
-    { name: "Sleep Hygiene", type: "health" }, // sleep quality, sleep schedule, etc.
+    { name: "Sleep hygiene", type: "health" }, // sleep quality, sleep schedule, etc.
     { name: "Finance", type: "practical" }, // budgeting, investing, etc.
-    { name: "Time Management", type: "practical" }, // planning, prioritization, etc.
-    { name: "Mental Clarity", type: "mental" }, // meditation, journaling, etc.
+    { name: "Time management", type: "practical" }, // planning, prioritization, etc.
+    { name: "Mental clarity", type: "mental" }, // meditation, journaling, etc.
     { name: "Creativity", type: "mental" }, // writing, music, art, etc.
     { name: "Wisdom", type: "mental" }, // reading, learning a language, etc.
-    { name: "Tech Proficiency", type: "technical" }, // coding, graphic design, data anaysis, etc.
+    { name: "Tech proficiency", type: "technical" }, // coding, graphic design, data anaysis, etc.
     { name: "Maintenance", type: "technical" }, // car maintenance, home repair, etc.
     { name: "Art", type: "creativity" }, // painting, drawing, etc.
     { name: "Writing", type: "creativity" }, // blogging, poetry, etc.

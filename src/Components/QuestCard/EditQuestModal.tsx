@@ -6,6 +6,7 @@ import {
     Flex,
     Button,
     Loader,
+    Text,
 } from "@mantine/core";
 import { useState } from "react";
 
@@ -37,6 +38,8 @@ export const EditQuestModal = ({
                     label="Title"
                     value={title}
                     onChange={(e) => setTitle(e.currentTarget.value)}
+                    maxLength={50}
+                    rightSection={<Text size="xs">{`${title.length}/50`}</Text>}
                 />
                 <Space h="md" />
                 <Flex gap="xs">
@@ -45,7 +48,7 @@ export const EditQuestModal = ({
                         onChange={setSkill}
                         values={skillNames}
                         value={skill}
-                        placeholder="Choose a skill"
+                        placeholder="Choose skill"
                         label="Skill"
                     />
                     <Dropdown
@@ -53,7 +56,7 @@ export const EditQuestModal = ({
                         onChange={(xpString: string) => setXp(Number(xpString))}
                         values={[0.1, 0.5, 1, 2]}
                         value={xp}
-                        placeholder="Choose XP reward"
+                        placeholder="Choose reward"
                         label="XP reward"
                     />
                 </Flex>

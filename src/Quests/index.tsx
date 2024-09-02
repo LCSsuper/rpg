@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+    Affix,
     Box,
     Button,
     Center,
@@ -18,6 +19,7 @@ import { FetchedBox } from "../Components/FetchedBox";
 import { Quest } from "../types";
 import { Dropdown } from "../Character/Dropdown";
 import { NewQuestButton } from "./NewQuestButton";
+import { HelpButton } from "../Components/HelpButton";
 
 export const Quests = () => {
     const [search, setSearch] = useState("");
@@ -27,6 +29,9 @@ export const Quests = () => {
 
     return (
         <Box key={randomId}>
+            <Affix position={{ top: 0, right: 0 }} p="lg">
+                <HelpButton />
+            </Affix>
             <Title size="3rem">Quests</Title>
             <Space h="lg" />
             <Flex gap="xs">
@@ -54,6 +59,7 @@ export const Quests = () => {
                     onChange={(e) => {
                         setSearch(e.target.value);
                     }}
+                    max={50}
                 />
                 <Dropdown
                     onChange={(skill) => {

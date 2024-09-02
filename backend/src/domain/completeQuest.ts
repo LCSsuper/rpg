@@ -3,21 +3,23 @@ import { DynamoDBClient, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { getQuest } from "./getQuest";
 import { getMainLevel, getSkillLevel } from "../utils";
 import { rewardPlayer } from "./rewardPlayer";
-import { CompleteQuestResponse } from "../types";
+import { CompleteQuestResponse, SkillName } from "../types";
+import { parseRawCharacter } from "./helpers/parseRawCharacter";
+import { getInventory } from "./getInventory";
 
-const skillMap: Record<string, string> = {
+const skillMap: Record<SkillName, string> = {
     Charisma: "charisma_xp",
     Empathy: "empathy_xp",
     Strength: "strength_xp",
     Endurance: "endurance_xp",
     Nutrition: "nutrition_xp",
-    "Sleep Hygiene": "sleep_hygiene_xp",
+    "Sleep hygiene": "sleep_hygiene_xp",
     Finance: "finance_xp",
-    "Time Management": "time_management_xp",
-    "Mental Clarity": "mental_clarity_xp",
+    "Time management": "time_management_xp",
+    "Mental clarity": "mental_clarity_xp",
     Creativity: "creativity_xp",
     Wisdom: "wisdom_xp",
-    "Tech Proficiency": "tech_proficiency_xp",
+    "Tech proficiency": "tech_proficiency_xp",
     Maintenance: "maintenance_xp",
     Art: "art_xp",
     Writing: "writing_xp",
@@ -58,10 +60,15 @@ export const completeQuest = async (
         })
     );
 
-    const newMainXp = parseFloat(updatedCharacter.Attributes!.xp.N!);
-    const newSkillXp = parseFloat(
-        updatedCharacter.Attributes![skillXpToAdd].N!
+    const inventory = await getInventory(characterId);
+    const character = parseRawCharacter(
+        characterId,
+        updatedCharacter.Attributes!,
+        inventory
     );
+
+    const newMainXp = character.xp;
+    const newSkillXp = character.skills[quest.skill];
 
     const leveledUp =
         getMainLevel(newMainXp).level !==
@@ -77,12 +84,12 @@ export const completeQuest = async (
     } as CompleteQuestResponse;
 
     if (leveledUp) {
-        response.main.reward = await rewardPlayer(characterId, newMainXp);
+        response.main.reward = await rewardPlayer(character, newMainXp);
         response.main.newLevel = getMainLevel(newMainXp).level;
     }
 
     if (subLeveledUp) {
-        response.sub.reward = await rewardPlayer(characterId, newSkillXp);
+        response.sub.reward = await rewardPlayer(character, newSkillXp);
         response.sub.newLevel = getSkillLevel(newSkillXp).level;
     }
 

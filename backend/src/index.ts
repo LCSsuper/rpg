@@ -4,12 +4,13 @@ import { createCharacterAndInventory } from "./domain/createCharacterAndInventor
 import { createQuest } from "./domain/createQuest";
 import { deleteQuest } from "./domain/deleteQuest";
 import { disableRPGBackend } from "./domain/disableRPGBackend";
-import { getCharacter } from "./domain/getCharacter";
 import { getItems } from "./domain/getItems";
 import { getQuests } from "./domain/getQuests";
 import { updateQuest } from "./domain/updateQuest";
 import { buyOrSellItem } from "./domain/buyOrSellItem";
 import { Character, CompleteQuestResponse, Item, Quest } from "./types";
+import { getCharacter } from "./domain/getCharacter";
+import { sendFeedback } from "./domain/sendFeedback";
 
 type LambdaFunctionUrlPayload = {
     headers?: Record<string, string>;
@@ -204,6 +205,24 @@ export const buyOrSellItemHandler = requestHandlerWrapper(
         }
 
         await buyOrSellItem(characterId, itemId, action);
+    }
+);
+
+export const sendFeedbackHandler = requestHandlerWrapper(
+    async (payload: LambdaFunctionUrlPayload): Promise<void> => {
+        const characterId = payload.queryStringParameters?.characterId;
+
+        if (!characterId) {
+            throw new Error("CharacterId is required");
+        }
+
+        const feedback = JSON.parse(payload.body || "{}").feedback;
+
+        if (!feedback) {
+            throw new Error("No feedback provided");
+        }
+
+        await sendFeedback(characterId, feedback);
     }
 );
 

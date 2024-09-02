@@ -8,6 +8,7 @@ import {
     TextInput,
     Group,
     Text,
+    Affix,
 } from "@mantine/core";
 import { useState } from "react";
 
@@ -18,6 +19,7 @@ import { ShopItemCard } from "./ShopItemCard";
 import { Dropdown } from "../Character/Dropdown";
 import { skillNames } from "../constants";
 import { ItemIcon } from "../Components/ItemIcon";
+import { HelpButton } from "../Components/HelpButton";
 
 const Items = ({
     gold,
@@ -53,6 +55,7 @@ const Items = ({
                     onChange={(e) => {
                         setSearch(e.target.value);
                     }}
+                    maxLength={50}
                 />
                 <Dropdown
                     onChange={(skill) => {
@@ -73,7 +76,7 @@ const Items = ({
                     </Title>
                 </Center>
             )}
-            {items.length && !filteredItems.length && (
+            {!!items.length && !filteredItems.length && (
                 <Center>
                     <Title order={5} pt="lg" c="dimmed">
                         No items in filter
@@ -96,66 +99,77 @@ const Items = ({
 
 export const Shop = () => {
     return (
-        <FetchedBox<{ gold: number; items: Item[] }>
-            queryKey={["getItems"]}
-            queryFn={api.getItems}
-            error="Could not load items"
-        >
-            {({ gold, items }, refresh) => {
-                const { ownedItems, shopItems } = items.reduce(
-                    (acc, item) => {
-                        if (item.owned) {
-                            acc.ownedItems.push(item);
-                        } else {
-                            acc.shopItems.push(item);
-                        }
+        <>
+            <Affix position={{ top: 0, right: 0 }} p="lg">
+                <HelpButton />
+            </Affix>
+            <FetchedBox<{ gold: number; items: Item[] }>
+                queryKey={["getItems"]}
+                queryFn={api.getItems}
+                error="Could not load items"
+            >
+                {({ gold, items }, refresh) => {
+                    const { ownedItems, shopItems } = items.reduce(
+                        (acc, item) => {
+                            if (item.owned) {
+                                acc.ownedItems.push(item);
+                            } else {
+                                acc.shopItems.push(item);
+                            }
 
-                        return acc;
-                    },
-                    { ownedItems: [] as Item[], shopItems: [] as Item[] }
-                );
+                            return acc;
+                        },
+                        { ownedItems: [] as Item[], shopItems: [] as Item[] }
+                    );
 
-                return (
-                    <Box>
-                        <Title size="3rem">Shop</Title>
-                        <Space h="lg" />
-                        <Box p="xs">
+                    return (
+                        <Box>
+                            <Title size="3rem">Shop</Title>
                             <Space h="lg" />
-                            <Group align="center" gap="5">
-                                <Text size="xl" fw={700}>
-                                    {gold}
-                                </Text>
-                                <ItemIcon name="coin" scale={1} />
-                            </Group>
-                            <Space h="lg" />
+                            <Box p="xs">
+                                <Space h="lg" />
+                                <Group align="center" gap="5">
+                                    <Text size="xl" fw={700}>
+                                        {gold}
+                                    </Text>
+                                    <ItemIcon name="coin" scale={1} />
+                                </Group>
+                                <Space h="lg" />
+                            </Box>
+                            <Tabs
+                                keepMounted={false}
+                                inverted
+                                defaultValue="shop"
+                            >
+                                <Tabs.List grow w="100%">
+                                    <Tabs.Tab value="shop">Shop items</Tabs.Tab>
+                                    <Tabs.Tab value="owned">
+                                        Owned items
+                                    </Tabs.Tab>
+                                </Tabs.List>
+                                <Space h="lg" />
+
+                                <Tabs.Panel value="owned">
+                                    <Items
+                                        items={ownedItems}
+                                        emptyText="You don't have any items yet"
+                                        onBuyOrSell={refresh}
+                                    />
+                                </Tabs.Panel>
+
+                                <Tabs.Panel value="shop">
+                                    <Items
+                                        gold={gold}
+                                        items={shopItems}
+                                        emptyText="No more items to buy"
+                                        onBuyOrSell={refresh}
+                                    />
+                                </Tabs.Panel>
+                            </Tabs>
                         </Box>
-                        <Tabs keepMounted={false} inverted defaultValue="shop">
-                            <Tabs.List grow w="100%">
-                                <Tabs.Tab value="shop">Shop items</Tabs.Tab>
-                                <Tabs.Tab value="owned">Owned items</Tabs.Tab>
-                            </Tabs.List>
-                            <Space h="lg" />
-
-                            <Tabs.Panel value="owned">
-                                <Items
-                                    items={ownedItems}
-                                    emptyText="You don't have any items yet"
-                                    onBuyOrSell={refresh}
-                                />
-                            </Tabs.Panel>
-
-                            <Tabs.Panel value="shop">
-                                <Items
-                                    gold={gold}
-                                    items={shopItems}
-                                    emptyText="No more items to buy"
-                                    onBuyOrSell={refresh}
-                                />
-                            </Tabs.Panel>
-                        </Tabs>
-                    </Box>
-                );
-            }}
-        </FetchedBox>
+                    );
+                }}
+            </FetchedBox>
+        </>
     );
 };

@@ -1,5 +1,23 @@
+export type SkillName =
+    | "Charisma"
+    | "Empathy"
+    | "Strength"
+    | "Endurance"
+    | "Nutrition"
+    | "Sleep hygiene"
+    | "Finance"
+    | "Time management"
+    | "Mental clarity"
+    | "Creativity"
+    | "Wisdom"
+    | "Tech proficiency"
+    | "Maintenance"
+    | "Art"
+    | "Writing"
+    | "Music";
+
 export type Skill = {
-    name: string;
+    name: SkillName;
     type: string;
     level?: Level;
 };
@@ -60,7 +78,7 @@ export type Item = {
     id: string;
     name: string;
     description: string;
-    affectedSkill: string;
+    affectedSkill: SkillName | "All";
     modifier: string;
     cost: number;
     type: ItemType;
@@ -77,7 +95,7 @@ export type Character = {
     name: string;
     xp: number;
     inventory: Inventory;
-    skills: Record<string, number>;
+    skills: Record<SkillName, number>;
 };
 
 export type Level = {
@@ -93,7 +111,7 @@ export type Quest = {
     title: string;
     xp: number;
     modifiedXp: number;
-    skill: string;
+    skill: SkillName;
 };
 
 export type CompleteQuestResponse = {

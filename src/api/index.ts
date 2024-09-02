@@ -140,3 +140,14 @@ export const sellItem = async (itemId: string): Promise<void> => {
         .set("authorization", token)
         .query({ characterId, itemId, action: "sell" });
 };
+
+export const sendFeedback = async (feedback: string): Promise<void> => {
+    const { token, characterId } = loadCharacterIdAndToken();
+    await superagent
+        .post(
+            "https://24t46srbkxhisbmqzfrjluxjya0bvsep.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId })
+        .send({ feedback });
+};

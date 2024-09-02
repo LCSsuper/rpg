@@ -4,6 +4,7 @@ import {
     subLevelThresholds,
 } from "../constants";
 import { Level } from "../types";
+import { roundNumber } from "./roundNumber";
 
 const binarySearch = (array: number[], target: number) => {
     let left = 0;
@@ -32,8 +33,8 @@ const getLevel = (xp: number, thresholds: number[]): Level => {
 
     const from = thresholds[level - 1] || 0;
     const to = thresholds[level] || thresholds[level - 1];
-    const xpNeededToNextLevel = to - from;
-    const xpGatheredInLevel = xp - from;
+    const xpNeededToNextLevel = roundNumber(to - from);
+    const xpGatheredInLevel = roundNumber(xp - from);
     const progress = xpNeededToNextLevel
         ? (xpGatheredInLevel / xpNeededToNextLevel) * 100
         : 100;

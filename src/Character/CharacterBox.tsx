@@ -9,6 +9,7 @@ import {
     Title,
     Tabs,
     Indicator,
+    Affix,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -72,14 +73,14 @@ export const CharacterBox = ({
             >
                 <SkillModal skill={selectedSkill} />
             </Modal>
-            <Box pos="fixed" w="100%">
-                <Group justify="space-between">
-                    <Title order={2} c="violet">
-                        {character.name}
-                    </Title>
-                    <HelpButton />
-                </Group>
-            </Box>
+            <Affix position={{ top: 0, left: 0 }} p="lg">
+                <Title order={2} c="violet">
+                    {character.name}
+                </Title>
+            </Affix>
+            <Affix position={{ top: 0, right: 0 }} p="lg">
+                <HelpButton />
+            </Affix>
             <div
                 style={{
                     position: "relative",

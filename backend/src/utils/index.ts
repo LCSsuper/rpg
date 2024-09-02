@@ -4,7 +4,7 @@ import {
     subLevelThresholds,
 } from "../constants";
 import { items } from "../domain/constants/items";
-import { Item, Level } from "../types";
+import { Character, Level } from "../types";
 
 const binarySearch = (array: number[], target: number) => {
     let left = 0;
@@ -50,22 +50,46 @@ export const getMainLevel = (xp: number) => getLevel(xp, mainLevelThresholds);
 
 export const getSkillLevel = (xp: number) => getLevel(xp, subLevelThresholds);
 
-export const getLevelReward = (xp: number, currentItems: Item[]) => {
+export const getLevelReward = (xp: number, character: Character) => {
     const mainLevel = getMainLevel(xp);
 
-    // TODO @Lucas give an item for a skill that the character has the least xp in
+    const skills = Object.entries(character.skills).reduce(
+        (map, [skill, xp]) => {
+            map.set(xp, (map.get(xp) || []).concat(skill));
+            return map;
+        },
+        new Map<number, string[]>()
+    );
+
+    const lowestXp = Math.min(...Array.from(skills.keys()).map(Number));
+    const lowestXpSkills = skills.get(lowestXp) || [];
+    const randomSkill =
+        lowestXpSkills[Math.floor(Math.random() * lowestXpSkills.length)];
+
     let itemId: string | undefined;
     if (mainLevel.level % 5 === 0) {
-        const allItemIds = items.map((item) => item.id);
-        const itemIds = new Set(currentItems.map((item) => item.id));
+        const availableItemIds = items
+            .filter(
+                (item) =>
+                    item.affectedSkill !== "All" &&
+                    (!randomSkill || item.affectedSkill === randomSkill)
+            )
+            .map((item) => item.id);
+
+        const itemIds = new Set(
+            character.inventory.items.map((item) => item.id)
+        );
         // TODO @Lucas use Set.prototype.difference when it's available (Node 22)
-        const rewardableItemIds = allItemIds.filter(
+        const rewardableItemIds = availableItemIds.filter(
             (itemId) => !itemIds.has(itemId)
         );
-        itemId =
-            rewardableItemIds[
-                Math.floor(Math.random() * rewardableItemIds.length)
-            ];
+
+        if (rewardableItemIds.length) {
+            itemId =
+                rewardableItemIds[
+                    Math.floor(Math.random() * rewardableItemIds.length)
+                ];
+        }
     }
 
     return {

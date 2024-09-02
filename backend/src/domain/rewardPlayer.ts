@@ -5,23 +5,21 @@ import {
 } from "@aws-sdk/client-dynamodb";
 
 import { getLevelReward } from "../utils";
-import { getInventory } from "./getInventory";
 import { items } from "./constants/items";
+import { Character } from "../types";
 
 export const rewardPlayer = async (
-    characterId: string,
+    character: Character,
     newTotalXp: number
 ): Promise<{ gold: number; item?: string }> => {
     const client = new DynamoDBClient();
 
-    const inventory = await getInventory(characterId);
-
-    const { gold, itemId } = getLevelReward(newTotalXp, inventory.items);
+    const { gold, itemId } = getLevelReward(newTotalXp, character);
 
     const input: UpdateItemCommandInput = {
         TableName: process.env.RPG_TABLE_NAME,
         Key: {
-            characterId: { S: characterId },
+            characterId: { S: character.id },
             key: { S: "inventory" },
         },
         AttributeUpdates: {
