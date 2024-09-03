@@ -8,7 +8,6 @@ import {
     TextInput,
     Group,
     Text,
-    Affix,
 } from "@mantine/core";
 import { useState } from "react";
 
@@ -100,9 +99,6 @@ const Items = ({
 export const Shop = () => {
     return (
         <>
-            <Affix position={{ top: 0, right: 0 }} p="lg">
-                <HelpButton />
-            </Affix>
             <FetchedBox<{ gold: number; items: Item[] }>
                 queryKey={["getItems"]}
                 queryFn={api.getItems}
@@ -123,7 +119,12 @@ export const Shop = () => {
                     );
 
                     return (
-                        <Box>
+                        <Box pos="relative">
+                            <Box pos="absolute" w="100%">
+                                <Group justify="end">
+                                    <HelpButton />
+                                </Group>
+                            </Box>
                             <Title size="3rem">Shop</Title>
                             <Space h="lg" />
                             <Box p="xs">

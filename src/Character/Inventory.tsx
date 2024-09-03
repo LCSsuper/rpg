@@ -26,13 +26,13 @@ export const InventoryBox = ({ inventory }: { inventory: Inventory }) => {
                     {Array.from({
                         length: getNextNumberDivisibleBy(
                             inventory.items.length,
-                            4
+                            3
                         ),
                     }).map((_, index) => {
                         const item = inventory.items[index];
 
                         return (
-                            <Grid.Col span={3} key={index}>
+                            <Grid.Col span={4} key={index}>
                                 <Center>
                                     <ItemCard item={item} />
                                 </Center>

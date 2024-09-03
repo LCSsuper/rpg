@@ -1,12 +1,12 @@
 import { useState } from "react";
 import {
-    Affix,
     Box,
     Button,
     Center,
     Divider,
     Flex,
     Grid,
+    Group,
     Space,
     TextInput,
     Title,
@@ -28,10 +28,12 @@ export const Quests = () => {
     const [editing, setEditing] = useState(false);
 
     return (
-        <Box key={randomId}>
-            <Affix position={{ top: 0, right: 0 }} p="lg">
-                <HelpButton />
-            </Affix>
+        <Box key={randomId} pos="relative">
+            <Box pos="absolute" w="100%">
+                <Group justify="end">
+                    <HelpButton />
+                </Group>
+            </Box>
             <Title size="3rem">Quests</Title>
             <Space h="lg" />
             <Flex gap="xs">

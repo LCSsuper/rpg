@@ -5,6 +5,7 @@
     -   Delete character
 -   SHOULD HAVE
     -   Item price based on level
+    -   Clans to see how friends are leveling
 -   NICE TO HAVE
     -   Items to customize character
     -   Less intrusive loading

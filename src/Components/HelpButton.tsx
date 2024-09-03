@@ -105,11 +105,15 @@ const Support = () => {
                         Send
                     </Button>
                 </Group>
-                <Overlay bg="none" blur={3}>
-                    <Center h="100%">
-                        <Text c="gray">Thank you for sending feedback!</Text>
-                    </Center>
-                </Overlay>
+                {feedbackSent && (
+                    <Overlay bg="none" blur={3}>
+                        <Center h="100%">
+                            <Text c="gray">
+                                Thank you for sending feedback!
+                            </Text>
+                        </Center>
+                    </Overlay>
+                )}
             </Box>
             <Space h="lg" />
             <Text>
