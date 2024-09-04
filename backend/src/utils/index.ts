@@ -4,7 +4,7 @@ import {
     subLevelThresholds,
 } from "../constants";
 import { items } from "../domain/constants/items";
-import { Character, Level } from "../types";
+import { Character, Level, Quest } from "../types";
 
 const binarySearch = (array: number[], target: number) => {
     let left = 0;
@@ -96,4 +96,25 @@ export const getLevelReward = (xp: number, character: Character) => {
         gold: Math.floor(mainLevel.xpNeededToNextLevel ** 1.6),
         itemId,
     };
+};
+
+export const determineRemainingCooldown = (quest: Quest) => {
+    if (
+        !quest.lastCompleted ||
+        (quest.cooldown || "No cooldown") === "No cooldown"
+    ) {
+        return 0;
+    }
+
+    const now = Date.now();
+    const lastCompleted = new Date(quest.lastCompleted).getTime();
+    const cooldown: Record<string, number> = {
+        "Ten minutes": 10 * 60 * 1000,
+        "One hour": 60 * 60 * 1000,
+        "One day": 24 * 60 * 60 * 1000,
+    };
+
+    return Math.floor(
+        Math.max(cooldown[quest.cooldown!] - (now - lastCompleted), 0) / 1000
+    );
 };

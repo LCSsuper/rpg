@@ -9,6 +9,7 @@ import {
     Space,
     TextInput,
     Text,
+    NumberInput,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -22,7 +23,7 @@ import { v4 } from "uuid";
 import { Quest } from "../types";
 import { useState } from "react";
 import { Dropdown } from "../Character/Dropdown";
-import { skillNames } from "../constants";
+import { cooldowns, skillNames } from "../constants";
 import * as api from "../api";
 
 const NewQuestModal = ({
@@ -36,7 +37,8 @@ const NewQuestModal = ({
 }) => {
     const [title, setTitle] = useState<string>("");
     const [skill, setSkill] = useState<string>("");
-    const [xp, setXp] = useState<number | undefined>(undefined);
+    const [cooldown, setCooldown] = useState<string>("No cooldown");
+    const [xp, setXp] = useState<number>(1);
 
     const disabled = !title || !skill || !xp || loading;
 
@@ -45,9 +47,9 @@ const NewQuestModal = ({
             <Box w="30rem" maw="100vw">
                 <Space h="lg" />
                 <Blockquote icon={<IconInfoCircle />}>
-                    Create a new quest to challenges you to pick up new habits!
-                    Try to make quests that are balanced in difficulty and
-                    reward.
+                    Create a new quest that challenges you to pick up new
+                    habits! Try to make quests that are balanced in difficulty
+                    and reward.
                 </Blockquote>
                 <Space h="lg" />
                 <TextInput
@@ -58,22 +60,31 @@ const NewQuestModal = ({
                     maxLength={50}
                 />
                 <Space h="md" />
+                <Dropdown
+                    onChange={setSkill}
+                    values={skillNames}
+                    value={skill}
+                    placeholder=" "
+                    label="Skill"
+                />
+                <Space h="md" />
                 <Flex gap="xs">
-                    <Dropdown
+                    <NumberInput
                         flex={1}
-                        onChange={setSkill}
-                        values={skillNames}
-                        value={skill}
-                        placeholder="Choose skill"
-                        label="Skill"
+                        min={0.1}
+                        max={2}
+                        step={0.1}
+                        value={xp}
+                        onChange={(value) => setXp(Number(value))}
+                        label="XP reward"
                     />
                     <Dropdown
                         flex={1}
-                        onChange={(xpString) => setXp(Number(xpString))}
-                        values={[0.1, 0.5, 1, 2]}
-                        value={xp}
-                        placeholder="Choose reward"
-                        label="XP reward"
+                        onChange={setCooldown}
+                        values={cooldowns}
+                        value={cooldown}
+                        placeholder=" "
+                        label="Cooldown"
                     />
                 </Flex>
                 <Space h="lg" />
@@ -91,6 +102,7 @@ const NewQuestModal = ({
                                 skill,
                                 xp,
                                 modifiedXp: xp,
+                                cooldown,
                             });
                         }}
                         disabled={disabled}

@@ -9,6 +9,10 @@ import {
     Loader,
     Button,
     Space,
+    Text,
+    Overlay,
+    Center,
+    ActionIcon,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import {
@@ -18,19 +22,35 @@ import {
     IconTrash,
 } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { CompleteQuestResponse, Quest } from "../../types";
 import * as api from "../../api";
 import { EditQuestModal } from "./EditQuestModal";
 import { DeleteQuestModal } from "./DeleteQuestModal";
 import { LevelUpModal } from "./LevelUpModal";
+import { toDateTime } from "../../utils/date";
+import { determineRemainingCooldown } from "../../utils";
+import { Cooldown } from "./Cooldown";
 
-const CompleteQuestButton = ({ quest }: { quest: Quest }) => {
+const CompleteQuestButton = ({
+    quest,
+    onComplete,
+}: {
+    quest: Quest;
+    onComplete?: () => void;
+}) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<CompleteQuestResponse | null>(null);
+    const [cooldownSeconds, setCooldownSeconds] = useState<number>(
+        determineRemainingCooldown(quest)
+    );
     const [levelUpOpened, { open: openLevelUp, close: closeLevelUp }] =
         useDisclosure(false);
+
+    useEffect(() => {
+        setCooldownSeconds(determineRemainingCooldown(quest));
+    }, [quest]);
 
     const completeQuest = async () => {
         try {
@@ -54,6 +74,8 @@ const CompleteQuestButton = ({ quest }: { quest: Quest }) => {
                 setData(d);
                 openLevelUp();
             }
+            if (onComplete) onComplete();
+            setCooldownSeconds(determineRemainingCooldown(quest));
         } catch {
             notifications.show({
                 message: "Could not complete quest",
@@ -81,15 +103,27 @@ const CompleteQuestButton = ({ quest }: { quest: Quest }) => {
                     onAccept={closeLevelUp}
                 />
             </Modal>
-            <Button
-                variant="light"
-                onClick={completeQuest}
-                disabled={loading}
-                w="8.5rem"
-                leftSection={loading ? undefined : <IconCheck />}
-            >
-                {loading ? <Loader size="xs" /> : "Complete"}
-            </Button>
+            <Box pos="relative">
+                <Button
+                    variant="light"
+                    onClick={completeQuest}
+                    disabled={loading || cooldownSeconds > 0}
+                    w="8.5rem"
+                    leftSection={loading ? undefined : <IconCheck />}
+                >
+                    {loading ? <Loader size="xs" /> : "Complete"}
+                </Button>
+                {!!cooldownSeconds && (
+                    <Overlay style={{ borderRadius: 4 }}>
+                        <Center h="100%">
+                            <Cooldown
+                                remainingSeconds={cooldownSeconds}
+                                onComplete={() => setCooldownSeconds(0)}
+                            />
+                        </Center>
+                    </Overlay>
+                )}
+            </Box>
         </>
     );
 };
@@ -204,37 +238,43 @@ export const QuestCard = ({
                         </Flex>
                         <Space h="lg" />
                         <Group justify="space-between" align="end">
-                            <Group gap="xs">
+                            <Flex direction="column" gap="xs">
                                 {showSkill && (
-                                    <Badge tt="none">{quest.skill}</Badge>
+                                    <Badge flex={1} tt="none">
+                                        {quest.skill}
+                                    </Badge>
                                 )}
-                            </Group>
+                                <Text flex={1} fs="italic" c="dimmed" size="xs">
+                                    {`Last completion: ${toDateTime(
+                                        quest.lastCompleted
+                                    )}`}
+                                </Text>
+                            </Flex>
                             <Group>
                                 {editing ? (
                                     <>
-                                        <Button
+                                        <ActionIcon
+                                            size="lg"
                                             variant="light"
                                             onClick={openEdit}
-                                            w="6rem"
-                                            leftSection={<IconPencil />}
                                         >
-                                            Edit
-                                        </Button>
-                                        <Button
+                                            <IconPencil />
+                                        </ActionIcon>
+                                        <ActionIcon
                                             color="red"
+                                            size="lg"
                                             variant="light"
                                             onClick={openRemove}
-                                            w="7rem"
-                                            leftSection={<IconTrash />}
                                         >
-                                            Delete
-                                        </Button>
+                                            <IconTrash />
+                                        </ActionIcon>
                                     </>
                                 ) : (
                                     <>
                                         {completable && (
                                             <CompleteQuestButton
                                                 quest={quest}
+                                                onComplete={onChange}
                                             />
                                         )}
                                     </>

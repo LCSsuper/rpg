@@ -94,6 +94,8 @@ export type Quest = {
     xp: number;
     modifiedXp: number;
     skill: string;
+    lastCompleted?: number;
+    cooldown?: string;
 };
 
 export type CompleteQuestResponse = {

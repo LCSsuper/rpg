@@ -106,13 +106,13 @@ const Signup = ({
                             </Grid.Col>
                         );
                     })}
-                    <Overlay bg="none" blur={3}>
+                    {/* <Overlay bg="none" blur={3}>
                         <Center h="100%">
                             <Title order={3} c="dimmed">
                                 coming soon
                             </Title>
                         </Center>
-                    </Overlay>
+                    </Overlay> */}
                 </Grid>
             </Center>
             <Space h="lg" />

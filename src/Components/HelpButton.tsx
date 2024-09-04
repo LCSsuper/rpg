@@ -33,7 +33,12 @@ const HowToPlay = () => (
         <Space h="md" />
         <Text>1. Create quests for habits in your life</Text>
         <Text fs="italic" c="dimmed" pb="xs">
-            For example: Do 100 pushups
+            Try to make them challenging but achievable
+            <br /> Make sure the quests are specific and measurable
+            <br /> Make the quests and their reward balanced
+            <br /> For example:
+            <br /> - Do 100 pushups - 1 XP
+            <br /> - Drink a glass of water - 0.1 XP
         </Text>
         <Text pb="xs">2. Gather XP by completing these quests</Text>
         <Text>3. Level up by gathering enough XP</Text>

@@ -7,11 +7,12 @@ import {
     Button,
     Loader,
     Text,
+    NumberInput,
 } from "@mantine/core";
 import { useState } from "react";
 
 import { Dropdown } from "../../Character/Dropdown";
-import { skillNames } from "../../constants";
+import { cooldowns, skillNames } from "../../constants";
 import { Quest } from "../../types";
 
 export const EditQuestModal = ({
@@ -27,6 +28,9 @@ export const EditQuestModal = ({
 }) => {
     const [title, setTitle] = useState<string>(quest.title);
     const [skill, setSkill] = useState<string>(quest.skill);
+    const [cooldown, setCooldown] = useState<string>(
+        quest.cooldown || "No cooldown"
+    );
     const [xp, setXp] = useState<number>(quest.xp);
 
     const disabled = !title || !skill || !xp || loading;
@@ -42,22 +46,31 @@ export const EditQuestModal = ({
                     rightSection={<Text size="xs">{`${title.length}/50`}</Text>}
                 />
                 <Space h="md" />
+                <Dropdown
+                    onChange={setSkill}
+                    values={skillNames}
+                    value={skill}
+                    placeholder=" "
+                    label="Skill"
+                />
+                <Space h="md" />
                 <Flex gap="xs">
-                    <Dropdown
+                    <NumberInput
                         flex={1}
-                        onChange={setSkill}
-                        values={skillNames}
-                        value={skill}
-                        placeholder="Choose skill"
-                        label="Skill"
+                        min={0.1}
+                        max={2}
+                        step={0.1}
+                        value={xp}
+                        onChange={(value) => setXp(Number(value))}
+                        label="XP reward"
                     />
                     <Dropdown
                         flex={1}
-                        onChange={(xpString: string) => setXp(Number(xpString))}
-                        values={[0.1, 0.5, 1, 2]}
-                        value={xp}
-                        placeholder="Choose reward"
-                        label="XP reward"
+                        onChange={setCooldown}
+                        values={cooldowns}
+                        value={cooldown}
+                        placeholder=" "
+                        label="Cooldown"
                     />
                 </Flex>
                 <Space h="lg" />
@@ -75,6 +88,7 @@ export const EditQuestModal = ({
                                 skill,
                                 xp,
                                 modifiedXp: xp,
+                                cooldown,
                             });
                         }}
                         disabled={disabled}

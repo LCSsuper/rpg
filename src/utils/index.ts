@@ -3,7 +3,7 @@ import {
     mainLevelThresholds,
     subLevelThresholds,
 } from "../constants";
-import { Level } from "../types";
+import { Level, Quest } from "../types";
 import { roundNumber } from "./roundNumber";
 
 const binarySearch = (array: number[], target: number) => {
@@ -59,4 +59,25 @@ export const getLevelReward = (level: number) => {
     return {
         gold: Math.floor(mainLevel.xpNeededToNextLevel ** 1.6),
     };
+};
+
+export const determineRemainingCooldown = (quest: Quest) => {
+    if (
+        !quest.lastCompleted ||
+        (quest.cooldown || "No cooldown") === "No cooldown"
+    ) {
+        return 0;
+    }
+
+    const now = Date.now();
+    const lastCompleted = new Date(quest.lastCompleted).getTime();
+    const cooldown: Record<string, number> = {
+        "Ten minutes": 10 * 60 * 1000,
+        "One hour": 60 * 60 * 1000,
+        "One day": 24 * 60 * 60 * 1000,
+    };
+
+    return Math.floor(
+        Math.max(cooldown[quest.cooldown!] - (now - lastCompleted), 0) / 1000
+    );
 };

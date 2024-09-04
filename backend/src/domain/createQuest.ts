@@ -18,6 +18,7 @@ export const createQuest = async (
                 title: { S: quest.title! },
                 skill: { S: quest.skill! },
                 xp: { N: quest.xp!.toString() },
+                cooldown: { S: quest.cooldown || "No cooldown" },
             },
         })
     );

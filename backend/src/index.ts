@@ -11,6 +11,7 @@ import { buyOrSellItem } from "./domain/buyOrSellItem";
 import { Character, CompleteQuestResponse, Item, Quest } from "./types";
 import { getCharacter } from "./domain/getCharacter";
 import { sendFeedback } from "./domain/sendFeedback";
+import { cooldowns } from "./constants";
 
 type LambdaFunctionUrlPayload = {
     headers?: Record<string, string>;
@@ -97,6 +98,10 @@ export const createQuestHandler = requestHandlerWrapper(
             throw new Error("Title, skill and xp are required");
         }
 
+        if (quest.cooldown && !cooldowns.includes(quest.cooldown)) {
+            throw new Error(`Invalid cooldown, must be one of: ${cooldowns}`);
+        }
+
         await createQuest(characterId, quest);
 
         return { ok: true };
@@ -119,6 +124,10 @@ export const updateQuestHandler = requestHandlerWrapper(
 
         if (!quest?.id || !quest?.title || !quest?.skill || !quest?.xp) {
             throw new Error("Id, title, skill and xp are required");
+        }
+
+        if (quest.cooldown && !cooldowns.includes(quest.cooldown)) {
+            throw new Error(`Invalid cooldown, must be one of: ${cooldowns}`);
         }
 
         await updateQuest(characterId, quest);

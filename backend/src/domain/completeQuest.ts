@@ -1,7 +1,11 @@
 import { DynamoDBClient, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 
 import { getQuest } from "./getQuest";
-import { getMainLevel, getSkillLevel } from "../utils";
+import {
+    determineRemainingCooldown,
+    getMainLevel,
+    getSkillLevel,
+} from "../utils";
 import { rewardPlayer } from "./rewardPlayer";
 import { CompleteQuestResponse, SkillName } from "../types";
 import { parseRawCharacter } from "./helpers/parseRawCharacter";
@@ -33,11 +37,36 @@ export const completeQuest = async (
     const client = new DynamoDBClient();
 
     const quest = await getQuest(characterId, questId);
+
+    const cooldownSeconds = determineRemainingCooldown(quest);
+
+    if (cooldownSeconds > 0) {
+        throw new Error(
+            `Quest is still on cooldown for ${cooldownSeconds} seconds`
+        );
+    }
+
     const skillXpToAdd = skillMap[quest.skill];
 
     if (!skillXpToAdd) {
         throw new Error("Invalid skill");
     }
+
+    await client.send(
+        new UpdateItemCommand({
+            TableName: process.env.RPG_TABLE_NAME,
+            Key: {
+                characterId: { S: characterId },
+                key: { S: `quest#${quest.id}` },
+            },
+            AttributeUpdates: {
+                lastCompleted: {
+                    Action: "PUT",
+                    Value: { N: Date.now().toFixed() },
+                },
+            },
+        })
+    );
 
     const updatedCharacter = await client.send(
         new UpdateItemCommand({

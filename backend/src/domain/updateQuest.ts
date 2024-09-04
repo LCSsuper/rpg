@@ -24,6 +24,10 @@ export const updateQuest = async (
                 title: { Action: "PUT", Value: { S: quest.title! } },
                 skill: { Action: "PUT", Value: { S: quest.skill! } },
                 xp: { Action: "PUT", Value: { N: quest.xp!.toString() } },
+                cooldown: {
+                    Action: "PUT",
+                    Value: { S: quest.cooldown || "No cooldown" },
+                },
             },
         })
     );

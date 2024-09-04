@@ -1,12 +1,19 @@
 -   WIP
 -   TODO
+    -   Make 'token' functionality more clear!
+    -   Make getting characterId for login more clear!
     -   Generate 10 images per character (implement 3 characters) -> with Lisa
     -   Download button if not installed as PWA yet
     -   Delete character
 -   SHOULD HAVE
     -   Item price based on level
     -   Clans to see how friends are leveling
+        -   Clan level
+        -   Clan quests
+    -   Android: When you click back button from popup, close popup
 -   NICE TO HAVE
+    -   Complete quest through skill modal
+    -   Create quest through skill modal
     -   Items to customize character
     -   Less intrusive loading
     -   Temporary items (items that run out after a timer)

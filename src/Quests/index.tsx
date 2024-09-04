@@ -81,7 +81,7 @@ export const Quests = () => {
                     queryFn={() => api.getQuests()}
                     error="Could not load quests"
                 >
-                    {(quests) => {
+                    {(quests, refetch) => {
                         const filteredQuests = quests.filter(
                             (quest) =>
                                 (!skillFilter || quest.skill === skillFilter) &&
@@ -108,9 +108,7 @@ export const Quests = () => {
                                             quest={quest}
                                             showSkill
                                             editing={editing}
-                                            onChange={() => {
-                                                forceUpdate(Math.random());
-                                            }}
+                                            onChange={refetch}
                                             completable
                                         />
                                     </Grid.Col>
