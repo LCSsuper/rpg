@@ -23,6 +23,7 @@ export const PwaGuard = ({ children }: { children: ReactNode }) => {
         }
     >();
     const isPwa = useMediaQuery("(display-mode: standalone)");
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     // const isPwa = true; // For testing purposes
 
     useEffect(() => {
@@ -85,6 +86,14 @@ export const PwaGuard = ({ children }: { children: ReactNode }) => {
                         >
                             Download app
                         </Button>
+                    </Center>
+                )}
+                {isIOS && (
+                    <Center>
+                        <Text c="dimmed" size="sm">
+                            App not installed yet? Press the share button and
+                            select "Add to Home Screen"
+                        </Text>
                     </Center>
                 )}
             </Box>

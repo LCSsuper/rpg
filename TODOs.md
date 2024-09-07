@@ -1,6 +1,8 @@
 -   WIP
 -   TODO
     -   Generate 10 images per character (implement 6 characters) -> with Lisa
+    -   Bug: PWA install button does not work on IOS
+    -   Bug: rewards are always decided based on main XP, even when sub XP is provided
 -   SHOULD HAVE
     -   Item price based on level
     -   Clans to see how friends are leveling
