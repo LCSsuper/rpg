@@ -37,10 +37,10 @@ const NewQuestModal = ({
 }) => {
     const [title, setTitle] = useState<string>("");
     const [skill, setSkill] = useState<string>("");
-    const [cooldown, setCooldown] = useState<string>("No cooldown");
+    const [cooldown, setCooldown] = useState<string>("Ten minutes");
     const [xp, setXp] = useState<number>(1);
 
-    const disabled = !title || !skill || !xp || loading;
+    const disabled = !title || !skill || !xp || !cooldown || loading;
 
     return (
         <Center>

@@ -144,4 +144,4 @@ export const skills = [
 
 export const skillNames = skills.map((skill) => skill.name);
 
-export const cooldowns = ["No cooldown", "Ten minutes", "One hour", "One day"];
+export const cooldowns = ["Ten minutes", "One hour", "One day"];

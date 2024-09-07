@@ -29,11 +29,11 @@ export const EditQuestModal = ({
     const [title, setTitle] = useState<string>(quest.title);
     const [skill, setSkill] = useState<string>(quest.skill);
     const [cooldown, setCooldown] = useState<string>(
-        quest.cooldown || "No cooldown"
+        quest.cooldown || "Ten minutes"
     );
     const [xp, setXp] = useState<number>(quest.xp);
 
-    const disabled = !title || !skill || !xp || loading;
+    const disabled = !title || !skill || !xp || !cooldown || loading;
 
     return (
         <Center>

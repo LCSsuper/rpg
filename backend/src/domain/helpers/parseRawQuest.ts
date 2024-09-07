@@ -31,7 +31,7 @@ export const parseRawQuest = (rawQuest: any, items: Item[]): Quest => {
         xp: parseFloat(rawQuest.xp.N!),
         modifiedXp: parseFloat(rawQuest.xp.N!),
         lastCompleted: parseFloat(rawQuest.lastCompleted?.N || 0),
-        cooldown: rawQuest.cooldown?.S || "No cooldown",
+        cooldown: rawQuest.cooldown?.S || "Ten minutes",
     };
 
     quest.modifiedXp = modifyXp(quest, xpMultipliersPerSkill);

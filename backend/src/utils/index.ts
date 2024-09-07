@@ -99,10 +99,7 @@ export const getLevelReward = (xp: number, character: Character) => {
 };
 
 export const determineRemainingCooldown = (quest: Quest) => {
-    if (
-        !quest.lastCompleted ||
-        (quest.cooldown || "No cooldown") === "No cooldown"
-    ) {
+    if (!quest.lastCompleted) {
         return 0;
     }
 
