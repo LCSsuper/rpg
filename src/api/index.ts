@@ -151,3 +151,13 @@ export const sendFeedback = async (feedback: string): Promise<void> => {
         .query({ characterId })
         .send({ feedback });
 };
+
+export const deleteCharacter = async (): Promise<void> => {
+    const { characterId, token } = loadCharacterIdAndToken();
+    await superagent
+        .get(
+            "https://djmp4cggkq7fsw3pbpapka6ske0yixyw.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId });
+};

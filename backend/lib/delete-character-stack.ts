@@ -1,0 +1,51 @@
+import * as cdk from "aws-cdk-lib";
+import { Table } from "aws-cdk-lib/aws-dynamodb";
+import {
+    Code,
+    Function,
+    FunctionUrlAuthType,
+    HttpMethod,
+    Runtime,
+} from "aws-cdk-lib/aws-lambda";
+import { Construct } from "constructs";
+
+interface DeleteCharacterStackProps extends cdk.StackProps {
+    readonly rpgTable: Table;
+}
+
+export class DeleteCharacterStack extends cdk.Stack {
+    constructor(
+        scope: Construct,
+        id: string,
+        props: DeleteCharacterStackProps
+    ) {
+        super(scope, id, props);
+
+        const lambda = new Function(this, "DeleteCharacter", {
+            runtime: Runtime.NODEJS_20_X,
+            handler: "index.deleteCharacterHandler",
+            code: Code.fromAsset("src/lib"),
+            functionName: "RPG-DeleteCharacter",
+            reservedConcurrentExecutions: 1,
+            environment: {
+                RPG_TABLE_NAME: props.rpgTable.tableName,
+            },
+        });
+
+        props.rpgTable.grantReadWriteData(lambda);
+
+        const functionUrl = lambda.addFunctionUrl({
+            authType: FunctionUrlAuthType.NONE,
+            cors: {
+                allowCredentials: true,
+                allowedHeaders: ["authorization"],
+                allowedMethods: [HttpMethod.GET],
+                allowedOrigins: ["*"],
+            },
+        });
+
+        new cdk.CfnOutput(this, "DeleteCharacterFunctionUrl", {
+            value: functionUrl.url,
+        });
+    }
+}

@@ -1,10 +1,6 @@
 -   WIP
 -   TODO
-    -   Make 'token' functionality more clear!
-    -   Make getting characterId for login more clear!
-    -   Generate 10 images per character (implement 3 characters) -> with Lisa
-    -   Download button if not installed as PWA yet
-    -   Delete character
+    -   Generate 10 images per character (implement 6 characters) -> with Lisa
 -   SHOULD HAVE
     -   Item price based on level
     -   Clans to see how friends are leveling

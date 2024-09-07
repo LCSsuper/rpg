@@ -13,6 +13,7 @@ import {
     Button,
     Textarea,
     Overlay,
+    Loader,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -131,8 +132,62 @@ const Support = () => {
     );
 };
 
+export const DeleteCharacterModal = ({
+    closeRemove,
+}: {
+    closeRemove: () => void;
+}) => {
+    const [loading, setLoading] = useState(false);
+
+    return (
+        <Center>
+            <Box w="30rem" maw="100vw">
+                <Text size="lg">
+                    Are you sure you want to delete your character?
+                </Text>
+                <Text fs="italic" c="dimmed">
+                    There is no way back!
+                </Text>
+                <Space h="lg" />
+                <Flex gap="sm">
+                    <Button flex={1} onClick={closeRemove} variant="light">
+                        Cancel
+                    </Button>
+                    <Button
+                        flex={1}
+                        disabled={loading}
+                        onClick={async () => {
+                            try {
+                                setLoading(true);
+                                await api.deleteCharacter();
+                                localStorage.removeItem("characterId");
+                                window.location.reload();
+                            } catch {
+                                notifications.show({
+                                    message: "Could not delete character",
+                                    color: "red",
+                                    icon: (
+                                        <IconExclamationCircle size="1.5rem" />
+                                    ),
+                                });
+                            } finally {
+                                setLoading(false);
+                                closeRemove();
+                            }
+                        }}
+                    >
+                        {loading ? <Loader size="xs" /> : "Delete Character"}
+                    </Button>
+                </Flex>
+            </Box>
+        </Center>
+    );
+};
+
 const CharacterOptions = () => {
     const characterId = localStorage.getItem("characterId");
+    const [removeOpened, { open: openRemove, close: closeRemove }] =
+        useDisclosure(false);
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(characterId || "");
@@ -143,6 +198,16 @@ const CharacterOptions = () => {
 
     return (
         <>
+            <Modal
+                opened={removeOpened}
+                onClose={closeRemove}
+                keepMounted={false}
+                title="Are you sure?"
+                centered
+                overlayProps={{ backgroundOpacity: 0.5, blur: 3 }}
+            >
+                <DeleteCharacterModal closeRemove={closeRemove} />
+            </Modal>
             <Title order={4}>Character ID:</Title>
             <Group>
                 <Text>{characterId}</Text>
@@ -159,11 +224,7 @@ const CharacterOptions = () => {
                     flex={1}
                     variant="light"
                     color="red"
-                    onClick={() => {
-                        localStorage.removeItem("characterId");
-                        window.location.reload();
-                    }}
-                    disabled
+                    onClick={openRemove}
                 >
                     Delete character
                 </Button>

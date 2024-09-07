@@ -12,6 +12,7 @@ import { Character, CompleteQuestResponse, Item, Quest } from "./types";
 import { getCharacter } from "./domain/getCharacter";
 import { sendFeedback } from "./domain/sendFeedback";
 import { cooldowns } from "./constants";
+import { deleteCharacter } from "./domain/deleteCharacter";
 
 type LambdaFunctionUrlPayload = {
     headers?: Record<string, string>;
@@ -232,6 +233,24 @@ export const sendFeedbackHandler = requestHandlerWrapper(
         }
 
         await sendFeedback(characterId, feedback);
+    }
+);
+
+export const deleteCharacterHandler = requestHandlerWrapper(
+    async (
+        payload: LambdaFunctionUrlPayload
+    ): Promise<{
+        ok: boolean;
+    }> => {
+        const characterId = payload.queryStringParameters?.characterId;
+
+        if (!characterId) {
+            throw new Error("CharacterId is required");
+        }
+
+        await deleteCharacter(characterId);
+
+        return { ok: true };
     }
 );
 

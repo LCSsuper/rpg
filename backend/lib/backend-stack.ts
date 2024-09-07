@@ -13,6 +13,7 @@ import { GetItemsStack } from "./get-items-stack";
 import { CreateCharacterStack } from "./create-character-stack";
 import { BuyOrSellItemStack } from "./buy-or-sell-item-stack";
 import { SendFeedbackStack } from "./send-feedback-stack";
+import { DeleteCharacterStack } from "./delete-character-stack";
 
 export class RPGBackendStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -59,6 +60,10 @@ export class RPGBackendStack extends cdk.Stack {
         });
 
         new SendFeedbackStack(this, "SendFeedbackStack", {
+            rpgTable,
+        });
+
+        new DeleteCharacterStack(this, "DeleteCharacterStack", {
             rpgTable,
         });
     }

@@ -20,6 +20,7 @@ import { ReactNode, useState } from "react";
 import * as api from "./api";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconExclamationCircle } from "@tabler/icons-react";
+import { InfoButton } from "./Components/InfoButton";
 
 const characterOptions = [
     "./character-option-1.webp",
@@ -106,27 +107,30 @@ const Signup = ({
                             </Grid.Col>
                         );
                     })}
-                    {/* <Overlay bg="none" blur={3}>
+                    <Overlay bg="none" blur={3}>
                         <Center h="100%">
                             <Title order={3} c="dimmed">
                                 coming soon
                             </Title>
                         </Center>
-                    </Overlay> */}
+                    </Overlay>
                 </Grid>
             </Center>
             <Space h="lg" />
             <TextInput
-                label="Character name"
+                label="Name your character"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={20}
             />
             <Space h="xs" />
             <TextInput
-                label="token"
+                label="Provide security token"
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
+                rightSection={
+                    <InfoButton info="Lucas can provide the security token" />
+                }
             />
             <Space h="lg" />
             <Group justify="end">
@@ -182,15 +186,21 @@ const Signin = ({
     return (
         <>
             <TextInput
-                label="Character ID"
+                label="Your Character ID"
                 value={characterId}
                 onChange={(e) => setCharacterId(e.target.value)}
+                rightSection={
+                    <InfoButton info="Your Character ID can be found in the 'character options' section of the Help page" />
+                }
             />
             <Space h="xs" />
             <TextInput
-                label="token"
+                label="Provide security token"
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
+                rightSection={
+                    <InfoButton info="Lucas can provide the security token" />
+                }
             />
             <Space h="lg" />
             <Group justify="end">
