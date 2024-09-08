@@ -52,11 +52,17 @@ const App = () => {
                             >
                                 <AppShell.Main pb="5rem">
                                     <Center h={"100%"}>
-                                        <Box w="30rem" maw="100vw" p="lg">
-                                            <Tabs.Panel value="character">
-                                                <CharacterPage
-                                                    colorTheme={colorTheme}
-                                                />
+                                        <Box
+                                            w="30rem"
+                                            maw="100vw"
+                                            p="lg"
+                                            pt="0"
+                                        >
+                                            <Tabs.Panel
+                                                value="character"
+                                                pt="lg"
+                                            >
+                                                <CharacterPage />
                                             </Tabs.Panel>
 
                                             <Tabs.Panel value="skills">

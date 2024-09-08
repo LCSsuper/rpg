@@ -21,7 +21,7 @@ import { notifications } from "@mantine/notifications";
 import { v4 } from "uuid";
 
 import { Quest } from "../types";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Dropdown } from "../Character/Dropdown";
 import { cooldowns, skillNames } from "../constants";
 import * as api from "../api";
@@ -30,13 +30,15 @@ const NewQuestModal = ({
     onAccept,
     onCancel,
     loading,
+    prefillSkill,
 }: {
     onAccept: (quest: Quest) => void;
     onCancel: () => void;
     loading: boolean;
+    prefillSkill?: string;
 }) => {
     const [title, setTitle] = useState<string>("");
-    const [skill, setSkill] = useState<string>("");
+    const [skill, setSkill] = useState<string>(prefillSkill || "");
     const [cooldown, setCooldown] = useState<string>("Ten minutes");
     const [xp, setXp] = useState<number>(1);
 
@@ -115,7 +117,15 @@ const NewQuestModal = ({
     );
 };
 
-export const NewQuestButton = ({ onCreate }: { onCreate: () => void }) => {
+export const NewQuestButton = ({
+    onCreate,
+    children,
+    skill,
+}: {
+    onCreate: () => void;
+    children?: ReactNode;
+    skill?: string;
+}) => {
     const [loading, setLoading] = useState(false);
     const [opened, { open, close }] = useDisclosure(false);
 
@@ -133,6 +143,7 @@ export const NewQuestButton = ({ onCreate }: { onCreate: () => void }) => {
                 }}
             >
                 <NewQuestModal
+                    prefillSkill={skill}
                     loading={loading}
                     onAccept={async (quest) => {
                         try {
@@ -158,9 +169,15 @@ export const NewQuestButton = ({ onCreate }: { onCreate: () => void }) => {
                     onCancel={close}
                 />
             </Modal>
-            <Button flex={1} onClick={open}>
-                New Quest
-            </Button>
+            {children ? (
+                <Box onClick={open} style={{ cursor: "pointer" }}>
+                    {children}
+                </Box>
+            ) : (
+                <Button flex={1} onClick={open}>
+                    New Quest
+                </Button>
+            )}
         </>
     );
 };

@@ -22,9 +22,9 @@ export const PwaGuard = ({ children }: { children: ReactNode }) => {
             }>;
         }
     >();
-    const isPwa = useMediaQuery("(display-mode: standalone)");
+    const isPwa = useMediaQuery("(display-mode: standalone)") || true;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    // const isPwa = true; // For testing purposes
+    const isAndroid = /Android/.test(navigator.userAgent) || true;
 
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (e) => {
@@ -60,13 +60,11 @@ export const PwaGuard = ({ children }: { children: ReactNode }) => {
                 <Space h="lg" />
                 <Divider />
                 <Space h="lg" />
-                <Center>
-                    <Text size="md">
-                        {!!installPrompt
-                            ? "Download the app to start your journey!"
-                            : "Open the app to continue your journey!"}
-                    </Text>
-                </Center>
+                <Title order={3}>
+                    {!!installPrompt
+                        ? "Download the app to start your journey!"
+                        : "Open the app to continue your journey!"}
+                </Title>
                 <Space h="lg" />
                 {!!installPrompt && (
                     <Center>
@@ -88,13 +86,19 @@ export const PwaGuard = ({ children }: { children: ReactNode }) => {
                         </Button>
                     </Center>
                 )}
+                {(isIOS || isAndroid) && (
+                    <Title order={4}>Not installed yet?</Title>
+                )}
                 {isIOS && (
-                    <Center>
-                        <Text c="dimmed" size="sm">
-                            App not installed yet? Press the share button and
-                            select "Add to Home Screen"
-                        </Text>
-                    </Center>
+                    <Text c="dimmed" size="sm">
+                        Press the share button and select "Add to Home Screen"
+                    </Text>
+                )}
+                {isAndroid && (
+                    <Text c="dimmed" size="sm">
+                        Press the three dots button and select "Add to Home
+                        Screen"
+                    </Text>
                 )}
             </Box>
         </Center>

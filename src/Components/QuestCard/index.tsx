@@ -245,7 +245,7 @@ export const QuestCard = ({
                                     </Badge>
                                 )}
                                 <Text flex={1} fs="italic" c="dimmed" size="xs">
-                                    {`Last completion: ${toDateTime(
+                                    {`Completed: ${toDateTime(
                                         quest.lastCompleted
                                     )}`}
                                 </Text>

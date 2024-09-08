@@ -13,8 +13,15 @@ import { Quest, Skill } from "../types";
 import { QuestCard } from "../Components/QuestCard";
 import { FetchedBox } from "../Components/FetchedBox";
 import * as api from "../api";
+import { NewQuestCard } from "../Components/NewQuestCard";
 
-export const SkillModal = ({ skill }: { skill: Skill | null }) => {
+export const SkillModal = ({
+    skill,
+    onCompleteQuest,
+}: {
+    skill: Skill | null;
+    onCompleteQuest: () => void;
+}) => {
     if (!skill) return null;
 
     return (
@@ -45,7 +52,7 @@ export const SkillModal = ({ skill }: { skill: Skill | null }) => {
                         error="Could not load quests"
                         withinPortal
                     >
-                        {(quests) => (
+                        {(quests, refetch) => (
                             <>
                                 {!quests.length && (
                                     <Center>
@@ -56,9 +63,22 @@ export const SkillModal = ({ skill }: { skill: Skill | null }) => {
                                 )}
                                 {quests.map((quest) => (
                                     <Grid.Col key={quest.title}>
-                                        <QuestCard quest={quest} />
+                                        <QuestCard
+                                            quest={quest}
+                                            completable
+                                            onChange={() => {
+                                                onCompleteQuest();
+                                                refetch();
+                                            }}
+                                        />
                                     </Grid.Col>
                                 ))}
+                                <Grid.Col>
+                                    <NewQuestCard
+                                        skill={skill.name}
+                                        onCreate={refetch}
+                                    />
+                                </Grid.Col>
                             </>
                         )}
                     </FetchedBox>

@@ -32,10 +32,10 @@ const characterImages = [
 
 export const CharacterBox = ({
     character,
-    colorTheme,
+    refetch,
 }: {
     character: Character;
-    colorTheme: "light" | "dark";
+    refetch: () => void;
 }) => {
     const [leveledUp, setLeveledUp] = useState<boolean>(false);
     const [activeTab, setActiveTab] = useState<"skills" | "inventory">(
@@ -60,7 +60,7 @@ export const CharacterBox = ({
     }, [activeTab]);
 
     const mainLevel = getMainLevel(character.xp);
-    const color = colorTheme === "light" ? "#fff" : "#242424";
+    const color = "var(--mantine-color-body)";
 
     return (
         <Box>
@@ -70,7 +70,7 @@ export const CharacterBox = ({
                 fullScreen
                 keepMounted={false}
             >
-                <SkillModal skill={selectedSkill} />
+                <SkillModal skill={selectedSkill} onCompleteQuest={refetch} />
             </Modal>
             <Box pos="fixed" w="100%">
                 <Group justify="space-between">

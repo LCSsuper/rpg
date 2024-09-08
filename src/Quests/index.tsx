@@ -18,7 +18,7 @@ import * as api from "../api";
 import { FetchedBox } from "../Components/FetchedBox";
 import { Quest } from "../types";
 import { Dropdown } from "../Character/Dropdown";
-import { NewQuestButton } from "./NewQuestButton";
+import { NewQuestButton } from "../Components/NewQuestButton";
 import { HelpButton } from "../Components/HelpButton";
 
 export const Quests = () => {
@@ -28,53 +28,61 @@ export const Quests = () => {
     const [editing, setEditing] = useState(false);
 
     return (
-        <Box key={randomId} pos="relative">
-            <Box pos="absolute" w="100%">
-                <Group justify="end">
-                    <HelpButton />
-                </Group>
+        <Box pos="relative" key={randomId}>
+            <Box
+                pos="sticky"
+                top="0"
+                style={{ zIndex: 10 }}
+                bg="var(--mantine-color-body)"
+                pt="lg"
+                pb="lg"
+            >
+                <Box pos="absolute" w="100%">
+                    <Group justify="end">
+                        <HelpButton />
+                    </Group>
+                </Box>
+                <Title size="3rem">Quests</Title>
+                <Space h="lg" />
+                <Flex gap="xs">
+                    <NewQuestButton
+                        onCreate={() => {
+                            forceUpdate(Math.random());
+                        }}
+                    />
+                    <Button
+                        flex={1}
+                        onClick={() => setEditing(!editing)}
+                        variant="light"
+                    >
+                        {editing ? "Stop editing" : "Edit Quests"}
+                    </Button>
+                </Flex>
+                <Space h="md" />
+                <Divider />
+                <Space h="md" />
+                <Flex gap="xs">
+                    <TextInput
+                        flex={1}
+                        placeholder="Search quests"
+                        value={search}
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                        }}
+                        max={50}
+                    />
+                    <Dropdown
+                        onChange={(skill) => {
+                            setSkillFilter(skill);
+                        }}
+                        values={skillNames}
+                        value={skillFilter}
+                        placeholder="Filter by skill"
+                        allowSelectAll
+                        w="12rem"
+                    />
+                </Flex>
             </Box>
-            <Title size="3rem">Quests</Title>
-            <Space h="lg" />
-            <Flex gap="xs">
-                <NewQuestButton
-                    onCreate={() => {
-                        forceUpdate(Math.random());
-                    }}
-                />
-                <Button
-                    flex={1}
-                    onClick={() => setEditing(!editing)}
-                    variant="light"
-                >
-                    {editing ? "Stop editing" : "Edit Quests"}
-                </Button>
-            </Flex>
-            <Space h="md" />
-            <Divider />
-            <Space h="md" />
-            <Flex gap="xs">
-                <TextInput
-                    flex={1}
-                    placeholder="Search quests"
-                    value={search}
-                    onChange={(e) => {
-                        setSearch(e.target.value);
-                    }}
-                    max={50}
-                />
-                <Dropdown
-                    onChange={(skill) => {
-                        setSkillFilter(skill);
-                    }}
-                    values={skillNames}
-                    value={skillFilter}
-                    placeholder="Filter by skill"
-                    allowSelectAll
-                    w="12rem"
-                />
-            </Flex>
-            <Space h="md" />
             <Grid>
                 <FetchedBox<Quest[]>
                     queryKey={["getQuests"]}
@@ -82,14 +90,17 @@ export const Quests = () => {
                     error="Could not load quests"
                 >
                     {(quests, refetch) => {
-                        const filteredQuests = quests.filter(
-                            (quest) =>
-                                (!skillFilter || quest.skill === skillFilter) &&
-                                (!search ||
-                                    quest.title
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()))
-                        );
+                        const filteredQuests = quests
+                            .filter(
+                                (quest) =>
+                                    (!skillFilter ||
+                                        quest.skill === skillFilter) &&
+                                    (!search ||
+                                        quest.title
+                                            .toLowerCase()
+                                            .includes(search.toLowerCase()))
+                            )
+                            .sort((a, b) => a.title.localeCompare(b.title));
 
                         return (
                             <>

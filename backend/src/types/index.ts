@@ -81,6 +81,7 @@ export type Item = {
     affectedSkill: SkillName | "All";
     modifier: string;
     cost: number;
+    worth?: number;
     type: ItemType;
     owned?: boolean;
 };

@@ -10,11 +10,12 @@ import { Character } from "../types";
 
 export const rewardPlayer = async (
     character: Character,
-    newTotalXp: number
+    newTotalXp: number,
+    rewardType: "main" | "sub"
 ): Promise<{ gold: number; item?: string }> => {
     const client = new DynamoDBClient();
 
-    const { gold, itemId } = getLevelReward(newTotalXp, character);
+    const { gold, itemId } = getLevelReward(newTotalXp, character, rewardType);
 
     const input: UpdateItemCommandInput = {
         TableName: process.env.RPG_TABLE_NAME,

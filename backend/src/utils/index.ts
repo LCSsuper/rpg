@@ -50,8 +50,12 @@ export const getMainLevel = (xp: number) => getLevel(xp, mainLevelThresholds);
 
 export const getSkillLevel = (xp: number) => getLevel(xp, subLevelThresholds);
 
-export const getLevelReward = (xp: number, character: Character) => {
-    const mainLevel = getMainLevel(xp);
+export const getLevelReward = (
+    xp: number,
+    character: Character,
+    rewardType: "main" | "sub"
+) => {
+    const level = rewardType === "main" ? getMainLevel(xp) : getSkillLevel(xp);
 
     const skills = Object.entries(character.skills).reduce(
         (map, [skill, xp]) => {
@@ -67,7 +71,7 @@ export const getLevelReward = (xp: number, character: Character) => {
         lowestXpSkills[Math.floor(Math.random() * lowestXpSkills.length)];
 
     let itemId: string | undefined;
-    if (mainLevel.level % 5 === 0) {
+    if (level.level % 5 === 0) {
         const availableItemIds = items
             .filter(
                 (item) =>
@@ -93,7 +97,7 @@ export const getLevelReward = (xp: number, character: Character) => {
     }
 
     return {
-        gold: Math.floor(mainLevel.xpNeededToNextLevel ** 1.6),
+        gold: Math.floor(level.xpNeededToNextLevel ** 1.6),
         itemId,
     };
 };

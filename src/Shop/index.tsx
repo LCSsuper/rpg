@@ -23,17 +23,18 @@ import { HelpButton } from "../Components/HelpButton";
 const Items = ({
     gold,
     items,
+    search,
+    skillFilter,
     emptyText,
     onBuyOrSell,
 }: {
     gold?: number;
     items: Item[];
+    search: string;
+    skillFilter: string;
     emptyText: string;
     onBuyOrSell: () => void;
 }) => {
-    const [search, setSearch] = useState("");
-    const [skillFilter, setSkillFilter] = useState("");
-
     const filteredItems = items.filter((item) => {
         return (
             (item.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -46,28 +47,6 @@ const Items = ({
 
     return (
         <>
-            <Flex gap="xs">
-                <TextInput
-                    flex={1}
-                    placeholder="Search items"
-                    value={search}
-                    onChange={(e) => {
-                        setSearch(e.target.value);
-                    }}
-                    maxLength={50}
-                />
-                <Dropdown
-                    onChange={(skill) => {
-                        setSkillFilter(skill);
-                    }}
-                    values={skillNames}
-                    value={skillFilter}
-                    placeholder="Filter by affected skill"
-                    allowSelectAll
-                    w="12rem"
-                />
-            </Flex>
-            <Space h="md" />
             {!items.length && (
                 <Center>
                     <Title order={5} pt="lg" c="dimmed">
@@ -97,6 +76,9 @@ const Items = ({
 };
 
 export const Shop = () => {
+    const [search, setSearch] = useState("");
+    const [skillFilter, setSkillFilter] = useState("");
+
     return (
         <>
             <FetchedBox<{ gold: number; items: Item[] }>
@@ -119,39 +101,75 @@ export const Shop = () => {
                     );
 
                     return (
-                        <Box pos="relative">
-                            <Box pos="absolute" w="100%">
-                                <Group justify="end">
-                                    <HelpButton />
-                                </Group>
-                            </Box>
-                            <Title size="3rem">Shop</Title>
-                            <Space h="lg" />
-                            <Box p="xs">
-                                <Space h="lg" />
-                                <Group align="center" gap="5">
-                                    <Text size="xl" fw={700}>
-                                        {gold}
-                                    </Text>
-                                    <ItemIcon name="coin" scale={1} />
-                                </Group>
-                                <Space h="lg" />
-                            </Box>
-                            <Tabs
-                                keepMounted={false}
-                                inverted
-                                defaultValue="shop"
+                        <Tabs
+                            keepMounted={false}
+                            inverted
+                            defaultValue="shop"
+                            pos="relative"
+                        >
+                            <Box
+                                pos="sticky"
+                                top="0"
+                                style={{ zIndex: 10 }}
+                                bg="var(--mantine-color-body)"
+                                pt="lg"
+                                pb="lg"
                             >
-                                <Tabs.List grow w="100%">
-                                    <Tabs.Tab value="shop">Shop items</Tabs.Tab>
-                                    <Tabs.Tab value="owned">
-                                        Owned items
-                                    </Tabs.Tab>
-                                </Tabs.List>
-                                <Space h="lg" />
-
+                                <Box pos="relative">
+                                    <Box pos="absolute" w="100%">
+                                        <Group justify="end">
+                                            <HelpButton />
+                                        </Group>
+                                    </Box>
+                                    <Title size="3rem">Shop</Title>
+                                    <Space h="lg" />
+                                    <Box p="xs">
+                                        <Space h="lg" />
+                                        <Group align="center" gap="5">
+                                            <Text size="xl" fw={700}>
+                                                {gold}
+                                            </Text>
+                                            <ItemIcon name="coin" scale={1} />
+                                        </Group>
+                                        <Space h="lg" />
+                                    </Box>
+                                    <Tabs.List grow w="100%">
+                                        <Tabs.Tab value="shop">
+                                            Shop items
+                                        </Tabs.Tab>
+                                        <Tabs.Tab value="owned">
+                                            Owned items
+                                        </Tabs.Tab>
+                                    </Tabs.List>
+                                    <Space h="lg" />
+                                    <Flex gap="xs">
+                                        <TextInput
+                                            flex={1}
+                                            placeholder="Search items"
+                                            value={search}
+                                            onChange={(e) => {
+                                                setSearch(e.target.value);
+                                            }}
+                                            maxLength={50}
+                                        />
+                                        <Dropdown
+                                            onChange={(skill) => {
+                                                setSkillFilter(skill);
+                                            }}
+                                            values={skillNames}
+                                            value={skillFilter}
+                                            placeholder="Filter by affected skill"
+                                            allowSelectAll
+                                            w="12rem"
+                                        />
+                                    </Flex>
+                                </Box>
+                            </Box>
+                            <Box>
                                 <Tabs.Panel value="owned">
                                     <Items
+                                        search={search}
+                                        skillFilter={skillFilter}
                                         items={ownedItems}
                                         emptyText="You don't have any items yet"
                                         onBuyOrSell={refresh}
@@ -160,14 +178,16 @@ export const Shop = () => {
 
                                 <Tabs.Panel value="shop">
                                     <Items
+                                        search={search}
+                                        skillFilter={skillFilter}
                                         gold={gold}
                                         items={shopItems}
                                         emptyText="No more items to buy"
                                         onBuyOrSell={refresh}
                                     />
                                 </Tabs.Panel>
-                            </Tabs>
-                        </Box>
+                            </Box>
+                        </Tabs>
                     );
                 }}
             </FetchedBox>

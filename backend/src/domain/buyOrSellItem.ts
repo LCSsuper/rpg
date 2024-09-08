@@ -3,35 +3,29 @@ import {
     UpdateItemCommand,
     UpdateItemCommandInput,
 } from "@aws-sdk/client-dynamodb";
-import { items } from "./constants/items";
-import { getInventory } from "./getInventory";
+import { getItems } from "./getItems";
 
 export const buyOrSellItem = async (
     characterId: string,
     itemId: string,
     action: "buy" | "sell"
 ): Promise<void> => {
-    const itemIds = new Set(items.map((item) => item.id));
+    const { items, gold } = await getItems(characterId);
+    const item = items.find((item) => item.id === itemId)!;
 
-    if (!itemIds.has(itemId)) {
+    if (!item) {
         throw new Error("Item does not exist");
     }
 
-    const inventory = await getInventory(characterId);
-
-    const ownedItemIds = new Set(inventory.items.map((item) => item.id));
-
-    if (action === "buy" && ownedItemIds.has(itemId)) {
+    if (action === "buy" && item.owned) {
         throw new Error("Item is already owned");
     }
 
-    if (action === "sell" && !ownedItemIds.has(itemId)) {
+    if (action === "sell" && !item.owned) {
         throw new Error("Item is not owned");
     }
 
-    const item = items.find((item) => item.id === itemId)!;
-
-    if (action === "buy" && item.cost > inventory.gold) {
+    if (action === "buy" && item.cost > gold) {
         throw new Error("Not enough money");
     }
 
@@ -47,7 +41,7 @@ export const buyOrSellItem = async (
             gold: {
                 Action: "ADD",
                 Value: {
-                    N: (action === "buy" ? -item.cost : item.cost).toString(),
+                    N: (action === "buy" ? -item.cost : item.worth!).toString(),
                 },
             },
             items: {

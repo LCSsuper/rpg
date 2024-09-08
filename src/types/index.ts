@@ -63,6 +63,7 @@ export type Item = {
     affectedSkill: string;
     modifier: number;
     cost: number;
+    worth: number;
     type: ItemType;
     owned?: boolean;
 };

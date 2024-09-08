@@ -113,12 +113,12 @@ export const completeQuest = async (
     } as CompleteQuestResponse;
 
     if (leveledUp) {
-        response.main.reward = await rewardPlayer(character, newMainXp);
+        response.main.reward = await rewardPlayer(character, newMainXp, "main");
         response.main.newLevel = getMainLevel(newMainXp).level;
     }
 
     if (subLeveledUp) {
-        response.sub.reward = await rewardPlayer(character, newSkillXp);
+        response.sub.reward = await rewardPlayer(character, newSkillXp, "sub");
         response.sub.newLevel = getSkillLevel(newSkillXp).level;
     }
 

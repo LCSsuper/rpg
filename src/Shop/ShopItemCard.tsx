@@ -68,7 +68,7 @@ export const ShopItemCard = ({
                 <Box flex="0 0 4.5rem">
                     <Group gap="0" justify="end">
                         <Text size="xs" fw="bold">
-                            {item.cost}
+                            {item.owned ? item.worth : item.cost}
                         </Text>
                         <ItemIcon name="coin" scale={0.7} />
                     </Group>
