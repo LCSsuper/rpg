@@ -22,9 +22,9 @@ export const PwaGuard = ({ children }: { children: ReactNode }) => {
             }>;
         }
     >();
-    const isPwa = useMediaQuery("(display-mode: standalone)") || true;
+    const isPwa = useMediaQuery("(display-mode: standalone)");
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isAndroid = /Android/.test(navigator.userAgent) || true;
+    const isAndroid = /Android/.test(navigator.userAgent);
 
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (e) => {
