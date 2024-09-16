@@ -91,12 +91,24 @@ export type Inventory = {
     gold: number;
 };
 
+export const VARIANTS = [
+    "darkacademia",
+    "skater",
+    "cyberpunk",
+    "vampire",
+    "earthy",
+    "anime",
+] as const;
+type VariantTuple = typeof VARIANTS;
+export type Variant = VariantTuple[number];
+
 export type Character = {
     id: string;
     name: string;
     xp: number;
     inventory: Inventory;
     skills: Record<SkillName, number>;
+    variant: Variant;
 };
 
 export type Level = {

@@ -11,7 +11,6 @@ export const InventoryBox = ({ inventory }: { inventory: Inventory }) => {
     return (
         <Box>
             <Box p="xs">
-                <Space h="lg" />
                 <Group align="center" gap="5">
                     <Text size="xl" fw={700}>
                         {inventory.gold}

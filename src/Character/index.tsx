@@ -3,16 +3,21 @@ import { CharacterBox } from "./CharacterBox";
 import { FetchedBox } from "../Components/FetchedBox";
 import { Character } from "../types";
 
-export const CharacterPage = () => {
+export const CharacterPage = ({
+    setTheme,
+}: {
+    setTheme: (color: string) => void;
+}) => {
     return (
         <FetchedBox<Character>
             queryKey={["getCharacter"]}
             queryFn={api.getCharacter}
             error="Could not load character"
         >
-            {(character, refetch) => (
-                <CharacterBox character={character} refetch={refetch} />
-            )}
+            {(character, refetch) => {
+                setTheme(character.variant);
+                return <CharacterBox character={character} refetch={refetch} />;
+            }}
         </FetchedBox>
     );
 };

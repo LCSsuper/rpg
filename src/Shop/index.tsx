@@ -122,16 +122,15 @@ export const Shop = () => {
                                         </Group>
                                     </Box>
                                     <Title size="3rem">Shop</Title>
-                                    <Space h="lg" />
                                     <Box p="xs">
-                                        <Space h="lg" />
+                                        <Space h="xs" />
                                         <Group align="center" gap="5">
                                             <Text size="xl" fw={700}>
                                                 {gold}
                                             </Text>
                                             <ItemIcon name="coin" scale={1} />
                                         </Group>
-                                        <Space h="lg" />
+                                        <Space h="xs" />
                                     </Box>
                                     <Tabs.List grow w="100%">
                                         <Tabs.Tab value="shop">

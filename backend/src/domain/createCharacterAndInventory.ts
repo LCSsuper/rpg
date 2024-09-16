@@ -1,8 +1,10 @@
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { randomUUID } from "crypto";
+import { Variant } from "../types";
 
 export const createCharacterAndInventory = async (
-    name: string
+    name: string,
+    variant: Variant
 ): Promise<string> => {
     const client = new DynamoDBClient();
 
@@ -32,6 +34,7 @@ export const createCharacterAndInventory = async (
                 art_xp: { N: "0" },
                 writing_xp: { N: "0" },
                 music_xp: { N: "0" },
+                variant: { S: variant },
             },
         })
     );

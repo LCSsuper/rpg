@@ -8,7 +8,13 @@ import { getItems } from "./domain/getItems";
 import { getQuests } from "./domain/getQuests";
 import { updateQuest } from "./domain/updateQuest";
 import { buyOrSellItem } from "./domain/buyOrSellItem";
-import { Character, CompleteQuestResponse, Item, Quest } from "./types";
+import {
+    Character,
+    CompleteQuestResponse,
+    Item,
+    Quest,
+    VARIANTS,
+} from "./types";
 import { getCharacter } from "./domain/getCharacter";
 import { sendFeedback } from "./domain/sendFeedback";
 import { cooldowns } from "./constants";
@@ -49,13 +55,21 @@ export const createCharacterHandler = requestHandlerWrapper(
     ): Promise<{
         characterId: string;
     }> => {
-        const name = JSON.parse(payload.body || "{}").name;
+        const { name, variant } = JSON.parse(payload.body || "{}");
 
         if (!name) {
             throw new Error("Name is required");
         }
 
-        const characterId = await createCharacterAndInventory(name);
+        if (!variant) {
+            throw new Error("Variant is required");
+        }
+
+        if (VARIANTS.indexOf(variant) === -1) {
+            throw new Error("Invalid variant");
+        }
+
+        const characterId = await createCharacterAndInventory(name, variant);
 
         return { characterId };
     }

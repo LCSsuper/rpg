@@ -287,7 +287,11 @@ export const HelpButton = () => {
             >
                 <HelpModal />
             </Modal>
-            <ActionIcon onClick={openInfo} variant="light">
+            <ActionIcon
+                onClick={openInfo}
+                variant="light"
+                style={{ zIndex: 2 }}
+            >
                 <IconHelpCircle />
             </ActionIcon>
         </>

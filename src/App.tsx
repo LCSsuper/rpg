@@ -11,6 +11,7 @@ import {
 import "@mantine/core/styles.layer.css";
 import "@mantine/notifications/styles.css";
 import { IconKarate, IconShoppingBag, IconUser } from "@tabler/icons-react";
+import { useState } from "react";
 
 import { CharacterPage } from "./Character";
 import { Quests } from "./Quests";
@@ -20,16 +21,31 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CharacterGuard } from "./CharacterGuard";
 import { PwaGuard } from "./PwaGuard";
 
-const theme = createTheme({
-    primaryColor: "violet",
-});
-
 const queryClient = new QueryClient();
 
 // TODO @Lucas add disable rotate workaround: https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
 
 const App = () => {
     const colorTheme = "dark";
+
+    const [primaryColor, setPrimaryColor] = useState("orange");
+
+    const theme = createTheme({
+        primaryColor,
+    });
+
+    const setTheme = (variant: string) => {
+        if (variant === "darkacademia") {
+            setPrimaryColor("orange");
+            return;
+        }
+        if (variant === "skater") {
+            setPrimaryColor("blue");
+            return;
+        }
+        setPrimaryColor("orange");
+    };
+
     return (
         <MantineProvider forceColorScheme={colorTheme} theme={theme}>
             <QueryClientProvider client={queryClient}>
@@ -40,7 +56,7 @@ const App = () => {
                     className="notifications"
                 />
                 <PwaGuard>
-                    <CharacterGuard>
+                    <CharacterGuard setTheme={setTheme}>
                         <AppShell>
                             <Tabs
                                 defaultValue="character"
@@ -58,11 +74,10 @@ const App = () => {
                                             p="lg"
                                             pt="0"
                                         >
-                                            <Tabs.Panel
-                                                value="character"
-                                                pt="lg"
-                                            >
-                                                <CharacterPage />
+                                            <Tabs.Panel value="character">
+                                                <CharacterPage
+                                                    setTheme={setTheme}
+                                                />
                                             </Tabs.Panel>
 
                                             <Tabs.Panel value="skills">

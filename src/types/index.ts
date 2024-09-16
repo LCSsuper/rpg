@@ -79,6 +79,13 @@ export type Character = {
     xp: number;
     inventory: Inventory;
     skills: Record<string, number>;
+    variant:
+        | "darkacademia"
+        | "skater"
+        | "cyberpunk"
+        | "vampire"
+        | "earthy"
+        | "anime";
 };
 
 export type Level = {

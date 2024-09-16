@@ -11,7 +11,6 @@ import {
     Button,
     Group,
     Grid,
-    Overlay,
     Loader,
     Tabs,
 } from "@mantine/core";
@@ -22,23 +21,22 @@ import { notifications } from "@mantine/notifications";
 import { IconCheck, IconExclamationCircle } from "@tabler/icons-react";
 import { InfoButton } from "./Components/InfoButton";
 
-const characterOptions = [
-    "./character-option-1.webp",
-    "./character-option-2.png",
-    "./character-option-3.png",
-];
+const variants = {
+    darkacademia: "./characters/darkacademia/1.png",
+    skater: "./characters/dude/1.png",
+};
 
 const Signup = ({
     existingToken,
     onSignup,
+    setTheme,
 }: {
     existingToken: string | null;
     onSignup: () => void;
+    setTheme: (theme: string) => void;
 }) => {
     const [name, setName] = useState("");
-    const [selectedCharacter, setSelectedCharacter] = useState(
-        characterOptions[0]
-    );
+    const [variant, setVariant] = useState("skater");
     const [token, setToken] = useState(existingToken || "");
     const [loading, setLoading] = useState(false);
 
@@ -78,42 +76,45 @@ const Signup = ({
             <Space h="lg" />
             <Center>
                 <Grid w="20rem" gutter="md" style={{ position: "relative" }}>
-                    {characterOptions.map((src) => {
-                        const selected = selectedCharacter === src;
+                    {Object.entries(variants).map(([key, src]) => {
+                        const selected = variant === key;
 
                         return (
-                            <Grid.Col span={4} key={src}>
+                            <Grid.Col span={4} key={key}>
                                 <Card
-                                    onClick={() => setSelectedCharacter(src)}
+                                    onClick={() => {
+                                        setVariant(key);
+                                        setTheme(key);
+                                    }}
                                     shadow="xs"
                                     padding="0"
                                     withBorder
                                     p="xs"
                                     bg={
                                         selected
-                                            ? "var(--mantine-color-violet-light)"
+                                            ? "var(--mantine-primary-color-light)"
                                             : undefined
                                     }
-                                    styles={(theme) => ({
+                                    styles={{
                                         root: {
                                             borderColor: selected
-                                                ? theme.colors.violet[7]
+                                                ? "var(--mantine-primary-color-6)"
                                                 : undefined,
                                         },
-                                    })}
+                                    }}
                                 >
-                                    <Image src={src} w="4.5rem" />
+                                    <Image
+                                        src={src}
+                                        w="4.5rem"
+                                        style={{
+                                            transform:
+                                                "scale(3) translate(2%, 18%)",
+                                        }}
+                                    />
                                 </Card>
                             </Grid.Col>
                         );
                     })}
-                    <Overlay bg="none" blur={3}>
-                        <Center h="100%">
-                            <Title order={3} c="dimmed">
-                                coming soon
-                            </Title>
-                        </Center>
-                    </Overlay>
                 </Grid>
             </Center>
             <Space h="lg" />
@@ -212,7 +213,13 @@ const Signin = ({
     );
 };
 
-export const CharacterGuard = ({ children }: { children: ReactNode }) => {
+export const CharacterGuard = ({
+    children,
+    setTheme,
+}: {
+    children: ReactNode;
+    setTheme: (theme: string) => void;
+}) => {
     const existingCharacterId = localStorage.getItem("characterId");
     const existingToken = localStorage.getItem("token");
 
@@ -252,6 +259,7 @@ export const CharacterGuard = ({ children }: { children: ReactNode }) => {
 
                         <Tabs.Panel value="signup">
                             <Signup
+                                setTheme={setTheme}
                                 existingToken={existingToken}
                                 onSignup={() => forceUpdate(Math.random())}
                             />

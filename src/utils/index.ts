@@ -78,3 +78,10 @@ export const determineRemainingCooldown = (quest: Quest) => {
         Math.max(cooldown[quest.cooldown!] - (now - lastCompleted), 0) / 1000
     );
 };
+
+export const getCharacterImageSrc = (variant: string, level: number) => {
+    // every 10 levels, there will be a new version of the character
+    // const version = Math.floor(level / 10) + 1;
+    const version = 1;
+    return `./characters/${variant}/${version}.png`;
+};
