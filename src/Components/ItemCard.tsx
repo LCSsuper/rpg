@@ -69,6 +69,10 @@ export const ItemCard = ({ item }: { item?: Item }) => {
                 keepMounted={false}
                 centered
                 title={item.name}
+                overlayProps={{
+                    backgroundOpacity: 0.5,
+                    blur: 3,
+                }}
             >
                 <ItemModal item={item} onClose={closeItemModal} />
             </Modal>
