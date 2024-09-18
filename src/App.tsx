@@ -43,6 +43,10 @@ const App = () => {
             setPrimaryColor("blue");
             return;
         }
+        if (variant === "cyberpunk") {
+            setPrimaryColor("violet");
+            return;
+        }
         setPrimaryColor("orange");
     };
 

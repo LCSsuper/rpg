@@ -10,7 +10,6 @@ import {
     Image,
     Button,
     Group,
-    Grid,
     Loader,
     Tabs,
 } from "@mantine/core";
@@ -20,11 +19,7 @@ import * as api from "./api";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconExclamationCircle } from "@tabler/icons-react";
 import { InfoButton } from "./Components/InfoButton";
-
-const variants = {
-    darkacademia: "./characters/darkacademia/1.png",
-    skater: "./characters/dude/1.png",
-};
+import { CharacterVariantSelector } from "./Components/CharacterVariantSelector";
 
 const Signup = ({
     existingToken,
@@ -40,12 +35,16 @@ const Signup = ({
     const [token, setToken] = useState(existingToken || "");
     const [loading, setLoading] = useState(false);
 
-    const disabled = !name || !token || loading;
+    const disabled = !name || !variant || !token || loading;
 
     const createCharacter = async () => {
         try {
             setLoading(true);
-            const { characterId } = await api.createCharacter(token, name);
+            const { characterId } = await api.createCharacter(
+                token,
+                name,
+                variant
+            );
             localStorage.setItem("characterId", characterId);
             localStorage.setItem("token", token);
             notifications.show({
@@ -75,47 +74,13 @@ const Signup = ({
             <Text size="xl">Create your character:</Text>
             <Space h="lg" />
             <Center>
-                <Grid w="20rem" gutter="md" style={{ position: "relative" }}>
-                    {Object.entries(variants).map(([key, src]) => {
-                        const selected = variant === key;
-
-                        return (
-                            <Grid.Col span={4} key={key}>
-                                <Card
-                                    onClick={() => {
-                                        setVariant(key);
-                                        setTheme(key);
-                                    }}
-                                    shadow="xs"
-                                    padding="0"
-                                    withBorder
-                                    p="xs"
-                                    bg={
-                                        selected
-                                            ? "var(--mantine-primary-color-light)"
-                                            : undefined
-                                    }
-                                    styles={{
-                                        root: {
-                                            borderColor: selected
-                                                ? "var(--mantine-primary-color-6)"
-                                                : undefined,
-                                        },
-                                    }}
-                                >
-                                    <Image
-                                        src={src}
-                                        w="4.5rem"
-                                        style={{
-                                            transform:
-                                                "scale(3) translate(2%, 18%)",
-                                        }}
-                                    />
-                                </Card>
-                            </Grid.Col>
-                        );
-                    })}
-                </Grid>
+                <CharacterVariantSelector
+                    variant={variant}
+                    setVariant={(v) => {
+                        setVariant(v);
+                        setTheme(v);
+                    }}
+                />
             </Center>
             <Space h="lg" />
             <TextInput

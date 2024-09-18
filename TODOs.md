@@ -1,6 +1,8 @@
 -   WIP
 -   TODO
-    -   Update character name/variant handler
+    -   Character options in seperate popup
+        -   Update character
+        -   Delete character
     -   Generate 10 images per character (implement 6 characters) -> with Lisa
 -   SHOULD HAVE
     -   Clans to see how friends are leveling

@@ -19,6 +19,7 @@ import { getCharacter } from "./domain/getCharacter";
 import { sendFeedback } from "./domain/sendFeedback";
 import { cooldowns } from "./constants";
 import { deleteCharacter } from "./domain/deleteCharacter";
+import { updateCharacter } from "./domain/updateCharacter";
 
 type LambdaFunctionUrlPayload = {
     headers?: Record<string, string>;
@@ -72,6 +73,37 @@ export const createCharacterHandler = requestHandlerWrapper(
         const characterId = await createCharacterAndInventory(name, variant);
 
         return { characterId };
+    }
+);
+
+export const updateCharacterHandler = requestHandlerWrapper(
+    async (
+        payload: LambdaFunctionUrlPayload
+    ): Promise<{
+        ok: boolean;
+    }> => {
+        const characterId = payload.queryStringParameters?.characterId;
+        const { name, variant } = JSON.parse(payload.body || "{}");
+
+        if (!characterId) {
+            throw new Error("CharacterId is required");
+        }
+
+        if (!name) {
+            throw new Error("Name is required");
+        }
+
+        if (!variant) {
+            throw new Error("Variant is required");
+        }
+
+        if (VARIANTS.indexOf(variant) === -1) {
+            throw new Error("Invalid variant");
+        }
+
+        await updateCharacter(characterId, name, variant);
+
+        return { ok: true };
     }
 );
 

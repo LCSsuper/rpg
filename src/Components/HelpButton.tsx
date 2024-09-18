@@ -26,6 +26,7 @@ import {
 import { useState } from "react";
 
 import * as api from "../api";
+import { CharacterVariantSelector } from "./CharacterVariantSelector";
 
 const HowToPlay = () => (
     <>

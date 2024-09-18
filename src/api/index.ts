@@ -15,14 +15,31 @@ const loadCharacterIdAndToken = () => {
 
 export const createCharacter = async (
     token: string,
-    name: string
+    name: string,
+    variant: string
 ): Promise<{ characterId: string }> => {
     const { body } = await superagent
         .post(
             "https://qxlazojoawnbwjr22xq3u6ehw40yzoga.lambda-url.eu-west-1.on.aws/"
         )
         .set("authorization", token)
-        .send({ name });
+        .send({ name, variant });
+
+    return body;
+};
+
+export const updateCharacter = async (
+    name: string,
+    variant: string
+): Promise<void> => {
+    const { characterId, token } = loadCharacterIdAndToken();
+    const { body } = await superagent
+        .post(
+            "https://up2rmpa3ayigsshxwry3gcikpu0tyhdq.lambda-url.eu-west-1.on.aws/"
+        )
+        .set("authorization", token)
+        .query({ characterId })
+        .send({ name, variant });
 
     return body;
 };

@@ -27,5 +27,5 @@ export const parseRawCharacter = (
         Writing: parseFloat(rawCharacter.writing_xp.N!),
         Music: parseFloat(rawCharacter.music_xp.N!),
     },
-    variant: (rawCharacter.variant.S as any) || "skater",
+    variant: (rawCharacter.variant?.S as any) || "skater",
 });

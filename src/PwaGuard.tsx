@@ -35,6 +35,8 @@ export const PwaGuard = ({ children }: { children: ReactNode }) => {
         });
     }, []);
 
+    return <>{children}</>;
+
     if (!installPrompt && isPwa) return <>{children}</>;
 
     return (

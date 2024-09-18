@@ -21,13 +21,16 @@ import { getCharacterImageSrc, getMainLevel, getSkillLevel } from "../utils";
 import { SkillModal } from "./SkillModal";
 import { InventoryBox } from "./Inventory";
 import { HelpButton } from "../Components/HelpButton";
+import { EditCharacterButton } from "./EditCharacterButton";
 
 export const CharacterBox = ({
     character,
     refetch,
+    setTheme,
 }: {
     character: Character;
     refetch: () => void;
+    setTheme: (color: string) => void;
 }) => {
     const [leveledUp, setLeveledUp] = useState<boolean>(false);
     const [activeTab, setActiveTab] = useState<"skills" | "inventory">(
@@ -89,10 +92,18 @@ export const CharacterBox = ({
                     bg="var(--mantine-color-body)"
                     style={{ zIndex: 2 }}
                 >
-                    <Group justify="space-between">
-                        <Title order={2} c="var(--mantine-primary-color-3)">
-                            {character.name}
-                        </Title>
+                    <Group justify="space-between" align="start">
+                        <Group gap="xs" align="center">
+                            <EditCharacterButton
+                                character={character}
+                                setTheme={setTheme}
+                                onUpdate={refetch}
+                            />
+                            <Title order={2} c="var(--mantine-primary-color-3)">
+                                {character.name}
+                            </Title>
+                        </Group>
+
                         <HelpButton />
                     </Group>
                     <div
