@@ -127,6 +127,7 @@ export type Quest = {
     skill: SkillName;
     lastCompleted: number;
     cooldown?: string;
+    streak: number;
 };
 
 export type CompleteQuestResponse = {

@@ -3,6 +3,14 @@ import { getMainLevel } from "../utils";
 import { items } from "./constants/items";
 import { getCharacter } from "./getCharacter";
 
+const inflate = (cost: number, level: number) => {
+    return cost + level * 50;
+};
+
+const devalue = (cost: number, level: number) => {
+    return cost - level * 20;
+};
+
 export const getItems = async (
     characterId: string
 ): Promise<{ gold: number; items: Item[] }> => {
@@ -17,8 +25,8 @@ export const getItems = async (
     return {
         gold: character.inventory.gold,
         items: items.map((item) => {
-            const cost = item.cost + Math.floor(level.level * 10);
-            const worth = Math.floor(cost * 0.8);
+            const cost = inflate(item.cost, level.level);
+            const worth = devalue(cost, level.level);
 
             return {
                 ...item,

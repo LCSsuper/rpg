@@ -5,12 +5,15 @@ const modifyXp = (quest: Quest, multipliers: Map<string, string[]>) => {
     const skillModifiers = multipliers.get(quest.skill) || [];
     const genericModifiers = multipliers.get("All") || [];
     const modifiers = [...skillModifiers, ...genericModifiers].sort();
-    const modifiedXp = modifiers.reduce((xp, modifier) => {
+    let modifiedXp = modifiers.reduce((xp, modifier) => {
         const [operator, value] = modifier.split(" ");
         return operator === "+"
             ? xp + parseFloat(value)
             : xp * parseFloat(value);
     }, quest.xp);
+
+    modifiedXp =
+        modifiedXp * (1 + Math.min(Math.floor(quest.streak / 5) * 0.1, 0.5));
 
     return roundNumber(modifiedXp);
 };
@@ -32,6 +35,7 @@ export const parseRawQuest = (rawQuest: any, items: Item[]): Quest => {
         modifiedXp: parseFloat(rawQuest.xp.N!),
         lastCompleted: parseFloat(rawQuest.lastCompleted?.N || 0),
         cooldown: rawQuest.cooldown?.S || "Ten minutes",
+        streak: parseFloat(rawQuest.streak?.N || 0),
     };
 
     quest.modifiedXp = modifyXp(quest, xpMultipliersPerSkill);

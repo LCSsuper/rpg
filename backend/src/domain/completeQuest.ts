@@ -52,6 +52,21 @@ export const completeQuest = async (
         throw new Error("Invalid skill");
     }
 
+    let streak = quest.streak || 1;
+    if (quest.lastCompleted) {
+        const lastCompleted = Date.parse(
+            new Date(quest.lastCompleted).toDateString()
+        );
+        const today = Date.parse(new Date().toDateString());
+        const difference = today - lastCompleted;
+        if (difference === 86400000) {
+            streak += 1;
+        }
+        if (difference > 86400000) {
+            streak = 1;
+        }
+    }
+
     await client.send(
         new UpdateItemCommand({
             TableName: process.env.RPG_TABLE_NAME,
@@ -63,6 +78,10 @@ export const completeQuest = async (
                 lastCompleted: {
                     Action: "PUT",
                     Value: { N: Date.now().toFixed() },
+                },
+                streak: {
+                    Action: "PUT",
+                    Value: { N: streak.toFixed() },
                 },
             },
         })

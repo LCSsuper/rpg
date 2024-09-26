@@ -20,6 +20,7 @@ import { Notifications } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CharacterGuard } from "./CharacterGuard";
 import { PwaButton } from "./PwaButton";
+import { UpdateLog } from "./Components/UpdateLog";
 
 const queryClient = new QueryClient();
 

@@ -18,6 +18,7 @@ import { notifications } from "@mantine/notifications";
 import {
     IconCheck,
     IconExclamationCircle,
+    IconFlame,
     IconPencil,
     IconTrash,
 } from "@tabler/icons-react";
@@ -149,6 +150,18 @@ export const QuestCard = ({
 
     const xpIsModified = quest.xp !== quest.modifiedXp;
 
+    let showStreak = false;
+    if (quest.lastCompleted && (quest.streak || 0) > 1) {
+        const lastCompleted = Date.parse(
+            new Date(quest.lastCompleted).toDateString()
+        );
+        const today = Date.parse(new Date().toDateString());
+        const difference = today - lastCompleted;
+        if (difference <= 86400000) {
+            showStreak = true;
+        }
+    }
+
     return (
         <>
             <Modal
@@ -209,26 +222,50 @@ export const QuestCard = ({
                                 {quest.title}
                             </Title>
                             <Flex
-                                flex="0 0 3rem"
+                                flex="0 0 7rem"
                                 gap="xs"
                                 align="end"
                                 direction="column"
                             >
-                                <Badge
-                                    color="green"
-                                    tt="none"
-                                    variant={xpIsModified ? "light" : "filled"}
-                                >
-                                    <Box
-                                        td={
-                                            xpIsModified
-                                                ? "line-through"
-                                                : undefined
+                                <Group gap="xs">
+                                    {showStreak && (
+                                        <Badge
+                                            tt="none"
+                                            color="orange"
+                                            variant="light"
+                                            leftSection={
+                                                <IconFlame size=".7rem" />
+                                            }
+                                            styles={{
+                                                section: {
+                                                    marginRight: ".1rem",
+                                                },
+                                                root: {
+                                                    padding: ".2rem .5rem",
+                                                },
+                                            }}
+                                        >
+                                            {quest.streak}
+                                        </Badge>
+                                    )}
+                                    <Badge
+                                        color="green"
+                                        tt="none"
+                                        variant={
+                                            xpIsModified ? "light" : "filled"
                                         }
                                     >
-                                        {`+${quest.xp} XP`}
-                                    </Box>
-                                </Badge>
+                                        <Box
+                                            td={
+                                                xpIsModified
+                                                    ? "line-through"
+                                                    : undefined
+                                            }
+                                        >
+                                            {`+${quest.xp} XP`}
+                                        </Box>
+                                    </Badge>
+                                </Group>
                                 {xpIsModified && (
                                     <Badge tt="none" color="green">
                                         +{quest.modifiedXp} XP

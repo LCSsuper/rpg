@@ -15,7 +15,7 @@ import { useState } from "react";
 import {
     IconCheck,
     IconExclamationCircle,
-    IconSettings,
+    IconUserEdit,
 } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
 
@@ -142,7 +142,7 @@ export const EditCharacterButton = ({
                 />
             </Modal>
             <ActionIcon variant="light" onClick={open} style={{ zIndex: 2 }}>
-                <IconSettings />
+                <IconUserEdit />
             </ActionIcon>
         </>
     );

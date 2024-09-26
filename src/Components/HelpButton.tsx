@@ -27,6 +27,7 @@ import { useState } from "react";
 
 import * as api from "../api";
 import { CharacterVariantSelector } from "./CharacterVariantSelector";
+import { UpdateLog } from "./UpdateLog";
 
 const HowToPlay = () => (
     <>
@@ -288,13 +289,12 @@ export const HelpButton = () => {
             >
                 <HelpModal />
             </Modal>
-            <ActionIcon
-                onClick={openInfo}
-                variant="light"
-                style={{ zIndex: 2 }}
-            >
-                <IconHelpCircle />
-            </ActionIcon>
+            <Group gap="xs" style={{ zIndex: 2 }}>
+                <UpdateLog />
+                <ActionIcon onClick={openInfo} variant="light">
+                    <IconHelpCircle />
+                </ActionIcon>
+            </Group>
         </>
     );
 };

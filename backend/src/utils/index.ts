@@ -97,7 +97,7 @@ export const getLevelReward = (
     }
 
     return {
-        gold: Math.floor(level.xpNeededToNextLevel ** 1.6),
+        gold: 50 + level.level * 10,
         itemId,
     };
 };
@@ -112,6 +112,7 @@ export const determineRemainingCooldown = (quest: Quest) => {
     const cooldown: Record<string, number> = {
         "Ten minutes": 10 * 60 * 1000,
         "One hour": 60 * 60 * 1000,
+        "Twelve hours": 12 * 60 * 60 * 1000,
         "One day": 24 * 60 * 60 * 1000,
     };
 

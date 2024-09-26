@@ -1,13 +1,12 @@
 -   WIP
 -   TODO
-    -   Multiple skills per quest?
     -   Generate 10 images per character (implement 6 characters) -> with Lisa
     -   Bug: First load sometimes has buggy color
+    -   Internationalization (dutch/english)
+-   FEEDBACK IDEAS
+    -   Carlijn: Multiple skills per quest?
+    -   Carlijn: Weekly quests - ~4 quests that are standard for everyone - changes every week (grab from ~20 quests)
 -   SHOULD HAVE
-    -   Weekly quests
-        -   ~4 quests that are standard for everyone
-        -   changes every week (grab from ~20 quests)
-    -   Affix instead of PWA guard to let user know via a popup how to download the PWA?
     -   Clans to see how friends are leveling
         -   Clan level
         -   Clan quests

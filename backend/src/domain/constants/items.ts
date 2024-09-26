@@ -8,7 +8,7 @@ export const items: Item[] = [
             "Increases Empathy XP during acts of kindness or understanding",
         affectedSkill: "Empathy",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "pendant",
     },
     {
@@ -17,7 +17,7 @@ export const items: Item[] = [
         description: "Boosts Empathy XP when helping others",
         affectedSkill: "Empathy",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "glove",
     },
     {
@@ -26,7 +26,7 @@ export const items: Item[] = [
         description: "Doubles Empathy XP when listening to others concerns",
         affectedSkill: "Empathy",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "vial",
     },
     {
@@ -36,7 +36,7 @@ export const items: Item[] = [
             "Enhances Empathy XP for effective communication in sensitive situations",
         affectedSkill: "Empathy",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "shell",
     },
     {
@@ -45,7 +45,7 @@ export const items: Item[] = [
         description: "Grants extra Empathy XP when supporting someone in need",
         affectedSkill: "Empathy",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "cloak",
     },
     {
@@ -54,7 +54,7 @@ export const items: Item[] = [
         description: "Increases Endurance XP during long or difficult tasks",
         affectedSkill: "Endurance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "armor",
     },
     {
@@ -63,7 +63,7 @@ export const items: Item[] = [
         description: "Boosts Endurance XP for physical challenges",
         affectedSkill: "Endurance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "elixir",
     },
     {
@@ -73,7 +73,7 @@ export const items: Item[] = [
             "Doubles Endurance XP when facing mental or physical strain",
         affectedSkill: "Endurance",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "band",
     },
     {
@@ -82,7 +82,7 @@ export const items: Item[] = [
         description: "Enhances Endurance XP for tasks requiring persistence",
         affectedSkill: "Endurance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "amulet",
     },
     {
@@ -92,7 +92,7 @@ export const items: Item[] = [
             "Grants extra Endurance XP for completing prolonged activities",
         affectedSkill: "Endurance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "hourglass",
     },
     {
@@ -101,7 +101,7 @@ export const items: Item[] = [
         description: "Boosts Nutrition XP when making healthy food choices",
         affectedSkill: "Nutrition",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "apple",
     },
     {
@@ -110,7 +110,7 @@ export const items: Item[] = [
         description: "Increases Nutrition XP from meal planning or preparation",
         affectedSkill: "Nutrition",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "satchel",
     },
     {
@@ -120,7 +120,7 @@ export const items: Item[] = [
             "Doubles Nutrition XP when experimenting with new, healthy recipes",
         affectedSkill: "Nutrition",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "elixir",
     },
     {
@@ -129,7 +129,7 @@ export const items: Item[] = [
         description: "Enhances Nutrition XP when focusing on balanced eating",
         affectedSkill: "Nutrition",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "seed",
     },
     {
@@ -138,7 +138,7 @@ export const items: Item[] = [
         description: "Grants extra Nutrition XP for cooking nutritious meals",
         affectedSkill: "Nutrition",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "charm",
     },
     {
@@ -148,7 +148,7 @@ export const items: Item[] = [
             "Increases Sleep hygiene XP from following a bedtime routine",
         affectedSkill: "Sleep hygiene",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "charm",
     },
     {
@@ -157,7 +157,7 @@ export const items: Item[] = [
         description: "Boosts Sleep hygiene XP when getting a full night’s rest",
         affectedSkill: "Sleep hygiene",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "scarf",
     },
     {
@@ -167,7 +167,7 @@ export const items: Item[] = [
             "Doubles Sleep hygiene XP for maintaining consistent sleep patterns",
         affectedSkill: "Sleep hygiene",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "elixir",
     },
     {
@@ -177,7 +177,7 @@ export const items: Item[] = [
             "Enhances Sleep hygiene XP when practicing relaxation techniques",
         affectedSkill: "Sleep hygiene",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "amulet",
     },
     {
@@ -186,7 +186,7 @@ export const items: Item[] = [
         description: "Grants extra Sleep hygiene XP for achieving deep sleep",
         affectedSkill: "Sleep hygiene",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "blanket",
     },
     {
@@ -195,7 +195,7 @@ export const items: Item[] = [
         description: "Increases Finance XP when budgeting or saving money.",
         affectedSkill: "Finance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "coin",
     },
     {
@@ -204,7 +204,7 @@ export const items: Item[] = [
         description: "Boosts Finance XP for tracking expenses.",
         affectedSkill: "Finance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "ledger",
     },
     {
@@ -213,7 +213,7 @@ export const items: Item[] = [
         description: "Doubles Finance XP when reaching savings goals.",
         affectedSkill: "Finance",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "box",
     },
     {
@@ -222,7 +222,7 @@ export const items: Item[] = [
         description: "Enhances Finance XP for wise investments.",
         affectedSkill: "Finance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "crystal",
     },
     {
@@ -232,7 +232,7 @@ export const items: Item[] = [
             "Grants extra Finance XP for practicing financial discipline.",
         affectedSkill: "Finance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "purse",
     },
     {
@@ -241,7 +241,7 @@ export const items: Item[] = [
         description: "Boosts Time management XP for meeting deadlines.",
         affectedSkill: "Time management",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "hourglass",
     },
     {
@@ -250,7 +250,7 @@ export const items: Item[] = [
         description: "Increases Time management XP when planning your day.",
         affectedSkill: "Time management",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "ring",
     },
     {
@@ -259,7 +259,7 @@ export const items: Item[] = [
         description: "Doubles Time management XP for effective scheduling.",
         affectedSkill: "Time management",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "pen",
     },
     {
@@ -268,7 +268,7 @@ export const items: Item[] = [
         description: "Enhances Time management XP for arriving on time.",
         affectedSkill: "Time management",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "sands",
     },
     {
@@ -278,7 +278,7 @@ export const items: Item[] = [
             "Grants extra Time management XP for optimizing your routine.",
         affectedSkill: "Time management",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "amulet",
     },
     {
@@ -287,7 +287,7 @@ export const items: Item[] = [
         description: "Increases Mental clarity XP when meditating or focusing.",
         affectedSkill: "Mental clarity",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "crystal",
     },
     {
@@ -296,7 +296,7 @@ export const items: Item[] = [
         description: "Boosts Mental clarity XP for practicing mindfulness.",
         affectedSkill: "Mental clarity",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "amulet",
     },
     {
@@ -305,7 +305,7 @@ export const items: Item[] = [
         description: "Doubles Mental clarity XP during problem-solving tasks.",
         affectedSkill: "Mental clarity",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "elixir",
     },
     {
@@ -314,7 +314,7 @@ export const items: Item[] = [
         description: "Enhances Mental clarity XP for mental exercises.",
         affectedSkill: "Mental clarity",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "stone",
     },
     {
@@ -324,7 +324,7 @@ export const items: Item[] = [
             "Grants extra Mental clarity XP when studying or learning.",
         affectedSkill: "Mental clarity",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "herb",
     },
     {
@@ -334,7 +334,7 @@ export const items: Item[] = [
             "Increases Creativity XP during artistic or creative tasks.",
         affectedSkill: "Creativity",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "quill",
     },
     {
@@ -343,7 +343,7 @@ export const items: Item[] = [
         description: "Boosts Creativity XP when brainstorming new ideas.",
         affectedSkill: "Creativity",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "ink",
     },
     {
@@ -352,7 +352,7 @@ export const items: Item[] = [
         description: "Doubles Creativity XP when working on an art project.",
         affectedSkill: "Creativity",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "canvas",
     },
     {
@@ -362,7 +362,7 @@ export const items: Item[] = [
             "Enhances Creativity XP for exploring new creative outlets.",
         affectedSkill: "Creativity",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "crystal",
     },
     {
@@ -372,7 +372,7 @@ export const items: Item[] = [
             "Grants extra Creativity XP for completing a creative challenge.",
         affectedSkill: "Creativity",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "spark",
     },
     {
@@ -382,7 +382,7 @@ export const items: Item[] = [
             "Increases Wisdom XP from reading or learning experiences.",
         affectedSkill: "Wisdom",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "scroll",
     },
     {
@@ -391,7 +391,7 @@ export const items: Item[] = [
         description: "Boosts Wisdom XP when reflecting on past decisions.",
         affectedSkill: "Wisdom",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "stone",
     },
     {
@@ -400,7 +400,7 @@ export const items: Item[] = [
         description: "Doubles Wisdom XP for offering advice or guidance.",
         affectedSkill: "Wisdom",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "orb",
     },
     {
@@ -409,7 +409,7 @@ export const items: Item[] = [
         description: "Enhances Wisdom XP for studying or seeking knowledge.",
         affectedSkill: "Wisdom",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "tome",
     },
     {
@@ -418,7 +418,7 @@ export const items: Item[] = [
         description: "Grants extra Wisdom XP when making thoughtful decisions.",
         affectedSkill: "Wisdom",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "amulet",
     },
     {
@@ -428,7 +428,7 @@ export const items: Item[] = [
             "Increases Tech proficiency XP when learning new software or skills.",
         affectedSkill: "Tech proficiency",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "band",
     },
     {
@@ -438,7 +438,7 @@ export const items: Item[] = [
             "Boosts Tech proficiency XP for coding or technical tasks.",
         affectedSkill: "Tech proficiency",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "ring",
     },
     {
@@ -448,7 +448,7 @@ export const items: Item[] = [
             "Doubles Tech proficiency XP for troubleshooting or solving tech issues.",
         affectedSkill: "Tech proficiency",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "crystal",
     },
     {
@@ -458,7 +458,7 @@ export const items: Item[] = [
             "Enhances Tech proficiency XP for working with complex technology.",
         affectedSkill: "Tech proficiency",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "glove",
     },
     {
@@ -468,7 +468,7 @@ export const items: Item[] = [
             "Grants extra Tech proficiency XP when staying current with tech trends.",
         affectedSkill: "Tech proficiency",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "amulet",
     },
     {
@@ -477,7 +477,7 @@ export const items: Item[] = [
         description: "Increases Art XP during painting or drawing activities.",
         affectedSkill: "Art",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "purse",
     },
     {
@@ -486,7 +486,7 @@ export const items: Item[] = [
         description: "Boosts Art XP for working with physical mediums.",
         affectedSkill: "Art",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "hammer",
     },
     {
@@ -495,7 +495,7 @@ export const items: Item[] = [
         description: "Doubles Art XP for completing an art project.",
         affectedSkill: "Art",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "quill",
     },
     {
@@ -504,7 +504,7 @@ export const items: Item[] = [
         description: "Enhances Art XP when practicing new techniques.",
         affectedSkill: "Art",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "orb",
     },
     {
@@ -514,7 +514,7 @@ export const items: Item[] = [
             "Grants extra Art XP for experimenting with colors and forms.",
         affectedSkill: "Art",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "ink",
     },
     {
@@ -523,7 +523,7 @@ export const items: Item[] = [
         description: "Increases Writing XP for crafting songs or poems.",
         affectedSkill: "Writing",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "lute",
     },
     {
@@ -532,7 +532,7 @@ export const items: Item[] = [
         description: "Boosts Writing XP when writing lyrics or rhymes.",
         affectedSkill: "Writing",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "book",
     },
     {
@@ -541,7 +541,7 @@ export const items: Item[] = [
         description: "Doubles Writing XP for completing a poetry collection.",
         affectedSkill: "Writing",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "quill",
     },
     {
@@ -550,7 +550,7 @@ export const items: Item[] = [
         description: "Enhances Writing XP for working on a novel or story.",
         affectedSkill: "Writing",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "book",
     },
     {
@@ -559,7 +559,7 @@ export const items: Item[] = [
         description: "Grants extra Writing XP for creative writing challenges.",
         affectedSkill: "Writing",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "charm",
     },
     {
@@ -568,7 +568,7 @@ export const items: Item[] = [
         description: "Increases Music XP during practice or performance.",
         affectedSkill: "Music",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "harp",
     },
     {
@@ -577,7 +577,7 @@ export const items: Item[] = [
         description: "Boosts Music XP for creating or composing music.",
         affectedSkill: "Music",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "baton",
     },
     {
@@ -586,7 +586,7 @@ export const items: Item[] = [
         description: "Doubles Music XP for learning a new instrument.",
         affectedSkill: "Music",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "crystal",
     },
     {
@@ -595,7 +595,7 @@ export const items: Item[] = [
         description: "Enhances Music XP when playing or composing.",
         affectedSkill: "Music",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "string",
     },
     {
@@ -604,7 +604,7 @@ export const items: Item[] = [
         description: "Grants extra Music XP for performing in front of others.",
         affectedSkill: "Music",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "muse",
     },
     {
@@ -613,7 +613,7 @@ export const items: Item[] = [
         description: "Boosts Charisma XP when interacting with others",
         affectedSkill: "Charisma",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "amulet",
     },
     {
@@ -623,7 +623,7 @@ export const items: Item[] = [
             "Grants extra Charisma XP by increasing the players confidence",
         affectedSkill: "Charisma",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "cloak",
     },
     {
@@ -632,7 +632,7 @@ export const items: Item[] = [
         description: "Increases Charisma XP by charming others",
         affectedSkill: "Charisma",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "bracelet",
     },
     {
@@ -641,7 +641,7 @@ export const items: Item[] = [
         description: "Doubles Charisma XP by convincing others",
         affectedSkill: "Charisma",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "scroll",
     },
     {
@@ -650,7 +650,7 @@ export const items: Item[] = [
         description: "Reflects self-assurance, boosting Charisma XP",
         affectedSkill: "Charisma",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "mirror",
     },
     {
@@ -660,7 +660,7 @@ export const items: Item[] = [
             "Grants extra Maintenance XP by providing the right tools for the job",
         affectedSkill: "Maintenance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "toolkit",
     },
     {
@@ -669,7 +669,7 @@ export const items: Item[] = [
         description: "Increases Maintenance XP due to physical protection",
         affectedSkill: "Maintenance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "glove",
     },
     {
@@ -678,7 +678,7 @@ export const items: Item[] = [
         description: "Boosts Maintenance XP by being more efficient",
         affectedSkill: "Maintenance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "oil",
     },
     {
@@ -687,7 +687,7 @@ export const items: Item[] = [
         description: "Doubles Maintenance XP by planning ahead",
         affectedSkill: "Maintenance",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "blueprint",
     },
     {
@@ -696,7 +696,7 @@ export const items: Item[] = [
         description: "Increases Maintenance XP by developing good habits",
         affectedSkill: "Maintenance",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "hammer",
     },
     {
@@ -705,7 +705,7 @@ export const items: Item[] = [
         description: "Making heavy lifting easier, thus boosting Strength XP",
         affectedSkill: "Strength",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "gauntlet",
     },
     {
@@ -714,7 +714,7 @@ export const items: Item[] = [
         description: "Increases Strength XP by breaking boulders",
         affectedSkill: "Strength",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "breaker",
     },
     {
@@ -723,7 +723,7 @@ export const items: Item[] = [
         description: "Grants extra Strength XP for performing leg exercises",
         affectedSkill: "Strength",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "boots",
     },
     {
@@ -733,7 +733,7 @@ export const items: Item[] = [
             "Doubles Strength XP for weight training or resistance workouts",
         affectedSkill: "Strength",
         modifier: "x 1.5",
-        cost: 2000,
+        cost: 1500,
         type: "elixir",
     },
     {
@@ -742,7 +742,7 @@ export const items: Item[] = [
         description: "Increases Strength XP for tasks that require resilience",
         affectedSkill: "Strength",
         modifier: "+ 0.3",
-        cost: 1000,
+        cost: 500,
         type: "shield",
     },
     {
@@ -751,7 +751,7 @@ export const items: Item[] = [
         description: "Boosts XP in any skill",
         affectedSkill: "All",
         modifier: "+ 0.3",
-        cost: 2000,
+        cost: 3000,
         type: "potion",
     },
     {
@@ -760,7 +760,7 @@ export const items: Item[] = [
         description: "Increases the players focus for more XP gains",
         affectedSkill: "All",
         modifier: "+ 0.3",
-        cost: 2000,
+        cost: 3000,
         type: "ring",
     },
     {
@@ -779,7 +779,7 @@ export const items: Item[] = [
         description: "Balances XP across all skills, favoring the lowest",
         affectedSkill: "All",
         modifier: "+ 0.3",
-        cost: 2000,
+        cost: 3000,
         type: "amulet",
     },
     {
@@ -789,7 +789,7 @@ export const items: Item[] = [
             "Grants a bonus to the skill that the player most recently neglected",
         affectedSkill: "All",
         modifier: "+ 0.3",
-        cost: 2000,
+        cost: 3000,
         type: "ring",
     },
 ];
