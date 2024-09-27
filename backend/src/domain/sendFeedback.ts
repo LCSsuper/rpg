@@ -1,10 +1,13 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { getCharacter } from "./getCharacter";
 
 export const sendFeedback = async (
     characterId: string,
     feedback: string
 ): Promise<void> => {
     const client = new SESClient();
+
+    const character = await getCharacter(characterId);
 
     await client.send(
         new SendEmailCommand({
@@ -14,7 +17,9 @@ export const sendFeedback = async (
             Message: {
                 Body: {
                     Text: {
-                        Data: `CharacterId:\n${characterId}\n\nFeedback:\n${feedback}`,
+                        Data: `User:\n${
+                            character?.name || "Unknown user"
+                        }\n${characterId}\n\nFeedback:\n${feedback}`,
                     },
                 },
                 Subject: {
