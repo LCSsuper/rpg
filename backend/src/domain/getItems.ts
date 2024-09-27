@@ -4,11 +4,11 @@ import { items } from "./constants/items";
 import { getCharacter } from "./getCharacter";
 
 const inflate = (cost: number, level: number) => {
-    return cost + level * 50;
+    return cost + Math.floor(level / 5) * 50;
 };
 
 const devalue = (cost: number, level: number) => {
-    return cost - level * 20;
+    return cost - Math.floor(level / 5) * 20;
 };
 
 export const getItems = async (
